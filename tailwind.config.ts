@@ -47,15 +47,24 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        cyan: {
+          400: "#22d3ee",
+          500: "#06b6d4",
+        },
+        indigo: {
+          400: "#818cf8",
+          500: "#6366f1",
+        },
+        rose: {
+          500: "#f43f5e",
+        },
+        slate: {
+          50: "#f8fafc",
+          400: "#94a3b8",
+          600: "#475569",
+          800: "#1e293b",
+          900: "#0f172a",
+          950: "#020617",
         },
       },
       borderRadius: {
@@ -65,25 +74,31 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
+          "50%": { opacity: "1", transform: "scale(1.05)" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "dash": {
+          to: { strokeDashoffset: "-20" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "dash": "dash 1s linear infinite",
       },
     },
   },
