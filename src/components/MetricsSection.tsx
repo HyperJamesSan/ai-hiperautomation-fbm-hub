@@ -51,10 +51,10 @@ export default function MetricsSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12"
         >
-          <span className="fbm-badge-primary mb-4 block w-fit">El Impacto</span>
+          <span className="fbm-badge-primary mb-4 block w-fit">The Impact</span>
           <div className="fbm-section-divider mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
-            Latencia de decisión:
+            Decision latency:
             <br />
             <span className="text-primary">−84%.</span>
           </h2>
