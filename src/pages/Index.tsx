@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import ValidationLayers from "@/components/ValidationLayers";
+import WorkflowSlide from "@/components/workflow/WorkflowSlide";
 import ArchitectureSection from "@/components/ArchitectureSection";
 import MetricsSection from "@/components/MetricsSection";
 import RoadmapSection from "@/components/RoadmapSection";
 import SummarySection from "@/components/SummarySection";
 import NavigationDots from "@/components/NavigationDots";
 
-const sectionIds = ["hero", "problem", "validation", "architecture", "metrics", "roadmap", "summary"];
+const sectionIds = ["hero", "problem", "validation", "workflow", "architecture", "metrics", "roadmap", "summary"];
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
@@ -41,6 +42,7 @@ const Index = () => {
       <div id="hero"><HeroSection /></div>
       <div id="problem"><ProblemSection /></div>
       <div id="validation"><ValidationLayers /></div>
+      <div id="workflow"><WorkflowSlide /></div>
       <div id="architecture"><ArchitectureSection /></div>
       <div id="metrics"><MetricsSection /></div>
       <div id="roadmap"><RoadmapSection /></div>
