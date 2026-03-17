@@ -313,7 +313,7 @@ const WorkflowSlide = () => {
 
                 {/* Station box */}
                 <motion.div
-                  className={`w-10 h-10 md:w-11 md:h-11 rounded-lg flex items-center justify-center border-2 transition-colors duration-300 cursor-pointer`}
+                  className={`w-10 h-10 md:w-11 md:h-11 rounded-lg flex items-center justify-center border-2 transition-colors duration-300`}
                   style={{
                     borderColor: isCurrent || isVisited ? statusColor(result?.status ?? "pending") : "#E5E7EB",
                     backgroundColor: isCurrent ? `${statusColor(result?.status ?? "pending")}14` : "white",
@@ -321,11 +321,13 @@ const WorkflowSlide = () => {
                   }}
                   animate={isCurrent ? { scale: [1, 1.1, 1] } : {}}
                   transition={{ duration: 0.5 }}
-                  onClick={() => {
-                    // Allow tooltip in idle (no animation) OR for visited non-current stations
+                  onMouseEnter={() => {
                     if (phase === "idle" || (isVisited && !isCurrent && result && result.status !== "skipped")) {
-                      setTooltipStation(tooltipStation === idx ? null : idx);
+                      setTooltipStation(idx);
                     }
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipStation(null);
                   }}
                 >
                   <StIcon size={16} style={{ color: isCurrent || isVisited ? statusColor(result?.status ?? "pending") : "#9CA3AF" }} />
@@ -360,7 +362,6 @@ const WorkflowSlide = () => {
                             </span>
                           </div>
                           <p className="text-[10px] leading-relaxed" style={{ color: "#4B5563" }}>{station.plainLabel}</p>
-                          <div className="mt-1 text-[8px] text-center" style={{ color: "#9CA3AF" }}>click to close</div>
                         </>
                       ) : (
                         <>
@@ -396,7 +397,7 @@ const WorkflowSlide = () => {
                               Score: {result!.score}/100
                             </div>
                           )}
-                          <div className="mt-1 text-[8px] text-center" style={{ color: "#9CA3AF" }}>click to close</div>
+                          
                         </>
                       )}
                     </motion.div>
