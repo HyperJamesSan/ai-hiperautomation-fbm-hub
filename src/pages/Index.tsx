@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import ValidationLayers from "@/components/ValidationLayers";
+import WorkflowSlide from "@/components/workflow/WorkflowSlide";
 import ArchitectureSection from "@/components/ArchitectureSection";
 import MetricsSection from "@/components/MetricsSection";
 import RoadmapSection from "@/components/RoadmapSection";
