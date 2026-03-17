@@ -103,14 +103,14 @@ const Index = () => {
     let startY = 0;
     let scrollStart = 0;
     let dragging = false;
-    const container = document.documentElement;
+    const getContainer = () => document.getElementById("presentation-container");
 
     const onDown = (e: MouseEvent) => {
       dragging = true;
       startY = e.clientY;
       scrollStart = window.scrollY;
-      document.body.style.scrollSnapType = "none";
-      document.body.style.cursor = "grabbing";
+      const c = getContainer();
+      if (c) c.style.scrollSnapType = "none";
     };
 
     const onMove = (e: MouseEvent) => {
