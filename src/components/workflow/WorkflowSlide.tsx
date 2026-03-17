@@ -519,7 +519,7 @@ const WorkflowSlide = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute bottom-12 left-[48%] -translate-x-1/2 z-30 flex flex-col items-center gap-1"
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1"
             >
               <div
                 className="text-4xl md:text-5xl font-extrabold tabular-nums"
