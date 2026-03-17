@@ -28,6 +28,7 @@ const sectionLabels: Record<string, string> = {
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [heroKey, setHeroKey] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -65,7 +66,10 @@ const Index = () => {
 
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+      document.documentElement.requestFullscreen().then(() => {
+        document.getElementById("hero")?.scrollIntoView({ behavior: "instant", block: "start" });
+        setHeroKey((k) => k + 1);
+      });
     } else {
       document.exitFullscreen();
     }
@@ -90,7 +94,7 @@ const Index = () => {
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top,_#0f172a,_#020617,_#000000)] -z-10" />
       <NavigationDots activeSection={activeSection} />
 
-      <div id="hero" className="min-h-screen snap-start snap-always"><HeroSection /></div>
+      <div id="hero" className="min-h-screen snap-start snap-always"><HeroSection key={heroKey} /></div>
       <div id="problem" className="min-h-screen snap-start snap-always"><ProblemSection /></div>
       <div id="validation" className="min-h-screen snap-start snap-always"><ValidationLayers /></div>
       <div id="workflow" className="min-h-screen snap-start snap-always"><WorkflowSlide /></div>
