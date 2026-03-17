@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Shield, Brain, Diamond } from "lucide-react";
 
 const ruleFilters = [
