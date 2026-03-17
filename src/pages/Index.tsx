@@ -98,72 +98,67 @@ const Index = () => {
     return () => window.removeEventListener("keydown", handler);
   }, [goTo]);
 
-  // Mouse drag navigation
+  // PDF-style pan/drag scrolling
   useEffect(() => {
+    let startY = 0;
+    let scrollStart = 0;
+    let dragging = false;
+    const container = document.documentElement;
+
     const onDown = (e: MouseEvent) => {
-      dragStartY.current = e.clientY;
-      isDragging.current = false;
+      dragging = true;
+      startY = e.clientY;
+      scrollStart = window.scrollY;
+      document.body.style.scrollSnapType = "none";
+      document.body.style.cursor = "grabbing";
     };
 
     const onMove = (e: MouseEvent) => {
-      if (dragStartY.current === null) return;
-      const delta = Math.abs(e.clientY - dragStartY.current);
-      if (delta > 5) isDragging.current = true;
+      if (!dragging) return;
+      e.preventDefault();
+      const delta = startY - e.clientY;
+      window.scrollTo({ top: scrollStart + delta, behavior: "instant" as ScrollBehavior });
     };
 
-    const onUp = (e: MouseEvent) => {
-      if (dragStartY.current === null) return;
-      const delta = dragStartY.current - e.clientY;
-      if (isDragging.current && Math.abs(delta) > DRAG_THRESHOLD) {
-        goTo(delta > 0 ? "next" : "prev");
-      }
-      dragStartY.current = null;
-      isDragging.current = false;
+    const onUp = () => {
+      if (!dragging) return;
+      dragging = false;
+      document.body.style.cursor = "";
+      // Re-enable snap after release
+      document.body.style.scrollSnapType = "";
+    };
+
+    // Touch pan
+    const onTouchStart = (e: TouchEvent) => {
+      startY = e.touches[0].clientY;
+      scrollStart = window.scrollY;
+      document.body.style.scrollSnapType = "none";
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      const delta = startY - e.touches[0].clientY;
+      window.scrollTo({ top: scrollStart + delta, behavior: "instant" as ScrollBehavior });
+    };
+
+    const onTouchEnd = () => {
+      document.body.style.scrollSnapType = "";
     };
 
     window.addEventListener("mousedown", onDown);
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: false });
     window.addEventListener("mouseup", onUp);
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd);
     return () => {
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
     };
-  }, [goTo]);
-
-  // Touch drag navigation
-  useEffect(() => {
-    const onStart = (e: TouchEvent) => {
-      dragStartY.current = e.touches[0].clientY;
-      isDragging.current = false;
-    };
-
-    const onMove = (e: TouchEvent) => {
-      if (dragStartY.current === null) return;
-      const delta = Math.abs(e.touches[0].clientY - dragStartY.current);
-      if (delta > 5) isDragging.current = true;
-    };
-
-    const onEnd = (e: TouchEvent) => {
-      if (dragStartY.current === null) return;
-      const endY = e.changedTouches[0].clientY;
-      const delta = dragStartY.current - endY;
-      if (isDragging.current && Math.abs(delta) > DRAG_THRESHOLD) {
-        goTo(delta > 0 ? "next" : "prev");
-      }
-      dragStartY.current = null;
-      isDragging.current = false;
-    };
-
-    window.addEventListener("touchstart", onStart, { passive: true });
-    window.addEventListener("touchmove", onMove, { passive: true });
-    window.addEventListener("touchend", onEnd);
-    return () => {
-      window.removeEventListener("touchstart", onStart);
-      window.removeEventListener("touchmove", onMove);
-      window.removeEventListener("touchend", onEnd);
-    };
-  }, [goTo]);
+  }, []);
 
   return (
     <div className="bg-background min-h-screen overflow-x-hidden snap-y snap-mandatory select-none">
