@@ -2,33 +2,46 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { AlertTriangle, User, Mail, TrendingDown, XCircle, FileQuestion, ArrowRight } from "lucide-react";
 
-const AnimatedSeverity = ({ value, delay, inView }: { value: number; delay: number; inView: boolean }) => {
+const AnimatedSeverity = ({ value, delay, isActive }: { value: number; delay: number; isActive: boolean }) => {
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
+    if (!isActive) {
+      setDisplay(0);
+      return;
+    }
+
+    let timer: ReturnType<typeof setInterval> | undefined;
+
     const timeout = setTimeout(() => {
       const duration = 1400;
       const steps = 40;
       const interval = duration / steps;
       let step = 0;
-      const timer = setInterval(() => {
+
+      timer = setInterval(() => {
         step++;
         const progress = Math.min(step / steps, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
         setDisplay(Math.round(eased * value));
-        if (step >= steps) clearInterval(timer);
+
+        if (step >= steps && timer) {
+          clearInterval(timer);
+        }
       }, interval);
-      return () => clearInterval(timer);
     }, delay * 1000);
-    return () => clearTimeout(timeout);
-  }, [inView, value, delay]);
+
+    return () => {
+      clearTimeout(timeout);
+      if (timer) clearInterval(timer);
+    };
+  }, [isActive, value, delay]);
 
   return (
     <motion.span
       className="absolute top-1/2 -translate-y-1/2 text-[8px] font-mono font-bold text-primary-foreground drop-shadow-sm z-10"
       initial={{ left: "0%", opacity: 0 }}
-      animate={inView ? { left: `${value}%`, opacity: 1 } : { left: "0%", opacity: 0 }}
+      animate={isActive ? { left: `${value}%`, opacity: 1 } : { left: "0%", opacity: 0 }}
       transition={{ delay, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
       style={{ transform: "translate(-100%, -50%)", paddingRight: "3px" }}
     >
