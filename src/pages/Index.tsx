@@ -28,6 +28,7 @@ const sectionLabels: Record<string, string> = {
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [heroKey, setHeroKey] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
