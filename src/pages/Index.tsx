@@ -9,7 +9,7 @@ import RoadmapSection from "@/components/RoadmapSection";
 import SummarySection from "@/components/SummarySection";
 import NavigationDots from "@/components/NavigationDots";
 
-const sectionIds = ["hero", "problem", "validation", "architecture", "metrics", "roadmap", "summary"];
+const sectionIds = ["hero", "problem", "validation", "workflow", "architecture", "metrics", "roadmap", "summary"];
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("hero");
