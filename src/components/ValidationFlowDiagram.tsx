@@ -33,6 +33,11 @@ export default function ValidationFlowDiagram({ activeStage, activeLayerId, onSt
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const [activeDecision, setActiveDecision] = useState<string | null>(null);
 
+  // Reset decision panel when stage/layer selection changes externally
+  useEffect(() => {
+    setActiveDecision(null);
+  }, [activeStage, activeLayerId]);
+
   const stageActive = (stage: string) => activeStage === stage || activeStage === null;
 
   const handleStageClick = (stage: string) => {
