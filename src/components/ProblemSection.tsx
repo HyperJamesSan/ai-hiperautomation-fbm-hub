@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { AlertTriangle, User, Mail, TrendingDown, XCircle, FileQuestion } from "lucide-react";
 
 const painPoints = [
-  { icon: AlertTriangle, title: "100% Manual", desc: "Un operador procesa todo. Cero redundancia.", color: "text-primary" },
-  { icon: User, title: "Operador Único", desc: "Conocimiento concentrado. Riesgo de continuidad.", color: "text-primary" },
-  { icon: Mail, title: "Buzón Compartido", desc: "Todas las facturas llegan a un solo buzón.", color: "text-warning" },
-  { icon: TrendingDown, title: "Sin Escalabilidad", desc: "El proceso no escala con el crecimiento.", color: "text-primary" },
-  { icon: XCircle, title: "Error Humano", desc: "Clasificación GL, VAT, duplicados — todo manual.", color: "text-destructive" },
-  { icon: FileQuestion, title: "Sin Auditoría", desc: "No hay trazabilidad estructurada del proceso.", color: "text-warning" },
+  { icon: AlertTriangle, title: "100% Manual", desc: "One operator processes everything. Zero redundancy.", color: "text-primary" },
+  { icon: User, title: "Single Operator", desc: "Concentrated knowledge. Continuity risk.", color: "text-primary" },
+  { icon: Mail, title: "Shared Mailbox", desc: "All invoices arrive to a single inbox.", color: "text-warning" },
+  { icon: TrendingDown, title: "No Scalability", desc: "The process doesn't scale with growth.", color: "text-primary" },
+  { icon: XCircle, title: "Human Error", desc: "GL classification, VAT, duplicates — all manual.", color: "text-destructive" },
+  { icon: FileQuestion, title: "No Audit Trail", desc: "No structured traceability of the process.", color: "text-warning" },
 ];
 
 export default function ProblemSection() {
