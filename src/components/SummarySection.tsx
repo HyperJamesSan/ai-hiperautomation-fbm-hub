@@ -3,11 +3,11 @@ import { useRef } from "react";
 import fbmLogo from "@/assets/fbm-logo.png";
 
 const summaryItems = [
-  { q: "¿Qué?", a: "Sistema de automatización AP que procesa facturas de 7 entidades maltesas — desde email hasta draft en DBC — con trazabilidad completa." },
-  { q: "¿Por qué?", a: "Proceso 100% manual, dependiente de un operador, sin escalabilidad. Eliminamos validación repetitiva, reducimos error de clasificación." },
-  { q: "¿Cómo?", a: "n8n + Claude API + DBC API. Modelo híbrido: reglas determinísticas + razonamiento AI. Log de auditoría completo por factura." },
-  { q: "¿Cuándo?", a: "POC: 6 semanas. Evaluación: Semana 5. Decisión: Semana 6. Producción: Q2 2026." },
-  { q: "¿Costo?", a: "$27–30/mes (cloud). $3–6/mes (Claude solo si n8n self-hosted). Decisión de hosting pendiente con IT." },
+  { q: "What?", a: "AP automation system that processes invoices from 7 Malta entities — from email to draft in DBC — with complete traceability." },
+  { q: "Why?", a: "100% manual process, dependent on one operator, no scalability. We eliminate repetitive validation, reduce classification error." },
+  { q: "How?", a: "n8n + Claude API + DBC API. Hybrid model: deterministic rules + AI reasoning. Complete audit log per invoice." },
+  { q: "When?", a: "POC: 6 weeks. Evaluation: Week 5. Decision: Week 6. Production: Q2 2026." },
+  { q: "Cost?", a: "$27–30/month (cloud). $3–6/month (Claude only if n8n self-hosted). Hosting decision pending with IT." },
 ];
 
 export default function SummarySection() {
