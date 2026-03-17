@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Shield, Brain, Diamond } from "lucide-react";
 
 const ruleFilters = [
@@ -32,6 +32,11 @@ export default function ValidationFlowDiagram({ activeStage, activeLayerId, onSt
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const [activeDecision, setActiveDecision] = useState<string | null>(null);
+
+  // Reset decision panel when stage/layer selection changes externally
+  useEffect(() => {
+    setActiveDecision(null);
+  }, [activeStage, activeLayerId]);
 
   const stageActive = (stage: string) => activeStage === stage || activeStage === null;
 
