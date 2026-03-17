@@ -37,9 +37,9 @@ export default function RoadmapSection() {
           <span className="fbm-badge-warning mb-4 block w-fit">Roadmap</span>
           <div className="fbm-section-divider mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter mb-4 text-foreground">
-            6 semanas al POC.
+            6 weeks to POC.
             <br />
-            <span className="text-primary">Q2 2026 producción.</span>
+            <span className="text-primary">Q2 2026 production.</span>
           </h2>
         </motion.div>
 
