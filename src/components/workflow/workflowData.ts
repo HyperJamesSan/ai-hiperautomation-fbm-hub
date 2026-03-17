@@ -131,7 +131,7 @@ const criticalResults: StationResult[] = [
   },
   { status: "skipped", label: "Skipped", detail: "Processing was halted at Duplicate Detection." },
   { status: "skipped", label: "Skipped", detail: "" },
-  { status: "error", label: "HOLD", detail: "Invoice stopped at Layer 5. AP Executive and Financial Manager notified immediately." },
+  { status: "error", label: "HOLD", detail: "Invoice stopped at Layer 5. AP Executive notified immediately." },
 ];
 
 export const scenarios: Scenario[] = [
@@ -168,7 +168,7 @@ export const scenarios: Scenario[] = [
     description: "A critical problem at Layer 5 — duplicate invoice detected. The system stops immediately and fires an alert.",
     stopsAt: 5, // stops at duplicate detection (index 5)
     destination: "exception",
-    destinationMessage: "🛑 Hard stop at Layer 5 — Duplicate invoice detected. AP Executive and Financial Manager notified immediately. Manual processing required.",
+    destinationMessage: "🛑 Hard stop at Layer 5 — Duplicate invoice detected. AP Executive notified immediately. Manual processing required.",
     stationResults: criticalResults,
   },
 ];
