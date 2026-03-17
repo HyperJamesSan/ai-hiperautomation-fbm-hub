@@ -110,9 +110,9 @@ export default function ValidationFlowDiagram() {
             <div className={`text-center mb-4 transition-opacity duration-300 ${stageActive("ai") ? "opacity-100" : "opacity-40"}`}>
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Brain className="w-4 h-4 text-ai" />
-                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">El Cerebro de IA</span>
+                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">AI Brain</span>
               </div>
-              <span className="text-[10px] font-mono text-muted-foreground">Etapa 2 — Interpretación</span>
+              <span className="text-[10px] font-mono text-muted-foreground">Stage 2 — Interpretation</span>
             </div>
 
             <motion.div
