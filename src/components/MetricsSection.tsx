@@ -23,19 +23,19 @@ const AnimatedNumber = ({ target, decimals = 0, prefix = "", suffix = "" }: { ta
 };
 
 const metrics = [
-  { value: 84, suffix: "%", label: "Reducción latencia de decisión", desc: "De días a <30 segundos por factura" },
-  { value: 125, suffix: "", label: "Facturas automatizadas / mes", desc: "Volumen actual a través de 7 entidades" },
-  { value: 30, suffix: "", prefix: "$", label: "Costo mensual total", desc: "Stack cloud: n8n + Claude API" },
-  { value: 95, suffix: "%+", label: "Precisión objetivo clasificación", desc: "Entity, VIES, duplicados, contratos" },
+  { value: 84, suffix: "%", label: "Decision latency reduction", desc: "From days to <30 seconds per invoice" },
+  { value: 125, suffix: "", label: "Invoices automated / month", desc: "Current volume across 7 entities" },
+  { value: 30, suffix: "", prefix: "$", label: "Total monthly cost", desc: "Cloud stack: n8n + Claude API" },
+  { value: 95, suffix: "%+", label: "Target classification accuracy", desc: "Entity, VIES, duplicates, contracts" },
 ];
 
 const pocCriteria = [
-  { metric: "Clasificación entidad", target: "95%+", min: "90%" },
-  { metric: "Validación VIES", target: "100%", min: "100%" },
-  { metric: "Detección duplicados", target: "100%", min: "100%" },
-  { metric: "Evaluación VAT", target: "90%+", min: "85%" },
-  { metric: "Sugerencia GL", target: "85%+", min: "80%" },
-  { metric: "Tiempo por factura", target: "<30s", min: "<60s" },
+  { metric: "Entity classification", target: "95%+", min: "90%" },
+  { metric: "VIES validation", target: "100%", min: "100%" },
+  { metric: "Duplicate detection", target: "100%", min: "100%" },
+  { metric: "VAT assessment", target: "90%+", min: "85%" },
+  { metric: "GL suggestion", target: "85%+", min: "80%" },
+  { metric: "Time per invoice", target: "<30s", min: "<60s" },
 ];
 
 export default function MetricsSection() {
@@ -51,10 +51,10 @@ export default function MetricsSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12"
         >
-          <span className="fbm-badge-primary mb-4 block w-fit">El Impacto</span>
+          <span className="fbm-badge-primary mb-4 block w-fit">The Impact</span>
           <div className="fbm-section-divider mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
-            Latencia de decisión:
+            Decision latency:
             <br />
             <span className="text-primary">−84%.</span>
           </h2>
@@ -101,7 +101,7 @@ export default function MetricsSection() {
           transition={{ delay: 0.8, duration: 0.8 }}
           className="fbm-card p-8"
         >
-          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Criterios de Éxito — POC</h3>
+          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Success Criteria — POC</h3>
           <div className="space-y-0">
             {pocCriteria.map((c, i) => (
               <motion.div
@@ -114,11 +114,11 @@ export default function MetricsSection() {
                 <span className="text-sm font-roboto text-foreground">{c.metric}</span>
                 <div className="flex gap-8">
                   <div className="text-right">
-                    <div className="text-[10px] font-mono text-muted-foreground">Objetivo</div>
+                    <div className="text-[10px] font-mono text-muted-foreground">Target</div>
                     <div className="text-sm font-mono font-bold text-primary">{c.target}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-[10px] font-mono text-muted-foreground">Mínimo</div>
+                    <div className="text-[10px] font-mono text-muted-foreground">Minimum</div>
                     <div className="text-sm font-mono text-muted-foreground">{c.min}</div>
                   </div>
                 </div>

@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { AlertTriangle, User, Mail, TrendingDown, XCircle, FileQuestion } from "lucide-react";
 
 const painPoints = [
-  { icon: AlertTriangle, title: "100% Manual", desc: "Un operador procesa todo. Cero redundancia.", color: "text-primary" },
-  { icon: User, title: "Operador Único", desc: "Conocimiento concentrado. Riesgo de continuidad.", color: "text-primary" },
-  { icon: Mail, title: "Buzón Compartido", desc: "Todas las facturas llegan a un solo buzón.", color: "text-warning" },
-  { icon: TrendingDown, title: "Sin Escalabilidad", desc: "El proceso no escala con el crecimiento.", color: "text-primary" },
-  { icon: XCircle, title: "Error Humano", desc: "Clasificación GL, VAT, duplicados — todo manual.", color: "text-destructive" },
-  { icon: FileQuestion, title: "Sin Auditoría", desc: "No hay trazabilidad estructurada del proceso.", color: "text-warning" },
+  { icon: AlertTriangle, title: "100% Manual", desc: "One operator processes everything. Zero redundancy.", color: "text-primary" },
+  { icon: User, title: "Single Operator", desc: "Concentrated knowledge. Continuity risk.", color: "text-primary" },
+  { icon: Mail, title: "Shared Mailbox", desc: "All invoices arrive to a single inbox.", color: "text-warning" },
+  { icon: TrendingDown, title: "No Scalability", desc: "The process doesn't scale with growth.", color: "text-primary" },
+  { icon: XCircle, title: "Human Error", desc: "GL classification, VAT, duplicates — all manual.", color: "text-destructive" },
+  { icon: FileQuestion, title: "No Audit Trail", desc: "No structured traceability of the process.", color: "text-warning" },
 ];
 
 export default function ProblemSection() {
@@ -24,15 +24,15 @@ export default function ProblemSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12"
         >
-          <span className="fbm-badge-primary mb-4 block w-fit">La Fricción</span>
+          <span className="fbm-badge-primary mb-4 block w-fit">The Friction</span>
           <div className="fbm-section-divider mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter mb-4 text-foreground">
-            Un proceso no escalable
+            A non-scalable process
             <br />
-            <span className="text-primary">y altamente dependiente.</span>
+            <span className="text-primary">and highly dependent.</span>
           </h2>
           <p className="text-muted-foreground text-lg font-roboto max-w-xl">
-            100–125 facturas mensuales procesadas manualmente por una sola persona en 7 entidades.
+            100–125 invoices per month processed manually by a single person across 7 entities.
           </p>
         </motion.div>
 

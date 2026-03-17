@@ -12,12 +12,12 @@ const nodes = [
 ];
 
 const metricsData: Record<string, { metric: string; value: string }> = {
-  email: { metric: "Volumen", value: "100–125 facturas/mes" },
-  n8n: { metric: "Ejecuciones", value: "~200–300 exec/mes" },
-  claude: { metric: "Costo", value: "$3–6/mes" },
-  dbc: { metric: "Integración", value: "Read-only en POC" },
-  vies: { metric: "Precisión", value: "100% determinístico" },
-  dropbox: { metric: "Almacenamiento", value: "Existente ($0)" },
+  email: { metric: "Volume", value: "100–125 invoices/month" },
+  n8n: { metric: "Executions", value: "~200–300 exec/month" },
+  claude: { metric: "Cost", value: "$3–6/month" },
+  dbc: { metric: "Integration", value: "Read-only in POC" },
+  vies: { metric: "Accuracy", value: "100% deterministic" },
+  dropbox: { metric: "Storage", value: "Existing ($0)" },
 };
 
 export default function ArchitectureSection() {
@@ -34,15 +34,15 @@ export default function ArchitectureSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12"
         >
-          <span className="fbm-badge-ai mb-4 block w-fit">Arquitectura</span>
+          <span className="fbm-badge-ai mb-4 block w-fit">Architecture</span>
           <div className="fbm-section-divider mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter mb-4 text-foreground">
-            Stack propuesto.
+            Proposed stack.
             <br />
-            <span className="text-primary">Costo: $27–30/mes.</span>
+            <span className="text-primary">Cost: $27–30/month.</span>
           </h2>
           <p className="text-muted-foreground text-lg font-roboto max-w-2xl">
-            n8n orquesta. Claude razona. DBC integra. Sin dependencias externas para documentos.
+            n8n orchestrates. Claude reasons. DBC integrates. No external dependencies for documents.
           </p>
         </motion.div>
 
@@ -92,12 +92,12 @@ export default function ArchitectureSection() {
           transition={{ delay: 1, duration: 0.8 }}
           className="mt-10 fbm-card-dark p-8"
         >
-          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-4">Principio de Seguridad</h3>
+          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-4">Security Principle</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { step: "01", title: "PDF nunca sale", desc: "El documento permanece en el entorno de la empresa." },
-              { step: "02", title: "Solo texto al AI", desc: "Solo texto extraído se envía a Claude via HTTPS. Sin retención." },
-              { step: "03", title: "Audit inmutable", desc: "JSON estructurado por cada factura. Revisable en auditorías." },
+              { step: "01", title: "PDF never leaves", desc: "The document stays within the company's environment." },
+              { step: "02", title: "Text only to AI", desc: "Only extracted text is sent to Claude via HTTPS. No retention." },
+              { step: "03", title: "Immutable audit", desc: "Structured JSON per invoice. Reviewable in audits." },
             ].map((item) => (
               <div key={item.step} className="flex gap-4">
                 <span className="text-2xl font-mono font-bold text-primary/50">{item.step}</span>

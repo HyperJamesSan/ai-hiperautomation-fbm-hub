@@ -3,14 +3,14 @@ import { useRef, useState } from "react";
 import ValidationFlowDiagram from "./ValidationFlowDiagram";
 
 const layers = [
-  { id: 1, name: "Formato Legal", method: "Deterministic", stage: 1, desc: "Campos obligatorios por legislación IVA: número factura, NIF, base imponible, tasa aplicada.", type: "rule" },
-  { id: 2, name: "Validación VIES", method: "API Call", stage: 1, desc: "Para proveedores UE, el NIF se valida contra la base VIES en tiempo real.", type: "rule" },
-  { id: 3, name: "Verificación Vendor", method: "DBC API", stage: 1, desc: "Proveedor cruzado contra BD de vendors en Business Central. Jerarquía: NIF → Reg. → Nombre.", type: "rule" },
-  { id: 4, name: "Validación Contrato", method: "Deterministic", stage: 1, desc: "Monto y tipo de servicio verificados contra tabla de referencia de contratos.", type: "rule" },
-  { id: 5, name: "Detección Duplicados", method: "Deterministic", stage: 1, desc: "Número factura, proveedor y monto validados contra log de procesamiento y entradas en DBC.", type: "rule" },
-  { id: 6, name: "Cumplimiento VAT", method: "AI + Rules", stage: 2, desc: "Evalúa si el tratamiento fiscal del proveedor es correcto. Cubre reverse charge y exenciones.", type: "ai" },
-  { id: 7, name: "Clasificación GL", method: "AI Reasoning", stage: 2, desc: "Sugiere la cuenta GL y grupo de posting VAT apropiados basándose en el contenido de la factura.", type: "ai" },
-  { id: 8, name: "Decisión Final", method: "Scoring", stage: 3, desc: "Score de confianza ponderado: Auto-draft (≥90%), Revisión asistida (70-89%), o Bloqueo (<70%).", type: "scoring" },
+  { id: 1, name: "Legal Format", method: "Deterministic", stage: 1, desc: "Mandatory fields per VAT legislation: invoice number, VAT ID, taxable base, applied rate.", type: "rule" },
+  { id: 2, name: "VIES Validation", method: "API Call", stage: 1, desc: "For EU suppliers, VAT ID is validated against the VIES database in real time.", type: "rule" },
+  { id: 3, name: "Vendor Verification", method: "DBC API", stage: 1, desc: "Vendor cross-checked against Business Central vendor cards. Hierarchy: VAT ID → Reg. → Name.", type: "rule" },
+  { id: 4, name: "Contract Validation", method: "Deterministic", stage: 1, desc: "Amount and service type verified against contract reference table.", type: "rule" },
+  { id: 5, name: "Duplicate Detection", method: "Deterministic", stage: 1, desc: "Invoice number, vendor and amount validated against processing log and DBC entries.", type: "rule" },
+  { id: 6, name: "VAT Compliance", method: "AI + Rules", stage: 2, desc: "Evaluates whether the supplier's tax treatment is correct. Covers reverse charge and exemptions.", type: "ai" },
+  { id: 7, name: "GL Classification", method: "AI Reasoning", stage: 2, desc: "Suggests the appropriate GL account and VAT posting group based on invoice content.", type: "ai" },
+  { id: 8, name: "Final Decision", method: "Scoring", stage: 3, desc: "Weighted confidence score: Auto-draft (≥90%), Assisted review (70-89%), or Blocked (<70%).", type: "scoring" },
 ];
 
 export default function ValidationLayers() {
@@ -35,16 +35,16 @@ export default function ValidationLayers() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12"
         >
-          <span className="fbm-badge-primary mb-4 block w-fit">La Síntesis</span>
+          <span className="fbm-badge-primary mb-4 block w-fit">The Synthesis</span>
           <div className="fbm-section-divider mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter mb-4 text-foreground">
-            8 capas de validación.
+            8 validation layers.
             <br />
-            <span className="text-primary">Inteligencia híbrida.</span>
+            <span className="text-primary">Hybrid intelligence.</span>
           </h2>
           <p className="text-muted-foreground text-lg font-roboto max-w-2xl">
-            Reglas determinísticas para checks binarios. IA solo donde se necesita juicio humano.
-            Cada decisión AI incluye justificación escrita.
+            Deterministic rules for binary checks. AI only where human judgment is needed.
+            Every AI decision includes written justification.
           </p>
         </motion.div>
 
@@ -54,9 +54,9 @@ export default function ValidationLayers() {
         {/* Stage labels */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           {[
-            { label: "Etapa 1", desc: "Checks paralelos (1-5)", badge: "fbm-badge-success" },
-            { label: "Etapa 2", desc: "Interpretación AI (6-7)", badge: "fbm-badge-ai" },
-            { label: "Etapa 3", desc: "Decisión final (8)", badge: "fbm-badge-warning" },
+            { label: "Stage 1", desc: "Parallel checks (1-5)", badge: "fbm-badge-success" },
+            { label: "Stage 2", desc: "AI interpretation (6-7)", badge: "fbm-badge-ai" },
+            { label: "Stage 3", desc: "Final decision (8)", badge: "fbm-badge-warning" },
           ].map((stage, i) => (
             <motion.div
               key={stage.label}
@@ -107,13 +107,13 @@ export default function ValidationLayers() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="mt-10 fbm-card-dark p-8"
         >
-          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Flujo de Decisión</h3>
+          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Decision Flow</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
-              { score: "≥ 90%", decision: "AUTO-DRAFT", desc: "Factura creada automáticamente en DBC", color: "text-green-400", bg: "bg-green-400/10 border border-green-400/20" },
-              { score: "70–89%", decision: "REVISIÓN", desc: "Draft con flags visibles para AP Executive", color: "text-amber-400", bg: "bg-amber-400/10 border border-amber-400/20" },
-              { score: "< 70%", decision: "COLA MANUAL", desc: "Guardada en Dropbox. Notificación por email.", color: "text-red-400", bg: "bg-red-400/10 border border-red-400/20" },
-              { score: "Error", decision: "BLOQUEADO", desc: "Bloqueo inmediato. Notificación urgente.", color: "text-red-500", bg: "bg-red-500/10 border border-red-500/20" },
+              { score: "≥ 90%", decision: "AUTO-DRAFT", desc: "Invoice draft created automatically in DBC", color: "text-green-400", bg: "bg-green-400/10 border border-green-400/20" },
+              { score: "70–89%", decision: "REVIEW", desc: "Draft with visible flags for AP Executive", color: "text-amber-400", bg: "bg-amber-400/10 border border-amber-400/20" },
+              { score: "< 70%", decision: "MANUAL QUEUE", desc: "Saved to Dropbox. Email notification sent.", color: "text-red-400", bg: "bg-red-400/10 border border-red-400/20" },
+              { score: "Error", decision: "BLOCKED", desc: "Immediate block. Urgent notification.", color: "text-red-500", bg: "bg-red-500/10 border border-red-500/20" },
             ].map((item) => (
               <motion.div
                 key={item.decision}

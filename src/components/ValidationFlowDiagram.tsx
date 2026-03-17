@@ -3,22 +3,22 @@ import { useRef, useState } from "react";
 import { Shield, Brain, Diamond } from "lucide-react";
 
 const ruleFilters = [
-  { id: 1, label: "Formato Legal" },
-  { id: 2, label: "Validación VIES" },
-  { id: 3, label: "Verificación Proveedor" },
-  { id: 4, label: "Validación Contrato" },
-  { id: 5, label: "Detección Duplicados" },
+  { id: 1, label: "Legal Format" },
+  { id: 2, label: "VIES Validation" },
+  { id: 3, label: "Vendor Verification" },
+  { id: 4, label: "Contract Validation" },
+  { id: 5, label: "Duplicate Detection" },
 ];
 
 const aiLayers = [
-  { id: 6, label: "Cumplimiento IVA" },
-  { id: 7, label: "Clasificación GL e IVA" },
+  { id: 6, label: "VAT Compliance" },
+  { id: 7, label: "GL & VAT Classification" },
 ];
 
 const decisions = [
-  { label: "Auto-Borrador", color: "text-success", border: "border-success", bg: "bg-success/10", arrow: "stroke-success" },
-  { label: "Revisión Asistida", color: "text-warning", border: "border-warning", bg: "bg-warning/10", arrow: "stroke-warning" },
-  { label: "Bloqueo / Manual", color: "text-primary", border: "border-primary", bg: "bg-primary/10", arrow: "stroke-primary" },
+  { label: "Auto-Draft", color: "text-success", border: "border-success", bg: "bg-success/10", arrow: "stroke-success" },
+  { label: "Assisted Review", color: "text-warning", border: "border-warning", bg: "bg-warning/10", arrow: "stroke-warning" },
+  { label: "Block / Manual", color: "text-primary", border: "border-primary", bg: "bg-primary/10", arrow: "stroke-primary" },
 ];
 
 export default function ValidationFlowDiagram() {
@@ -37,9 +37,9 @@ export default function ValidationFlowDiagram() {
       className="fbm-card p-6 md:p-10 mb-10 overflow-x-auto"
     >
       <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-2">
-        Las 8 Capas de Validación
+        The 8 Validation Layers
       </h3>
-      <p className="text-xs font-roboto text-muted-foreground mb-8">Flujo del Sistema</p>
+      <p className="text-xs font-roboto text-muted-foreground mb-8">System Flow</p>
 
       {/* Flow diagram */}
       <div className="min-w-[800px]">
@@ -54,9 +54,9 @@ export default function ValidationFlowDiagram() {
             <div className={`text-center mb-4 transition-opacity duration-300 ${stageActive("rules") ? "opacity-100" : "opacity-40"}`}>
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Shield className="w-4 h-4 text-success" />
-                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">Filtros Basados en Reglas</span>
+                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">Rule-Based Filters</span>
               </div>
-              <span className="text-[10px] font-mono text-muted-foreground">Etapa 1 — Paralelo</span>
+              <span className="text-[10px] font-mono text-muted-foreground">Stage 1 — Parallel</span>
             </div>
 
             <div className="space-y-2">
@@ -110,9 +110,9 @@ export default function ValidationFlowDiagram() {
             <div className={`text-center mb-4 transition-opacity duration-300 ${stageActive("ai") ? "opacity-100" : "opacity-40"}`}>
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Brain className="w-4 h-4 text-ai" />
-                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">El Cerebro de IA</span>
+                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">AI Brain</span>
               </div>
-              <span className="text-[10px] font-mono text-muted-foreground">Etapa 2 — Interpretación</span>
+              <span className="text-[10px] font-mono text-muted-foreground">Stage 2 — Interpretation</span>
             </div>
 
             <motion.div
@@ -174,9 +174,9 @@ export default function ValidationFlowDiagram() {
             <div className={`text-center mb-4 transition-opacity duration-300 ${stageActive("decision") ? "opacity-100" : "opacity-40"}`}>
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Diamond className="w-4 h-4 text-warning" />
-                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">Semáforo de Decisión</span>
+                <span className="text-xs font-montserrat font-bold text-foreground uppercase tracking-wider">Decision Gate</span>
               </div>
-              <span className="text-[10px] font-mono text-muted-foreground">Etapa 3 — Puntuación</span>
+              <span className="text-[10px] font-mono text-muted-foreground">Stage 3 — Scoring</span>
             </div>
 
             <div className={`flex items-center gap-4 transition-opacity duration-300 ${stageActive("decision") ? "opacity-100" : "opacity-40"}`}>
@@ -193,8 +193,8 @@ export default function ValidationFlowDiagram() {
                 >
                   <div className="-rotate-45 text-center">
                     <span className="text-[10px] font-mono font-bold text-foreground block">8.</span>
-                    <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">Puntuación</span>
-                    <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">de Confianza</span>
+                     <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">Confidence</span>
+                     <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">Scoring</span>
                   </div>
                 </div>
               </motion.div>
