@@ -109,18 +109,30 @@ export default function MetricsSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 1 + i * 0.08 }}
-                className="flex items-center justify-between py-4 border-b border-border/50 last:border-0"
+                className="py-4 border-b border-border/50 last:border-0"
               >
-                <span className="text-sm font-roboto text-foreground">{c.metric}</span>
-                <div className="flex gap-8">
-                  <div className="text-right">
-                    <div className="text-[10px] font-mono text-muted-foreground">Target</div>
-                    <div className="text-sm font-mono font-bold text-primary">{c.target}</div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-roboto text-foreground">{c.metric}</span>
+                  <div className="flex gap-8">
+                    <div className="text-right">
+                      <div className="text-[10px] font-mono text-muted-foreground">Target</div>
+                      <div className="text-sm font-mono font-bold text-primary">{c.target}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-[10px] font-mono text-muted-foreground">Minimum</div>
+                      <div className="text-sm font-mono text-muted-foreground">{c.min}</div>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-[10px] font-mono text-muted-foreground">Minimum</div>
-                    <div className="text-sm font-mono text-muted-foreground">{c.min}</div>
-                  </div>
+                </div>
+                {/* Animated progress bar */}
+                <div className="relative h-2 rounded-full bg-primary/10 overflow-hidden">
+                  <motion.div
+                    className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-primary to-primary/70"
+                    initial={{ width: "0%" }}
+                    animate={inView ? { width: `${c.barValue}%` } : { width: "0%" }}
+                    transition={{ delay: 1.2 + i * 0.15, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                  <BarPercentLabel value={c.barValue} delay={1.2 + i * 0.15} inView={inView} />
                 </div>
               </motion.div>
             ))}
