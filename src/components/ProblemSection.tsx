@@ -154,7 +154,6 @@ export default function ProblemSection() {
                     />
                     <AnimatedSeverity value={point.severity} delay={0.5 + i * 0.15} inView={inView} />
                   </div>
-                  </div>
                 </div>
               </motion.div>
             );
