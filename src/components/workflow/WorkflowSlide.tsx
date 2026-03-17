@@ -362,7 +362,6 @@ const WorkflowSlide = () => {
                             </span>
                           </div>
                           <p className="text-[10px] leading-relaxed" style={{ color: "#4B5563" }}>{station.plainLabel}</p>
-                          <div className="mt-1 text-[8px] text-center" style={{ color: "#9CA3AF" }}>click to close</div>
                         </>
                       ) : (
                         <>
