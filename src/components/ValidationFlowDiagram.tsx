@@ -37,9 +37,9 @@ export default function ValidationFlowDiagram() {
       className="fbm-card p-6 md:p-10 mb-10 overflow-x-auto"
     >
       <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-2">
-        Las 8 Capas de Validación
+        The 8 Validation Layers
       </h3>
-      <p className="text-xs font-roboto text-muted-foreground mb-8">Flujo del Sistema</p>
+      <p className="text-xs font-roboto text-muted-foreground mb-8">System Flow</p>
 
       {/* Flow diagram */}
       <div className="min-w-[800px]">
