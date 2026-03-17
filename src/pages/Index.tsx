@@ -6,18 +6,20 @@ import ProblemSection from "@/components/ProblemSection";
 import ValidationLayers from "@/components/ValidationLayers";
 import WorkflowSlide from "@/components/workflow/WorkflowSlide";
 import ArchitectureSection from "@/components/ArchitectureSection";
+import GovernanceSection from "@/components/GovernanceSection";
 import MetricsSection from "@/components/MetricsSection";
 import RoadmapSection from "@/components/RoadmapSection";
 import SummarySection from "@/components/SummarySection";
 import NavigationDots from "@/components/NavigationDots";
 
-const sectionIds = ["hero", "problem", "validation", "workflow", "architecture", "metrics", "roadmap", "summary"];
+const sectionIds = ["hero", "problem", "validation", "workflow", "architecture", "governance", "metrics", "roadmap", "summary"];
 const sectionLabels: Record<string, string> = {
   hero: "Home",
   problem: "Friction",
   validation: "Validation",
   workflow: "Workflow",
   architecture: "Architecture",
+  governance: "Governance",
   metrics: "Impact",
   roadmap: "Roadmap",
   summary: "Summary",
@@ -93,6 +95,7 @@ const Index = () => {
       <div id="validation"><ValidationLayers /></div>
       <div id="workflow"><WorkflowSlide /></div>
       <div id="architecture"><ArchitectureSection /></div>
+      <div id="governance"><GovernanceSection /></div>
       <div id="metrics"><MetricsSection /></div>
       <div id="roadmap"><RoadmapSection /></div>
       <div id="summary"><SummarySection /></div>
