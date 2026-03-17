@@ -1,5 +1,5 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import { Shield, Brain, Diamond } from "lucide-react";
 
 const ruleFilters = [
@@ -16,9 +16,9 @@ const aiLayers = [
 ];
 
 const decisions = [
-  { id: 8, label: "Auto-Draft", color: "text-success", border: "border-success", bg: "bg-success/10", arrow: "stroke-success" },
-  { id: 8, label: "Assisted Review", color: "text-warning", border: "border-warning", bg: "bg-warning/10", arrow: "stroke-warning" },
-  { id: 8, label: "Block / Manual", color: "text-primary", border: "border-primary", bg: "bg-primary/10", arrow: "stroke-primary" },
+  { id: 8, key: "auto", label: "Auto-Draft", color: "text-success", border: "border-success", bg: "bg-success/10", arrow: "stroke-success", score: "≥ 90%", desc: "Invoice passes all layers with high confidence. Automatically drafted into Business Central." },
+  { id: 8, key: "assisted", label: "Assisted Review", color: "text-warning", border: "border-warning", bg: "bg-warning/10", arrow: "stroke-warning", score: "70–89%", desc: "One or more layers flagged uncertainty. Routed to AP team with AI suggestions pre-filled." },
+  { id: 8, key: "block", label: "Block / Manual", color: "text-primary", border: "border-primary", bg: "bg-primary/10", arrow: "stroke-primary", score: "< 70%", desc: "Critical validation failure. Invoice blocked and queued for full manual review." },
 ];
 
 interface Props {
@@ -31,6 +31,7 @@ interface Props {
 export default function ValidationFlowDiagram({ activeStage, activeLayerId, onStageClick, onLayerClick }: Props) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
+  const [activeDecision, setActiveDecision] = useState<string | null>(null);
 
   const stageActive = (stage: string) => activeStage === stage || activeStage === null;
 
@@ -233,13 +234,43 @@ export default function ValidationFlowDiagram({ activeStage, activeLayerId, onSt
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ delay: 1.8 + i * 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     whileHover={{ scale: 1.05, x: 4 }}
-                    className={`px-3 py-2 rounded-lg border-2 ${d.border}/30 ${d.bg} cursor-default`}
+                    onClick={(e) => { e.stopPropagation(); setActiveDecision(activeDecision === d.key ? null : d.key); }}
+                    className={`px-3 py-2 rounded-lg border-2 cursor-pointer transition-all duration-200 ${d.border}/30 ${d.bg} ${
+                      activeDecision === d.key ? "ring-2 ring-offset-1 ring-offset-card " + d.border + " scale-[1.03]" : ""
+                    }`}
                   >
                     <span className={`text-xs font-montserrat font-semibold ${d.color}`}>{d.label}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
+
+            {/* Decision Detail Panel */}
+            <AnimatePresence mode="wait">
+              {activeDecision && (() => {
+                const d = decisions.find(dec => dec.key === activeDecision)!;
+                return (
+                  <motion.div
+                    key={activeDecision}
+                    initial={{ opacity: 0, x: 30, width: 0 }}
+                    animate={{ opacity: 1, x: 0, width: "auto" }}
+                    exit={{ opacity: 0, x: 30, width: 0 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="mt-4 overflow-hidden"
+                  >
+                    <div className={`rounded-lg border-2 ${d.border}/30 ${d.bg} p-4 flex items-center gap-4`}>
+                      <div className={`text-3xl font-montserrat font-black ${d.color} whitespace-nowrap`}>
+                        {d.score}
+                      </div>
+                      <div>
+                        <h4 className={`text-sm font-montserrat font-bold ${d.color} mb-0.5`}>{d.label}</h4>
+                        <p className="text-[11px] font-roboto text-muted-foreground leading-relaxed">{d.desc}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })()}
+            </AnimatePresence>
           </div>
         </div>
       </div>
