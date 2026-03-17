@@ -19,6 +19,7 @@ const sectionLabels: Record<string, string> = {
   validation: "Validation",
   workflow: "Workflow",
   architecture: "Architecture",
+  governance: "Governance",
   metrics: "Impact",
   roadmap: "Roadmap",
   summary: "Summary",
