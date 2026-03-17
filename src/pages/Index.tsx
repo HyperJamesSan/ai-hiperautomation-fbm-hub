@@ -59,7 +59,7 @@ const Index = () => {
     const idx = sectionIds.indexOf(activeSection);
     const target = direction === "prev" ? idx - 1 : idx + 1;
     if (target >= 0 && target < sectionIds.length) {
-      document.getElementById(sectionIds[target])?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById(sectionIds[target])?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [activeSection]);
 
