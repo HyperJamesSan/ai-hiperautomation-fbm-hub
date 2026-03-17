@@ -101,7 +101,7 @@ export default function MetricsSection() {
           transition={{ delay: 0.8, duration: 0.8 }}
           className="fbm-card p-8"
         >
-          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Criterios de Éxito — POC</h3>
+          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Success Criteria — POC</h3>
           <div className="space-y-0">
             {pocCriteria.map((c, i) => (
               <motion.div
