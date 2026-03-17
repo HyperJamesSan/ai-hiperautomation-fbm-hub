@@ -360,11 +360,11 @@ const WorkflowSlide = () => {
             initial={{ left: "-4%" }}
             animate={{
               left: `${invoiceX}%`,
-              rotate: scenario?.destination === "exception" && phase === "done" ? [0, -4, 4, -4, 0] : 0,
+              rotate: scenario?.destination === "exception" && phase === "done" ? [0, -5, 5, -5, 5, 0] : 0,
             }}
             transition={{
               left: { duration: TRAVEL_MS / 1000, ease: "easeInOut" },
-              rotate: { duration: 0.5, repeat: phase === "done" && scenario?.destination === "exception" ? 3 : 0 },
+              rotate: { duration: 0.6, repeat: phase === "done" && scenario?.destination === "exception" ? 4 : 0 },
             }}
           >
             <motion.div
