@@ -141,7 +141,8 @@ const Index = () => {
     };
 
     const onTouchEnd = () => {
-      document.body.style.scrollSnapType = "";
+      const c = getContainer();
+      if (c) c.style.scrollSnapType = "";
     };
 
     window.addEventListener("mousedown", onDown);
