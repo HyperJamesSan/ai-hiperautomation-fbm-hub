@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import ValidationFlowDiagram from "./ValidationFlowDiagram";
 
 const layers = [
   { id: 1, name: "Formato Legal", method: "Deterministic", stage: 1, desc: "Campos obligatorios por legislación IVA: número factura, NIF, base imponible, tasa aplicada.", type: "rule" },
@@ -46,6 +47,9 @@ export default function ValidationLayers() {
             Cada decisión AI incluye justificación escrita.
           </p>
         </motion.div>
+
+        {/* Interactive Flow Diagram */}
+        <ValidationFlowDiagram />
 
         {/* Stage labels */}
         <div className="grid grid-cols-3 gap-4 mb-8">
