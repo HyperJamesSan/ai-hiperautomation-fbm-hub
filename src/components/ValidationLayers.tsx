@@ -75,12 +75,24 @@ const stageToIds: Record<string, number[]> = {
   decision: [8],
 };
 
-export default function ValidationLayers() {
+interface ValidationLayersProps {
+  isActive?: boolean;
+}
+
+export default function ValidationLayers({ isActive = false }: ValidationLayersProps) {
   const ref = useRef(null);
   const [activeStage, setActiveStage] = useState<string | null>(null);
   const [activeLayerId, setActiveLayerId] = useState<number | null>(null);
   const [focusMode, setFocusMode] = useState(false);
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (!isActive) return;
+    setFocusMode(false);
+    setActiveStage(null);
+    setActiveLayerId(null);
+    setFlippedCards(new Set());
+  }, [isActive]);
 
   const getBadgeClass = (type: string) => {
     switch (type) {
