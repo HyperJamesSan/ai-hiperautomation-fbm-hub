@@ -41,6 +41,7 @@ const WorkflowSlide = () => {
   const [stationAnimPhase, setStationAnimPhase] = useState<"traveling" | "arrived" | "idle">("idle");
   const [showScore, setShowScore] = useState(false);
   const [animScore, setAnimScore] = useState(0);
+  const [tooltipStation, setTooltipStation] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const rafRef = useRef<number | null>(null);
 
@@ -59,6 +60,7 @@ const WorkflowSlide = () => {
     setStationAnimPhase("idle");
     setShowScore(false);
     setAnimScore(0);
+    setTooltipStation(null);
   }, [clearTimers]);
 
   useEffect(() => { reset(); }, [selectedScenario, reset]);
@@ -263,7 +265,7 @@ const WorkflowSlide = () => {
 
                 {/* Station box */}
                 <motion.div
-                  className="w-10 h-10 md:w-11 md:h-11 rounded-lg flex items-center justify-center border-2 transition-colors duration-300"
+                  className={`w-10 h-10 md:w-11 md:h-11 rounded-lg flex items-center justify-center border-2 transition-colors duration-300 ${isVisited && !isCurrent ? "cursor-pointer" : ""}`}
                   style={{
                     borderColor: isCurrent || isVisited ? statusColor(result?.status ?? "pending") : "#E5E7EB",
                     backgroundColor: isCurrent ? `${statusColor(result?.status ?? "pending")}14` : "white",
@@ -271,9 +273,47 @@ const WorkflowSlide = () => {
                   }}
                   animate={isCurrent ? { scale: [1, 1.1, 1] } : {}}
                   transition={{ duration: 0.5 }}
+                  onClick={() => {
+                    if (isVisited && !isCurrent && result && result.status !== "skipped") {
+                      setTooltipStation(tooltipStation === idx ? null : idx);
+                    }
+                  }}
                 >
                   <StIcon size={16} style={{ color: isCurrent || isVisited ? statusColor(result?.status ?? "pending") : "#9CA3AF" }} />
                 </motion.div>
+
+                {/* Tooltip on click for visited stations */}
+                <AnimatePresence>
+                  {tooltipStation === idx && isVisited && !isCurrent && result && result.status !== "skipped" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 6, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full mt-2 z-30 w-52 p-2.5 rounded-lg shadow-lg border text-left"
+                      style={{ backgroundColor: "white", borderColor: "#E5E7EB" }}
+                    >
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <StatusIcon status={result.status} size={13} />
+                        <span className="text-[11px] font-semibold" style={{ color: statusColor(result.status) }}>
+                          {station.isEmailNode ? "Email Trigger" : `Layer ${station.layerNumber} — ${station.name}`}
+                        </span>
+                      </div>
+                      <p className="text-[10px] leading-relaxed" style={{ color: "#4B5563" }}>{result.detail}</p>
+                      {result.fields && (
+                        <div className="mt-1.5 flex flex-col gap-0.5">
+                          {result.fields.map((f) => (
+                            <div key={f.name} className="flex justify-between text-[9px]">
+                              <span style={{ color: "#6B7280" }}>{f.name}</span>
+                              <span className="font-medium" style={{ color: f.status === "warning" ? "#D97706" : "#111827" }}>{f.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="mt-1.5 text-[8px] text-center" style={{ color: "#9CA3AF" }}>click to close</div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Station short name */}
                 <span className="text-[8px] md:text-[9px] font-medium text-center max-w-[60px] leading-tight mt-1" style={{ color: "#6B7280" }}>
