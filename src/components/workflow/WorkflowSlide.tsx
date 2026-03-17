@@ -541,7 +541,7 @@ const WorkflowSlide = () => {
         </AnimatePresence>
 
         {/* Progress dots */}
-        <div className="absolute bottom-3 left-[48%] -translate-x-1/2 flex gap-1.5">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
           {stations.map((st, idx) => (
             <div key={idx} className="flex flex-col items-center gap-0.5">
               <div
