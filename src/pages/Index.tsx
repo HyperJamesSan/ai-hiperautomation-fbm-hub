@@ -123,9 +123,8 @@ const Index = () => {
     const onUp = () => {
       if (!dragging) return;
       dragging = false;
-      document.body.style.cursor = "";
-      // Re-enable snap after release
-      document.body.style.scrollSnapType = "";
+      const c = getContainer();
+      if (c) c.style.scrollSnapType = "";
     };
 
     // Touch pan
