@@ -22,6 +22,42 @@ const AnimatedNumber = ({ target, decimals = 0, prefix = "", suffix = "" }: { ta
   return <span ref={ref} className="font-mono">{prefix}{val.toFixed(decimals)}{suffix}</span>;
 };
 
+const BarPercentLabel = ({ value, delay, inView }: { value: number; delay: number; inView: boolean }) => {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const timeout = setTimeout(() => {
+      const duration = 1400;
+      const steps = 40;
+      const interval = duration / steps;
+      let step = 0;
+      const timer = setInterval(() => {
+        step++;
+        const progress = Math.min(step / steps, 1);
+        // ease-out curve
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplay(Math.round(eased * value));
+        if (step >= steps) clearInterval(timer);
+      }, interval);
+      return () => clearInterval(timer);
+    }, delay * 1000);
+    return () => clearTimeout(timeout);
+  }, [inView, value, delay]);
+
+  return (
+    <motion.span
+      className="absolute top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-primary-foreground drop-shadow-sm"
+      initial={{ left: "0%", opacity: 0 }}
+      animate={inView ? { left: `${value}%`, opacity: 1 } : { left: "0%", opacity: 0 }}
+      transition={{ delay, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+      style={{ transform: "translate(-100%, -50%)", paddingRight: "4px" }}
+    >
+      {display}%
+    </motion.span>
+  );
+};
+
 const metrics = [
   { value: 84, suffix: "%", label: "Decision latency reduction", desc: "From days to <30 seconds per invoice" },
   { value: 125, suffix: "", label: "Invoices automated / month", desc: "Current volume across 7 entities" },
