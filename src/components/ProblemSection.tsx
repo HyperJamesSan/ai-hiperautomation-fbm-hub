@@ -1,6 +1,41 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { AlertTriangle, User, Mail, TrendingDown, XCircle, FileQuestion, ArrowRight } from "lucide-react";
+
+const AnimatedSeverity = ({ value, delay, inView }: { value: number; delay: number; inView: boolean }) => {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const timeout = setTimeout(() => {
+      const duration = 1400;
+      const steps = 40;
+      const interval = duration / steps;
+      let step = 0;
+      const timer = setInterval(() => {
+        step++;
+        const progress = Math.min(step / steps, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplay(Math.round(eased * value));
+        if (step >= steps) clearInterval(timer);
+      }, interval);
+      return () => clearInterval(timer);
+    }, delay * 1000);
+    return () => clearTimeout(timeout);
+  }, [inView, value, delay]);
+
+  return (
+    <motion.span
+      className="absolute top-1/2 -translate-y-1/2 text-[8px] font-mono font-bold text-primary-foreground drop-shadow-sm z-10"
+      initial={{ left: "0%", opacity: 0 }}
+      animate={inView ? { left: `${value}%`, opacity: 1 } : { left: "0%", opacity: 0 }}
+      transition={{ delay, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+      style={{ transform: "translate(-100%, -50%)", paddingRight: "3px" }}
+    >
+      {display}%
+    </motion.span>
+  );
+};
 
 const painPoints = [
   { icon: AlertTriangle, title: "100% Manual", desc: "One operator processes everything. Zero redundancy.", color: "text-primary", severity: 95 },
@@ -107,7 +142,7 @@ export default function ProblemSection() {
                   <p className="text-sm font-roboto text-muted-foreground mb-3">{point.desc}</p>
 
                   {/* Severity bar */}
-                  <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                  <div className="relative h-1.5 w-full bg-muted rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       style={{
@@ -115,8 +150,9 @@ export default function ProblemSection() {
                       }}
                       initial={{ width: "0%" }}
                       animate={inView ? { width: `${point.severity}%` } : {}}
-                      transition={{ delay: 0.5 + i * 0.15, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ delay: 0.5 + i * 0.15, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
                     />
+                    <AnimatedSeverity value={point.severity} delay={0.5 + i * 0.15} inView={inView} />
                   </div>
                 </div>
               </motion.div>
