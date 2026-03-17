@@ -95,6 +95,7 @@ const Index = () => {
       <div id="validation"><ValidationLayers /></div>
       <div id="workflow"><WorkflowSlide /></div>
       <div id="architecture"><ArchitectureSection /></div>
+      <div id="governance"><GovernanceSection /></div>
       <div id="metrics"><MetricsSection /></div>
       <div id="roadmap"><RoadmapSection /></div>
       <div id="summary"><SummarySection /></div>
