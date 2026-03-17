@@ -66,9 +66,10 @@ const stats = [
   { value: "0%", label: "automation" },
 ];
 
-export default function ProblemSection() {
+export default function ProblemSection({ isActive = false }: { isActive?: boolean }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { margin: "-100px" });
+  const shouldAnimateBars = inView && isActive;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
