@@ -290,8 +290,8 @@ const WorkflowSlide = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full mt-2 z-30 w-52 p-2.5 rounded-lg shadow-lg border text-left"
-                      style={{ backgroundColor: "white", borderColor: "#E5E7EB" }}
+                      className="absolute bottom-full mb-2 z-40 w-56 p-2.5 rounded-lg shadow-lg border text-left"
+                      style={{ backgroundColor: "white", borderColor: "#E5E7EB", left: "50%", transform: "translateX(-50%)" }}
                     >
                       <div className="flex items-center gap-1.5 mb-1">
                         <StatusIcon status={result.status} size={13} />
@@ -300,6 +300,16 @@ const WorkflowSlide = () => {
                         </span>
                       </div>
                       <p className="text-[10px] leading-relaxed" style={{ color: "#4B5563" }}>{result.detail}</p>
+                      {result.subChecks && (
+                        <div className="mt-1.5 flex flex-col gap-0.5">
+                          {result.subChecks.map((sc, i) => (
+                            <div key={i} className="flex items-center gap-1 text-[9px] font-medium" style={{ color: statusColor(sc.status) }}>
+                              <StatusIcon status={sc.status} size={10} />
+                              {sc.label}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       {result.fields && (
                         <div className="mt-1.5 flex flex-col gap-0.5">
                           {result.fields.map((f) => (
@@ -310,7 +320,12 @@ const WorkflowSlide = () => {
                           ))}
                         </div>
                       )}
-                      <div className="mt-1.5 text-[8px] text-center" style={{ color: "#9CA3AF" }}>click to close</div>
+                      {result.score != null && (
+                        <div className="mt-1 text-center text-[10px] font-bold" style={{ color: statusColor(result.status) }}>
+                          Score: {result.score}/100
+                        </div>
+                      )}
+                      <div className="mt-1 text-[8px] text-center" style={{ color: "#9CA3AF" }}>click to close</div>
                     </motion.div>
                   )}
                 </AnimatePresence>
