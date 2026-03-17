@@ -142,7 +142,7 @@ export default function ProblemSection() {
                   <p className="text-sm font-roboto text-muted-foreground mb-3">{point.desc}</p>
 
                   {/* Severity bar */}
-                  <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                  <div className="relative h-1.5 w-full bg-muted rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       style={{
@@ -150,8 +150,10 @@ export default function ProblemSection() {
                       }}
                       initial={{ width: "0%" }}
                       animate={inView ? { width: `${point.severity}%` } : {}}
-                      transition={{ delay: 0.5 + i * 0.15, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ delay: 0.5 + i * 0.15, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
                     />
+                    <AnimatedSeverity value={point.severity} delay={0.5 + i * 0.15} inView={inView} />
+                  </div>
                   </div>
                 </div>
               </motion.div>
