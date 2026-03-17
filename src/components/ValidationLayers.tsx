@@ -107,13 +107,13 @@ export default function ValidationLayers() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="mt-10 fbm-card-dark p-8"
         >
-          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Flujo de Decisión</h3>
+          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Decision Flow</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
-              { score: "≥ 90%", decision: "AUTO-DRAFT", desc: "Factura creada automáticamente en DBC", color: "text-green-400", bg: "bg-green-400/10 border border-green-400/20" },
-              { score: "70–89%", decision: "REVISIÓN", desc: "Draft con flags visibles para AP Executive", color: "text-amber-400", bg: "bg-amber-400/10 border border-amber-400/20" },
-              { score: "< 70%", decision: "COLA MANUAL", desc: "Guardada en Dropbox. Notificación por email.", color: "text-red-400", bg: "bg-red-400/10 border border-red-400/20" },
-              { score: "Error", decision: "BLOQUEADO", desc: "Bloqueo inmediato. Notificación urgente.", color: "text-red-500", bg: "bg-red-500/10 border border-red-500/20" },
+              { score: "≥ 90%", decision: "AUTO-DRAFT", desc: "Invoice draft created automatically in DBC", color: "text-green-400", bg: "bg-green-400/10 border border-green-400/20" },
+              { score: "70–89%", decision: "REVIEW", desc: "Draft with visible flags for AP Executive", color: "text-amber-400", bg: "bg-amber-400/10 border border-amber-400/20" },
+              { score: "< 70%", decision: "MANUAL QUEUE", desc: "Saved to Dropbox. Email notification sent.", color: "text-red-400", bg: "bg-red-400/10 border border-red-400/20" },
+              { score: "Error", decision: "BLOCKED", desc: "Immediate block. Urgent notification.", color: "text-red-500", bg: "bg-red-500/10 border border-red-500/20" },
             ].map((item) => (
               <motion.div
                 key={item.decision}

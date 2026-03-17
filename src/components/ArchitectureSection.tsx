@@ -92,12 +92,12 @@ export default function ArchitectureSection() {
           transition={{ delay: 1, duration: 0.8 }}
           className="mt-10 fbm-card-dark p-8"
         >
-          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-4">Principio de Seguridad</h3>
+          <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-4">Security Principle</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { step: "01", title: "PDF nunca sale", desc: "El documento permanece en el entorno de la empresa." },
-              { step: "02", title: "Solo texto al AI", desc: "Solo texto extraído se envía a Claude via HTTPS. Sin retención." },
-              { step: "03", title: "Audit inmutable", desc: "JSON estructurado por cada factura. Revisable en auditorías." },
+              { step: "01", title: "PDF never leaves", desc: "The document stays within the company's environment." },
+              { step: "02", title: "Text only to AI", desc: "Only extracted text is sent to Claude via HTTPS. No retention." },
+              { step: "03", title: "Immutable audit", desc: "Structured JSON per invoice. Reviewable in audits." },
             ].map((item) => (
               <div key={item.step} className="flex gap-4">
                 <span className="text-2xl font-mono font-bold text-primary/50">{item.step}</span>

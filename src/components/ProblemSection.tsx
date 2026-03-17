@@ -24,15 +24,15 @@ export default function ProblemSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12"
         >
-          <span className="fbm-badge-primary mb-4 block w-fit">La Fricción</span>
+          <span className="fbm-badge-primary mb-4 block w-fit">The Friction</span>
           <div className="fbm-section-divider mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter mb-4 text-foreground">
-            Un proceso no escalable
+            A non-scalable process
             <br />
-            <span className="text-primary">y altamente dependiente.</span>
+            <span className="text-primary">and highly dependent.</span>
           </h2>
           <p className="text-muted-foreground text-lg font-roboto max-w-xl">
-            100–125 facturas mensuales procesadas manualmente por una sola persona en 7 entidades.
+            100–125 invoices per month processed manually by a single person across 7 entities.
           </p>
         </motion.div>
 

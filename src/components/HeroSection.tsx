@@ -110,10 +110,10 @@ export default function HeroSection() {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
         >
           {[
-            { value: 125, suffix: "", label: "Facturas / mes" },
-            { value: 7, suffix: "", label: "Entidades Malta" },
-            { value: 8, suffix: "", label: "Capas validación" },
-            { value: 30, suffix: "s", label: "Tiempo / factura" },
+            { value: 125, suffix: "", label: "Invoices / month" },
+            { value: 7, suffix: "", label: "Malta Entities" },
+            { value: 8, suffix: "", label: "Validation Layers" },
+            { value: 30, suffix: "s", label: "Time / invoice" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}

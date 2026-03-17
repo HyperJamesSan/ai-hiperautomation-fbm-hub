@@ -118,7 +118,7 @@ export default function MetricsSection() {
                     <div className="text-sm font-mono font-bold text-primary">{c.target}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-[10px] font-mono text-muted-foreground">Mínimo</div>
+                    <div className="text-[10px] font-mono text-muted-foreground">Minimum</div>
                     <div className="text-sm font-mono text-muted-foreground">{c.min}</div>
                   </div>
                 </div>

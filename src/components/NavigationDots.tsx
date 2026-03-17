@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 
 const sections = [
-  { id: "hero", label: "Inicio" },
-  { id: "problem", label: "Fricción" },
-  { id: "validation", label: "Validación" },
+  { id: "hero", label: "Home" },
+  { id: "problem", label: "Friction" },
+  { id: "validation", label: "Validation" },
   { id: "workflow", label: "Workflow" },
-  { id: "architecture", label: "Arquitectura" },
-  { id: "metrics", label: "Impacto" },
+  { id: "architecture", label: "Architecture" },
+  { id: "metrics", label: "Impact" },
   { id: "roadmap", label: "Roadmap" },
-  { id: "summary", label: "Resumen" },
+  { id: "summary", label: "Summary" },
 ];
 
 export default function NavigationDots({ activeSection }: { activeSection: string }) {

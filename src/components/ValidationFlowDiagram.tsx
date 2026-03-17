@@ -193,8 +193,8 @@ export default function ValidationFlowDiagram() {
                 >
                   <div className="-rotate-45 text-center">
                     <span className="text-[10px] font-mono font-bold text-foreground block">8.</span>
-                    <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">Puntuación</span>
-                    <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">de Confianza</span>
+                     <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">Confidence</span>
+                     <span className="text-[9px] font-montserrat font-bold text-foreground leading-tight block">Scoring</span>
                   </div>
                 </div>
               </motion.div>

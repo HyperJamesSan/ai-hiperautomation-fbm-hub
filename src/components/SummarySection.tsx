@@ -25,11 +25,11 @@ export default function SummarySection() {
         >
           <div className="fbm-section-divider mx-auto mb-6" />
           <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter mb-4 text-foreground">
-            Recomendación.
+            Recommendation.
           </h2>
           <p className="text-lg font-roboto text-muted-foreground max-w-2xl mx-auto">
-            Proceder con un <span className="text-primary font-bold">proof of concept de 6 semanas</span>.
-            Validar precisión contra muestras reales.
+            Proceed with a <span className="text-primary font-bold">6-week proof of concept</span>.
+            Validate accuracy against real samples.
           </p>
         </motion.div>
 

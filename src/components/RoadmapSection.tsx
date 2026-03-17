@@ -93,7 +93,7 @@ export default function RoadmapSection() {
           className="fbm-card p-8"
         >
           <h3 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">
-            Programa Multi-Módulo — Hiperautomatización Finance
+            Multi-Module Program — Finance Hyperautomation
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {modules.map((mod, i) => (
