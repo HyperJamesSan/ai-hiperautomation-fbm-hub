@@ -3,14 +3,14 @@ import { useRef, useState } from "react";
 import ValidationFlowDiagram from "./ValidationFlowDiagram";
 
 const layers = [
-  { id: 1, name: "Formato Legal", method: "Deterministic", stage: 1, desc: "Campos obligatorios por legislación IVA: número factura, NIF, base imponible, tasa aplicada.", type: "rule" },
-  { id: 2, name: "Validación VIES", method: "API Call", stage: 1, desc: "Para proveedores UE, el NIF se valida contra la base VIES en tiempo real.", type: "rule" },
-  { id: 3, name: "Verificación Vendor", method: "DBC API", stage: 1, desc: "Proveedor cruzado contra BD de vendors en Business Central. Jerarquía: NIF → Reg. → Nombre.", type: "rule" },
-  { id: 4, name: "Validación Contrato", method: "Deterministic", stage: 1, desc: "Monto y tipo de servicio verificados contra tabla de referencia de contratos.", type: "rule" },
-  { id: 5, name: "Detección Duplicados", method: "Deterministic", stage: 1, desc: "Número factura, proveedor y monto validados contra log de procesamiento y entradas en DBC.", type: "rule" },
-  { id: 6, name: "Cumplimiento VAT", method: "AI + Rules", stage: 2, desc: "Evalúa si el tratamiento fiscal del proveedor es correcto. Cubre reverse charge y exenciones.", type: "ai" },
-  { id: 7, name: "Clasificación GL", method: "AI Reasoning", stage: 2, desc: "Sugiere la cuenta GL y grupo de posting VAT apropiados basándose en el contenido de la factura.", type: "ai" },
-  { id: 8, name: "Decisión Final", method: "Scoring", stage: 3, desc: "Score de confianza ponderado: Auto-draft (≥90%), Revisión asistida (70-89%), o Bloqueo (<70%).", type: "scoring" },
+  { id: 1, name: "Legal Format", method: "Deterministic", stage: 1, desc: "Mandatory fields per VAT legislation: invoice number, VAT ID, taxable base, applied rate.", type: "rule" },
+  { id: 2, name: "VIES Validation", method: "API Call", stage: 1, desc: "For EU suppliers, VAT ID is validated against the VIES database in real time.", type: "rule" },
+  { id: 3, name: "Vendor Verification", method: "DBC API", stage: 1, desc: "Vendor cross-checked against Business Central vendor cards. Hierarchy: VAT ID → Reg. → Name.", type: "rule" },
+  { id: 4, name: "Contract Validation", method: "Deterministic", stage: 1, desc: "Amount and service type verified against contract reference table.", type: "rule" },
+  { id: 5, name: "Duplicate Detection", method: "Deterministic", stage: 1, desc: "Invoice number, vendor and amount validated against processing log and DBC entries.", type: "rule" },
+  { id: 6, name: "VAT Compliance", method: "AI + Rules", stage: 2, desc: "Evaluates whether the supplier's tax treatment is correct. Covers reverse charge and exemptions.", type: "ai" },
+  { id: 7, name: "GL Classification", method: "AI Reasoning", stage: 2, desc: "Suggests the appropriate GL account and VAT posting group based on invoice content.", type: "ai" },
+  { id: 8, name: "Final Decision", method: "Scoring", stage: 3, desc: "Weighted confidence score: Auto-draft (≥90%), Assisted review (70-89%), or Blocked (<70%).", type: "scoring" },
 ];
 
 export default function ValidationLayers() {
