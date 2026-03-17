@@ -131,7 +131,7 @@ const criticalResults: StationResult[] = [
   },
   { status: "skipped", label: "Skipped", detail: "Processing was halted at Duplicate Detection." },
   { status: "skipped", label: "Skipped", detail: "" },
-  { status: "error", label: "HOLD", detail: "Invoice stopped at Layer 5. AP Executive and Financial Manager notified immediately." },
+  { status: "error", label: "HOLD", detail: "Invoice stopped at Layer 5. AP Executive notified immediately." },
 ];
 
 export const scenarios: Scenario[] = [
