@@ -190,18 +190,66 @@ const WorkflowSlide = () => {
       {/* ═══ MIDDLE — TRACK ═══ */}
       <div className="flex-1 relative px-4" style={{ minHeight: 0 }}>
 
-        {/* Layer counter badge */}
-        <AnimatePresence>
-          {layerLabel && (
+        {/* Layer info card during animation */}
+        <AnimatePresence mode="wait">
+          {layerLabel && currentResult && (
             <motion.div
-              key={layerLabel}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide z-30"
-              style={{ backgroundColor: "#F3F4F6", color: "#374151", border: "1px solid #E5E7EB" }}
+              key={`layer-info-${currentStation}`}
+              initial={{ opacity: 0, y: -16, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.97 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-3 left-1/2 -translate-x-1/2 z-30 w-[90%] max-w-lg"
             >
-              {layerLabel}
+              <div
+                className="rounded-xl shadow-lg border px-5 py-3 flex flex-col items-center gap-1.5"
+                style={{
+                  backgroundColor: "white",
+                  borderColor: stationAnimPhase === "arrived"
+                    ? `${statusColor(currentResult.status)}60`
+                    : "#E5E7EB",
+                  boxShadow: stationAnimPhase === "arrived"
+                    ? `0 4px 24px ${statusColor(currentResult.status)}18`
+                    : "0 4px 16px rgba(0,0,0,0.06)",
+                }}
+              >
+                {/* Top row: layer label + method */}
+                <div className="flex items-center gap-3">
+                  <span
+                    className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase"
+                    style={{
+                      backgroundColor: currentStation === 0 ? "#F3F4F6" : currentStation <= 5 ? "#ECFDF5" : currentStation <= 7 ? "#EFF6FF" : "#FFFBEB",
+                      color: currentStation === 0 ? "#374151" : currentStation <= 5 ? "#059669" : currentStation <= 7 ? "#2563EB" : "#D97706",
+                    }}
+                  >
+                    {currentStation === 0 ? "📧 Trigger" : `L${currentStation}`}
+                  </span>
+                  <span className="text-sm font-semibold" style={{ color: "#111827", fontFamily: "'Montserrat', sans-serif" }}>
+                    {currentStation === 0 ? "Email Received" : stations[currentStation].name}
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-gray-100" style={{ color: "#6B7280" }}>
+                    {currentStation === 0 ? "Trigger" : currentStation <= 5 ? "Deterministic" : currentStation <= 7 ? "AI" : "Scoring"}
+                  </span>
+                </div>
+
+                {/* Detail text — appears when arrived */}
+                <AnimatePresence>
+                  {stationAnimPhase === "arrived" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center gap-2 text-center"
+                    >
+                      <StatusIcon status={currentResult.status} size={14} />
+                      <p className="text-xs leading-relaxed" style={{ color: "#4B5563" }}>
+                        {currentResult.detail}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
