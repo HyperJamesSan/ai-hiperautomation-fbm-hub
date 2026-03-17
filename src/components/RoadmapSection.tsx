@@ -2,23 +2,23 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const timeline = [
-  { week: "S1", phase: "Alignment", desc: "Sesión de alineación. Definir alcance POC. Asignar ownership.", status: "active" },
-  { week: "S2", phase: "Setup", desc: "Configuración n8n, Claude API, credenciales DBC, estructura Dropbox.", status: "upcoming" },
-  { week: "S3–4", phase: "POC Build", desc: "Construir workflow de extracción. Implementar 8 capas. Conectar APIs.", status: "upcoming" },
-  { week: "S5", phase: "Evaluación", desc: "Correr POC contra set completo. Medir precisión. Producir reporte.", status: "upcoming" },
-  { week: "S6", phase: "Decisión", desc: "Presentar resultados al CFO. Go / Adjust / No-Go.", status: "upcoming" },
+  { week: "W1", phase: "Alignment", desc: "Alignment session. Define POC scope. Assign ownership.", status: "active" },
+  { week: "W2", phase: "Setup", desc: "Configure n8n, Claude API, DBC credentials, Dropbox structure.", status: "upcoming" },
+  { week: "W3–4", phase: "POC Build", desc: "Build extraction workflow. Implement 8 layers. Connect APIs.", status: "upcoming" },
+  { week: "W5", phase: "Evaluation", desc: "Run POC against full set. Measure accuracy. Produce report.", status: "upcoming" },
+  { week: "W6", phase: "Decision", desc: "Present results to CFO. Go / Adjust / No-Go.", status: "upcoming" },
 ];
 
 const modules = [
-  { id: 1, name: "AP Process (P1.30)", status: "En Progreso", type: "active" },
-  { id: 2, name: "Revenue Invoicing MX + Online", status: "Planeado", type: "planned" },
-  { id: 3, name: "Collections / AR Chase", status: "Planeado", type: "planned" },
-  { id: 4, name: "VAT Return", status: "Planeado", type: "planned" },
-  { id: 5, name: "Daily Cash Reconciliation", status: "Planeado", type: "planned" },
-  { id: 6, name: "Intercompany Reconciliation", status: "Consideración", type: "consideration" },
-  { id: 7, name: "DBC Data Completeness", status: "Consideración", type: "consideration" },
-  { id: 8, name: "Month-End Closing", status: "Consideración", type: "consideration" },
-  { id: 9, name: "Travel & Expense Mgmt", status: "Consideración", type: "consideration" },
+  { id: 1, name: "AP Process (P1.30)", status: "In Progress", type: "active" },
+  { id: 2, name: "Revenue Invoicing MX + Online", status: "Planned", type: "planned" },
+  { id: 3, name: "Collections / AR Chase", status: "Planned", type: "planned" },
+  { id: 4, name: "VAT Return", status: "Planned", type: "planned" },
+  { id: 5, name: "Daily Cash Reconciliation", status: "Planned", type: "planned" },
+  { id: 6, name: "Intercompany Reconciliation", status: "Under Consideration", type: "consideration" },
+  { id: 7, name: "DBC Data Completeness", status: "Under Consideration", type: "consideration" },
+  { id: 8, name: "Month-End Closing", status: "Under Consideration", type: "consideration" },
+  { id: 9, name: "Travel & Expense Mgmt", status: "Under Consideration", type: "consideration" },
 ];
 
 export default function RoadmapSection() {
