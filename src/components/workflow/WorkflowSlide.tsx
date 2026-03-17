@@ -60,6 +60,7 @@ const WorkflowSlide = () => {
     setStationAnimPhase("idle");
     setShowScore(false);
     setAnimScore(0);
+    setTooltipStation(null);
   }, [clearTimers]);
 
   useEffect(() => { reset(); }, [selectedScenario, reset]);
