@@ -12,7 +12,7 @@ import RoadmapSection from "@/components/RoadmapSection";
 import SummarySection from "@/components/SummarySection";
 import NavigationDots from "@/components/NavigationDots";
 
-const sectionIds = ["hero", "problem", "validation", "workflow", "architecture", "metrics", "roadmap", "summary"];
+const sectionIds = ["hero", "problem", "validation", "workflow", "architecture", "governance", "metrics", "roadmap", "summary"];
 const sectionLabels: Record<string, string> = {
   hero: "Home",
   problem: "Friction",
