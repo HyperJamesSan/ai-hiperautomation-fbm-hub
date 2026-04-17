@@ -44,7 +44,7 @@ export default function Ideas() {
       return;
     }
     setSubmitting(true);
-    const { error } = await supabase.from("automation_ideas").insert(parsed.data);
+    const { error } = await supabase.from("automation_ideas").insert([parsed.data]);
     setSubmitting(false);
     if (error) {
       toast.error("Couldn't send your idea. Try again in a moment.");
