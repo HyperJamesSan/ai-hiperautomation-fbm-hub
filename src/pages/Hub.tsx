@@ -26,28 +26,7 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   );
 }
 
-function GlassKpi({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
-  return (
-    <div
-      className="kpi-fade rounded-[20px] px-6 py-6 md:px-10 md:py-8 text-center backdrop-blur-xl border"
-      style={{
-        background: "rgba(255,255,255,0.05)",
-        borderColor: "rgba(255,255,255,0.10)",
-        animationDelay: `${delay}ms`,
-      }}
-    >
-      <div
-        className="font-barlow italic font-900 text-[#E41513] leading-none"
-        style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
-      >
-        {value}
-      </div>
-      <div className="font-barlow font-600 uppercase text-[10px] md:text-xs tracking-[0.18em] text-white/50 mt-3">
-        {label}
-      </div>
-    </div>
-  );
-}
+/* GlassKpi moved into HeroLight */
 
 /* ---------- Data ---------- */
 
@@ -181,81 +160,8 @@ export default function Hub() {
         </p>
       </div>
 
-      {/* ============ SECTION 3 — PIPELINE (DARK) ============ */}
-      <section id="pipeline" className="bg-[#0A0A0A] py-24 md:py-32 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <Reveal>
-            <div className="text-white/50 font-barlow font-700 uppercase tracking-[0.2em] text-sm mb-4">
-              The Pipeline
-            </div>
-            <h2 className="font-barlow font-900 text-white leading-[0.95]" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>
-              7 nodes. End-to-end.
-            </h2>
-          </Reveal>
-
-          <div className="mt-16 flex items-center gap-3 overflow-x-auto pb-6">
-            {PIPELINE.map(({ Icon, label, tool, glow, accent, backTitle, backDesc }, i) => (
-              <Reveal key={label} delay={i * 100} className="flex items-center flex-shrink-0">
-                <div className="flip-card w-[150px] h-[200px] flex-shrink-0">
-                  <div className="flip-card-inner">
-                    {/* FRONT */}
-                    <div
-                      className={`flip-face rounded-2xl p-6 text-center border ${glow ? "glow-pulse" : ""}`}
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        borderColor: glow ? "rgba(228,21,19,0.4)" : "rgba(255,255,255,0.08)",
-                      }}
-                    >
-                      <Icon className="w-10 h-10 text-[#E41513] mx-auto" />
-                      <div className="font-barlow font-700 text-sm text-white mt-4 leading-tight">
-                        {label}
-                      </div>
-                      <div
-                        className="mt-3 inline-block px-3 py-1 rounded-full text-[10px] font-barlow font-700"
-                        style={{ background: "rgba(228,21,19,0.15)", color: "#E41513" }}
-                      >
-                        {tool}
-                      </div>
-                      {glow && (
-                        <div className="mt-2 text-[9px] font-barlow font-700 uppercase tracking-widest text-[#E41513]">
-                          AI Brain
-                        </div>
-                      )}
-                    </div>
-                    {/* BACK */}
-                    <div
-                      className="flip-face flip-back rounded-2xl p-5 text-center flex flex-col justify-center"
-                      style={{
-                        background: "#0A0A0A",
-                        border: "1px solid rgba(228,21,19,0.30)",
-                        borderTop: `4px solid ${accent}`,
-                      }}
-                    >
-                      <div
-                        className="font-barlow font-900 uppercase text-xs tracking-[0.2em] mb-3"
-                        style={{ color: accent }}
-                      >
-                        {backTitle}
-                      </div>
-                      <p className="font-barlow font-400 text-[11px] text-white/75 leading-snug">
-                        {backDesc}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {i < PIPELINE.length - 1 && (
-                  <div
-                    className="w-8 md:w-12 h-[2px] mx-1 flex-shrink-0 dash-flow"
-                    style={{
-                      backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.25) 50%, transparent 50%)",
-                    }}
-                  />
-                )}
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ============ SECTION 3 — PIPELINE (LIGHT, FLOWING) ============ */}
+      <PipelineFlow />
 
       {/* ============ SECTION 4 — NUMBERS (white, full-bleed grid) ============ */}
       <section className="bg-white py-24 md:py-32">
