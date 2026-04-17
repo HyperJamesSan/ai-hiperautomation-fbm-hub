@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight, AlertTriangle, User, FileX, Mail, FileText, Brain, GitBranch,
   FolderOpen, Bell, BookOpen, Zap, Package, Shield, BarChart2, CheckCircle2,
-  Lightbulb, ChevronDown,
+  Lightbulb,
 } from "lucide-react";
 import GlobalHeader from "@/components/GlobalHeader";
 import ParticleField from "@/components/effects/ParticleField";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import HeroLight from "@/components/hub/HeroLight";
+import PipelineFlow from "@/components/hub/PipelineFlow";
 
 /* ---------- Helpers ---------- */
 
