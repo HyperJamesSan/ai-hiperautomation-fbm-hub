@@ -177,21 +177,31 @@ export default function Hub() {
       <section className="bg-white py-24 md:py-32 px-6">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <Reveal>
-            <div className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.2em] text-sm mb-6">
+            <div className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.2em] text-sm mb-8">
               The Friction
             </div>
-            <div
-              className="font-barlow italic font-900 text-[#111111] leading-none"
-              style={{ fontSize: "clamp(8rem, 15vw, 16rem)" }}
-            >
-              17
+            <div className="space-y-10">
+              <div>
+                <div
+                  className="font-barlow italic font-900 text-[#E41513] leading-none text-5xl md:text-6xl"
+                >
+                  12–17 min
+                </div>
+                <p className="font-barlow font-400 text-sm text-[#6B7280] mt-3">
+                  per invoice, before automation
+                </p>
+              </div>
+              <div>
+                <div
+                  className="font-barlow italic font-900 text-[#E41513] leading-none text-5xl md:text-6xl"
+                >
+                  100–125
+                </div>
+                <p className="font-barlow font-400 text-sm text-[#6B7280] mt-3">
+                  invoices processed monthly, manually
+                </p>
+              </div>
             </div>
-            <p className="font-barlow font-400 text-xl text-[#6B7280] mt-6 max-w-md">
-              minutes per invoice. Manual. Unscalable.
-            </p>
-            <p className="font-barlow font-400 text-base text-[#6B7280] mt-3 max-w-md">
-              100–125 invoices/month. One operator. Zero redundancy.
-            </p>
           </Reveal>
 
           <div className="grid gap-5">
@@ -229,7 +239,7 @@ export default function Hub() {
           className="font-barlow italic font-900 text-white max-w-5xl mx-auto leading-tight"
           style={{ fontSize: "clamp(1.75rem, 4vw, 4rem)" }}
         >
-          Now: &lt;2 seconds per invoice. 98% auto-route. Full audit trail.
+          Now: classified by AI in seconds. 98% auto-route. Full audit trail.
         </p>
       </div>
 
@@ -246,37 +256,58 @@ export default function Hub() {
           </Reveal>
 
           <div className="mt-16 flex items-center gap-3 overflow-x-auto pb-6">
-            {PIPELINE.map(({ Icon, label, tool, glow }, i) => (
+            {PIPELINE.map(({ Icon, label, tool, glow, accent, backTitle, backDesc }, i) => (
               <Reveal key={label} delay={i * 100} className="flex items-center flex-shrink-0">
-                <div
-                  className={`rounded-2xl p-6 w-[150px] text-center border ${glow ? "glow-pulse" : ""}`}
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    borderColor: glow ? "rgba(228,21,19,0.4)" : "rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <Icon className="w-10 h-10 text-[#E41513] mx-auto" />
-                  <div className="font-barlow font-700 text-sm text-white mt-4 leading-tight">
-                    {label}
-                  </div>
-                  <div
-                    className="mt-3 inline-block px-3 py-1 rounded-full text-[10px] font-barlow font-700"
-                    style={{
-                      background: "rgba(228,21,19,0.15)",
-                      color: "#E41513",
-                    }}
-                  >
-                    {tool}
-                  </div>
-                  {glow && (
-                    <div className="mt-2 text-[9px] font-barlow font-700 uppercase tracking-widest text-[#E41513]">
-                      AI Brain
+                <div className="flip-card w-[150px] h-[200px] flex-shrink-0">
+                  <div className="flip-card-inner">
+                    {/* FRONT */}
+                    <div
+                      className={`flip-face rounded-2xl p-6 text-center border ${glow ? "glow-pulse" : ""}`}
+                      style={{
+                        background: "rgba(255,255,255,0.04)",
+                        borderColor: glow ? "rgba(228,21,19,0.4)" : "rgba(255,255,255,0.08)",
+                      }}
+                    >
+                      <Icon className="w-10 h-10 text-[#E41513] mx-auto" />
+                      <div className="font-barlow font-700 text-sm text-white mt-4 leading-tight">
+                        {label}
+                      </div>
+                      <div
+                        className="mt-3 inline-block px-3 py-1 rounded-full text-[10px] font-barlow font-700"
+                        style={{ background: "rgba(228,21,19,0.15)", color: "#E41513" }}
+                      >
+                        {tool}
+                      </div>
+                      {glow && (
+                        <div className="mt-2 text-[9px] font-barlow font-700 uppercase tracking-widest text-[#E41513]">
+                          AI Brain
+                        </div>
+                      )}
                     </div>
-                  )}
+                    {/* BACK */}
+                    <div
+                      className="flip-face flip-back rounded-2xl p-5 text-center flex flex-col justify-center"
+                      style={{
+                        background: "#0A0A0A",
+                        border: "1px solid rgba(228,21,19,0.30)",
+                        borderTop: `4px solid ${accent}`,
+                      }}
+                    >
+                      <div
+                        className="font-barlow font-900 uppercase text-xs tracking-[0.2em] mb-3"
+                        style={{ color: accent }}
+                      >
+                        {backTitle}
+                      </div>
+                      <p className="font-barlow font-400 text-[11px] text-white/75 leading-snug">
+                        {backDesc}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 {i < PIPELINE.length - 1 && (
                   <div
-                    className="w-8 md:w-12 mx-1 flex-shrink-0 dash-flow"
+                    className="w-8 md:w-12 h-[2px] mx-1 flex-shrink-0 dash-flow"
                     style={{
                       backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.25) 50%, transparent 50%)",
                     }}
@@ -300,18 +331,21 @@ export default function Hub() {
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             {NUMBERS.map((n, i) => (
               <Reveal key={n.label} delay={i * 80}>
-                <div className="border-b border-r border-gray-100 py-16 md:py-20 px-8 md:px-16">
+                <div className="border-t-2 border-r border-b border-gray-100 py-12 md:py-16 px-8 md:px-14">
                   <div
                     className="font-barlow italic font-900 text-[#E41513] leading-none"
-                    style={{ fontSize: "clamp(4rem, 9vw, 9rem)" }}
+                    style={{ fontSize: "clamp(3.5rem, 6vw, 7rem)" }}
                   >
                     {n.value}
                   </div>
                   <div className="font-barlow font-700 uppercase tracking-[0.2em] text-sm text-[#9CA3AF] mt-4">
                     {n.label}
+                  </div>
+                  <div className="font-barlow font-400 text-xs text-gray-400 mt-2">
+                    {n.ctx}
                   </div>
                 </div>
               </Reveal>
@@ -484,18 +518,38 @@ export default function Hub() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-16">
             {ENTITIES.map((e, i) => (
               <Reveal key={e.code} delay={i * 50}>
-                <div className="entity-card group bg-white border border-gray-100 rounded-2xl p-7 transition-all duration-300 hover:bg-[#0A0A0A] hover:-translate-y-1 cursor-default">
-                  <div
-                    className="font-barlow font-900 italic text-6xl text-[#E41513] leading-none"
-                  >
-                    {e.code}
+                <div className="flip-card w-full h-[210px]">
+                  <div className="flip-card-inner">
+                    {/* FRONT */}
+                    <div className="flip-face bg-white border border-gray-100 rounded-2xl p-7">
+                      <div className="font-barlow font-900 italic text-6xl text-[#E41513] leading-none">
+                        {e.code}
+                      </div>
+                      <h3 className="font-barlow font-600 text-sm text-gray-700 mt-4 leading-snug">
+                        {e.name}
+                      </h3>
+                      <span className="inline-block mt-4 px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-[10px] font-barlow font-700 uppercase tracking-widest">
+                        {e.type}
+                      </span>
+                    </div>
+                    {/* BACK */}
+                    <div className="flip-face flip-back rounded-2xl p-7 flex flex-col justify-between" style={{ background: "#0A0A0A" }}>
+                      <div>
+                        <div className="font-barlow font-900 italic text-6xl text-white leading-none">
+                          {e.code}
+                        </div>
+                        <span
+                          className="inline-block mt-4 px-2.5 py-1 rounded-full text-[10px] font-barlow font-700 uppercase tracking-widest"
+                          style={{ background: "rgba(228,21,19,0.20)", color: "#E41513" }}
+                        >
+                          {e.type}
+                        </span>
+                      </div>
+                      <p className="font-barlow font-400 text-xs text-white/70 leading-snug">
+                        {e.ctx}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="font-barlow font-600 text-sm text-gray-700 mt-4 leading-snug group-hover:text-white transition-colors">
-                    {e.name}
-                  </h3>
-                  <span className="inline-block mt-5 px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-[10px] font-barlow font-700 uppercase tracking-widest group-hover:bg-[#E41513]/20 group-hover:text-red-300 transition-colors">
-                    {e.type}
-                  </span>
                 </div>
               </Reveal>
             ))}
