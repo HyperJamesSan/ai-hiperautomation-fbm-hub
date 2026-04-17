@@ -110,82 +110,8 @@ export default function Hub() {
     <div className="min-h-screen bg-white font-barlow text-[#111111]">
       <GlobalHeader />
 
-      {/* ============ HERO — DARK CINEMATIC ============ */}
-      <section className="relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-20 px-6 mesh-bg">
-        <ParticleField variant="hero" tone="white" interactive />
-
-        {/* Soft red halo behind headline */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute"
-          style={{
-            width: 600,
-            height: 400,
-            borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(228,21,19,0.12) 0%, transparent 70%)",
-            filter: "blur(60px)",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -60%)",
-            zIndex: 1,
-          }}
-        />
-
-        <div className="relative z-10 max-w-6xl mx-auto text-center flex flex-col items-center">
-          {/* Status bar */}
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] backdrop-blur-sm text-white text-[10px] md:text-xs font-barlow font-700 uppercase tracking-[0.16em]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] live-pulse-dot" />
-              Pipeline Live
-            </span>
-            <span className="px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] backdrop-blur-sm text-white/80 text-[10px] md:text-xs font-barlow font-600 uppercase tracking-[0.16em]">
-              M1 · UAT Pass · 16 Apr 2026
-            </span>
-            <span className="px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] backdrop-blur-sm text-white/80 text-[10px] md:text-xs font-barlow font-600 uppercase tracking-[0.16em]">
-              Q2 2026
-            </span>
-          </div>
-
-          <h1
-            className="font-barlow italic font-900 text-white tracking-tight"
-            style={{ fontSize: "clamp(4rem, 8vw, 9rem)", lineHeight: 0.9 }}
-          >
-            Hyperautomation
-          </h1>
-          <h1
-            className="font-barlow italic font-900 tracking-tight"
-            style={{ fontSize: "clamp(4rem, 8vw, 9rem)", lineHeight: 0.9, color: "#E41513" }}
-          >
-            Finance.
-          </h1>
-
-          <p className="font-barlow font-400 text-lg md:text-xl text-white/60 max-w-xl mx-auto mt-8">
-            8 entities. 5 modules. Zero manual bottlenecks.
-          </p>
-
-          <a
-            href="#pipeline"
-            className="inline-flex items-center gap-2 mt-10 rounded-full bg-[#E41513] text-white font-barlow font-700 px-10 py-4 text-lg transition-all duration-300 hover:scale-105"
-            style={{ boxShadow: "0 0 0 rgba(228,21,19,0)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 40px rgba(228,21,19,0.5)")}
-            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 0 rgba(228,21,19,0)")}
-          >
-            Explore the pipeline <ArrowRight className="w-5 h-5" />
-          </a>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 mt-16 w-full">
-            <GlassKpi value="384" label="Invoices" delay={100} />
-            <GlassKpi value="100%" label="Accuracy" delay={200} />
-            <GlassKpi value="0" label="P0 Bugs" delay={300} />
-            <GlassKpi value="8" label="Entities" delay={400} />
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-          <ChevronDown className="w-6 h-6 text-white/40 bounce-soft" />
-        </div>
-      </section>
+      {/* ============ HERO — LIGHT, CINEMATIC, ANIMATED MESH ============ */}
+      <HeroLight />
 
       {/* ============ SECTION 2 — THE PROBLEM ============ */}
       <section className="bg-white py-24 md:py-32 px-6">
