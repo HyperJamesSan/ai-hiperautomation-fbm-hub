@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import ParticleField from "@/components/effects/ParticleField";
 
 /* Splits text into spans with staggered char-rise animation */
 function AnimatedHeadline({
@@ -79,8 +80,11 @@ export default function HeroLight() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-20 px-6 mesh-light"
+      className="hero-grain relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-20 px-6 mesh-light"
     >
+      {/* Interactive particle field (white dots, repel on hover) */}
+      <ParticleField variant="hero" interactive tone="white" />
+
       {/* Drifting gradient orbs (parallax) */}
       <div
         aria-hidden
@@ -151,7 +155,25 @@ export default function HeroLight() {
           className="relative font-barlow italic font-900 tracking-tight text-[#E41513]"
           style={{ fontSize: "clamp(4rem, 9vw, 10rem)", lineHeight: 0.88 }}
         >
-          <AnimatedHeadline text="Finance." startDelay={150 + 15 * 35} />
+          {/* Cinematic red halo behind Finance. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute"
+            style={{
+              width: 500,
+              height: 300,
+              borderRadius: "50%",
+              background: "radial-gradient(ellipse, rgba(228,21,19,0.18) 0%, transparent 70%)",
+              filter: "blur(80px)",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 1,
+            }}
+          />
+          <span className="relative" style={{ zIndex: 10 }}>
+            <AnimatedHeadline text="Finance." startDelay={150 + 15 * 35} />
+          </span>
           <span
             aria-hidden
             className="underline-draw absolute left-0 right-0 -bottom-2 h-[6px] rounded-full bg-[#E41513]/85"
