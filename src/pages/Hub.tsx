@@ -114,6 +114,23 @@ export default function Hub() {
       <section className="relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-20 px-6 mesh-bg">
         <ParticleField variant="hero" tone="white" interactive />
 
+        {/* Soft red halo behind headline */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            width: 600,
+            height: 400,
+            borderRadius: "50%",
+            background: "radial-gradient(ellipse, rgba(228,21,19,0.12) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -60%)",
+            zIndex: 1,
+          }}
+        />
+
         <div className="relative z-10 max-w-6xl mx-auto text-center flex flex-col items-center">
           {/* Status bar */}
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10">
@@ -157,10 +174,10 @@ export default function Hub() {
           </a>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 mt-16 w-full">
-            <GlassKpi target={384} label="Invoices" />
-            <GlassKpi target={100} suffix="%" label="Accuracy" />
-            <GlassKpi target={0} label="P0 Bugs" />
-            <GlassKpi target={8} label="Entities" />
+            <GlassKpi value="384" label="Invoices" delay={100} />
+            <GlassKpi value="100%" label="Accuracy" delay={200} />
+            <GlassKpi value="0" label="P0 Bugs" delay={300} />
+            <GlassKpi value="8" label="Entities" delay={400} />
           </div>
         </div>
 
@@ -179,22 +196,18 @@ export default function Hub() {
             </div>
             <div className="space-y-10">
               <div>
-                <div
-                  className="font-barlow italic font-900 text-[#E41513] leading-none text-5xl md:text-6xl"
-                >
+                <div className="font-barlow italic font-900 text-[#111111] leading-none text-5xl md:text-6xl">
                   12–17 min
                 </div>
-                <p className="font-barlow font-400 text-sm text-[#6B7280] mt-3">
+                <p className="font-barlow font-400 text-sm text-[#374151] mt-3">
                   per invoice, before automation
                 </p>
               </div>
               <div>
-                <div
-                  className="font-barlow italic font-900 text-[#E41513] leading-none text-5xl md:text-6xl"
-                >
+                <div className="font-barlow italic font-900 text-[#111111] leading-none text-5xl md:text-6xl">
                   100–125
                 </div>
-                <p className="font-barlow font-400 text-sm text-[#6B7280] mt-3">
+                <p className="font-barlow font-400 text-sm text-[#374151] mt-3">
                   invoices processed monthly, manually
                 </p>
               </div>
