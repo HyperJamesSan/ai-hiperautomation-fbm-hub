@@ -8,7 +8,6 @@ import {
 import GlobalHeader from "@/components/GlobalHeader";
 import ParticleField from "@/components/effects/ParticleField";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { useCountUp } from "@/hooks/useCountUp";
 
 /* ---------- Helpers ---------- */
 
@@ -25,23 +24,21 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   );
 }
 
-function GlassKpi({ target, suffix = "", label }: { target: number; suffix?: string; label: string }) {
-  const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>(0.4);
-  const value = useCountUp(target, isVisible, 2000);
+function GlassKpi({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
   return (
     <div
-      ref={ref}
-      className="rounded-[20px] px-6 py-6 md:px-10 md:py-8 text-center backdrop-blur-xl border"
+      className="kpi-fade rounded-[20px] px-6 py-6 md:px-10 md:py-8 text-center backdrop-blur-xl border"
       style={{
         background: "rgba(255,255,255,0.05)",
         borderColor: "rgba(255,255,255,0.10)",
+        animationDelay: `${delay}ms`,
       }}
     >
       <div
         className="font-barlow italic font-900 text-[#E41513] leading-none"
         style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
       >
-        {value}{suffix}
+        {value}
       </div>
       <div className="font-barlow font-600 uppercase text-[10px] md:text-xs tracking-[0.18em] text-white/50 mt-3">
         {label}
@@ -117,6 +114,23 @@ export default function Hub() {
       <section className="relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-20 px-6 mesh-bg">
         <ParticleField variant="hero" tone="white" interactive />
 
+        {/* Soft red halo behind headline */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            width: 600,
+            height: 400,
+            borderRadius: "50%",
+            background: "radial-gradient(ellipse, rgba(228,21,19,0.12) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -60%)",
+            zIndex: 1,
+          }}
+        />
+
         <div className="relative z-10 max-w-6xl mx-auto text-center flex flex-col items-center">
           {/* Status bar */}
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10">
@@ -160,10 +174,10 @@ export default function Hub() {
           </a>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 mt-16 w-full">
-            <GlassKpi target={384} label="Invoices" />
-            <GlassKpi target={100} suffix="%" label="Accuracy" />
-            <GlassKpi target={0} label="P0 Bugs" />
-            <GlassKpi target={8} label="Entities" />
+            <GlassKpi value="384" label="Invoices" delay={100} />
+            <GlassKpi value="100%" label="Accuracy" delay={200} />
+            <GlassKpi value="0" label="P0 Bugs" delay={300} />
+            <GlassKpi value="8" label="Entities" delay={400} />
           </div>
         </div>
 
@@ -182,22 +196,18 @@ export default function Hub() {
             </div>
             <div className="space-y-10">
               <div>
-                <div
-                  className="font-barlow italic font-900 text-[#E41513] leading-none text-5xl md:text-6xl"
-                >
+                <div className="font-barlow italic font-900 text-[#111111] leading-none text-5xl md:text-6xl">
                   12–17 min
                 </div>
-                <p className="font-barlow font-400 text-sm text-[#6B7280] mt-3">
+                <p className="font-barlow font-400 text-sm text-[#374151] mt-3">
                   per invoice, before automation
                 </p>
               </div>
               <div>
-                <div
-                  className="font-barlow italic font-900 text-[#E41513] leading-none text-5xl md:text-6xl"
-                >
+                <div className="font-barlow italic font-900 text-[#111111] leading-none text-5xl md:text-6xl">
                   100–125
                 </div>
-                <p className="font-barlow font-400 text-sm text-[#6B7280] mt-3">
+                <p className="font-barlow font-400 text-sm text-[#374151] mt-3">
                   invoices processed monthly, manually
                 </p>
               </div>
