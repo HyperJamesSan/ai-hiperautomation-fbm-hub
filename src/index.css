@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600;700&family=Barlow:ital,wght@0,400;0,600;0,700;0,800;0,900;1,900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -173,6 +173,52 @@
     font-family: 'JetBrains Mono', monospace;
     font-variant-numeric: tabular-nums;
   }
+
+  .font-barlow {
+    font-family: 'Barlow', sans-serif;
+  }
+}
+
+/* FBM Hub — cinematic tokens & animations */
+:root {
+  --fbm-red-hex: #E41513;
+  --fbm-red-dim: rgba(228, 21, 19, 0.08);
+  --fbm-red-glow: rgba(228, 21, 19, 0.25);
+  --fbm-dark-hex: #0F172A;
+  --fbm-gray-hex: #F9FAFB;
+  --fbm-green-hex: #22C55E;
+}
+
+.section-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.section-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45); }
+  50%      { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+}
+.live-pulse-dot { animation: live-pulse 1.8s ease-in-out infinite; }
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(228,21,19,0.15), 0 0 20px rgba(228,21,19,0.10); }
+  50%      { box-shadow: 0 0 0 6px rgba(228,21,19,0.25), 0 0 40px rgba(228,21,19,0.20); }
+}
+.glow-pulse { animation: glow-pulse 2.4s ease-in-out infinite; }
+
+@keyframes dash-flow { to { background-position: -24px 0; } }
+.dash-flow {
+  background-image: linear-gradient(90deg, #d1d5db 50%, transparent 50%);
+  background-size: 12px 2px;
+  background-repeat: repeat-x;
+  background-position: 0 50%;
+  animation: dash-flow 1.2s linear infinite;
+  height: 2px;
 }
 
 /* Scrollbar */
