@@ -11,7 +11,7 @@ const nav = [
 
 export default function GlobalHeader() {
   const { pathname } = useLocation();
-  const isHub = pathname === "/";
+  const isHub = false;
   return (
     <motion.header
       initial={{ opacity: 0, y: -10 }}

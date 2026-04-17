@@ -1,0 +1,207 @@
+import { useEffect, useRef, useState } from "react";
+import { Mail, FileText, Brain, GitBranch, FolderOpen, Bell, BookOpen } from "lucide-react";
+
+type Node = {
+  Icon: typeof Mail;
+  label: string;
+  tool: string;
+  step: string;
+  desc: string;
+  accent: string; // pastel halo
+  isAi?: boolean;
+};
+
+const NODES: Node[] = [
+  { Icon: Mail, label: "Email Received", tool: "M365", step: "Trigger", desc: "M365 inbox · PDF attached", accent: "#A7F3D0" },
+  { Icon: FileText, label: "PDF Validated", tool: "n8n", step: "Validate", desc: "Format · size · text extracted", accent: "#BAE6FD" },
+  { Icon: Brain, label: "AI Brain", tool: "Claude API", step: "Classify", desc: "PROMPT v1.4 · confidence", accent: "#E41513", isAi: true },
+  { Icon: GitBranch, label: "Confidence Router", tool: "≥90% / <90%", step: "Route", desc: "Auto-file or manual queue", accent: "#FDE68A" },
+  { Icon: FolderOpen, label: "Filed in Dropbox", tool: "DRB Business", step: "Store", desc: "/AP/{ENTITY_CODE}/", accent: "#DDD6FE" },
+  { Icon: Bell, label: "AP Notified", tool: "M365", step: "Notify", desc: "Executive email summary", accent: "#A7F3D0" },
+  { Icon: BookOpen, label: "Audit Logged", tool: "Notion", step: "Log", desc: "ISO timestamp · outcome", accent: "#FBCFE8" },
+];
+
+export default function PipelineFlow() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [pts, setPts] = useState<{ x: number; y: number }[]>([]);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const measure = () => {
+      const c = containerRef.current;
+      if (!c) return;
+      const cr = c.getBoundingClientRect();
+      const next: { x: number; y: number }[] = [];
+      const els = c.querySelectorAll<HTMLElement>("[data-node]");
+      els.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        next.push({ x: r.left - cr.left + r.width / 2, y: r.top - cr.top + r.height / 2 });
+      });
+      setPts(next);
+      setSize({ w: cr.width, h: cr.height });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  // Build smooth bezier path through nodes
+  const pathD = pts.length
+    ? pts.reduce((acc, p, i) => {
+        if (i === 0) return `M ${p.x} ${p.y}`;
+        const prev = pts[i - 1];
+        const cx = (prev.x + p.x) / 2;
+        return `${acc} C ${cx} ${prev.y}, ${cx} ${p.y}, ${p.x} ${p.y}`;
+      }, "")
+    : "";
+
+  return (
+    <section
+      id="pipeline"
+      className="relative overflow-hidden py-28 md:py-36 px-6"
+      style={{ background: "linear-gradient(180deg, #FBF7F2 0%, #F4EDE6 100%)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-20">
+          <div className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.22em] text-xs md:text-sm mb-5">
+            The Pipeline
+          </div>
+          <h2
+            className="font-barlow italic font-900 text-[#0A0A0A] leading-[0.92]"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)" }}
+          >
+            Seven steps. <span className="text-[#E41513]">One flow.</span>
+          </h2>
+          <p className="font-barlow font-400 text-base md:text-lg text-[#374151] mt-6 max-w-2xl mx-auto">
+            Every invoice travels the same path — from inbox to audit log — in seconds.
+          </p>
+        </div>
+
+        <div
+          ref={containerRef}
+          className="relative"
+          style={{ minHeight: 360 }}
+        >
+          {/* SVG flowing line */}
+          {size.w > 0 && (
+            <svg
+              className="absolute inset-0 pointer-events-none"
+              width={size.w}
+              height={size.h}
+              viewBox={`0 0 ${size.w} ${size.h}`}
+              fill="none"
+            >
+              <defs>
+                <linearGradient id="flow-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#A7F3D0" />
+                  <stop offset="35%" stopColor="#E41513" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#FBCFE8" />
+                </linearGradient>
+                <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="6" />
+                </filter>
+              </defs>
+
+              {/* Soft glow underlay */}
+              <path
+                d={pathD}
+                stroke="url(#flow-grad)"
+                strokeWidth={14}
+                strokeLinecap="round"
+                opacity={0.25}
+                filter="url(#glow-soft)"
+              />
+              {/* Solid base line */}
+              <path
+                d={pathD}
+                stroke="rgba(17,17,17,0.10)"
+                strokeWidth={2}
+                strokeLinecap="round"
+              />
+              {/* Marching dashes (the "flow") */}
+              <path
+                d={pathD}
+                stroke="url(#flow-grad)"
+                strokeWidth={3}
+                strokeLinecap="round"
+                strokeDasharray="6 18"
+                className="path-march"
+              />
+            </svg>
+          )}
+
+          {/* Nodes row */}
+          <div className="relative z-10 grid grid-cols-7 gap-4 md:gap-6 overflow-x-auto md:overflow-visible">
+            {NODES.map(({ Icon, label, tool, step, desc, accent, isAi }, i) => (
+              <div
+                key={label}
+                data-node
+                className="flex flex-col items-center text-center min-w-[140px]"
+              >
+                {/* Step number */}
+                <div className="font-barlow font-900 italic text-xs tracking-widest text-[#9CA3AF] mb-2">
+                  0{i + 1} · {step}
+                </div>
+
+                {/* Halo + Node circle */}
+                <div className="relative">
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 rounded-full"
+                    style={{
+                      background: accent,
+                      filter: "blur(22px)",
+                      opacity: isAi ? 0.55 : 0.6,
+                      transform: "scale(1.4)",
+                    }}
+                  />
+                  <div
+                    className="relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center bg-white"
+                    style={{
+                      border: isAi ? "2px solid #E41513" : "1px solid rgba(17,17,17,0.06)",
+                      boxShadow: isAi
+                        ? "0 18px 40px rgba(228,21,19,0.30), 0 0 0 6px rgba(228,21,19,0.08)"
+                        : "0 12px 30px rgba(17,17,17,0.08)",
+                    }}
+                  >
+                    <Icon
+                      className="w-8 h-8 md:w-9 md:h-9"
+                      style={{ color: isAi ? "#E41513" : "#0A0A0A" }}
+                    />
+                  </div>
+                  {isAi && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] font-barlow font-900 uppercase tracking-widest bg-[#E41513] text-white whitespace-nowrap">
+                      AI Brain
+                    </div>
+                  )}
+                </div>
+
+                {/* Label */}
+                <div className="font-barlow font-700 text-sm md:text-base text-[#0A0A0A] mt-5 leading-tight">
+                  {label}
+                </div>
+                <div
+                  className="mt-2 inline-block px-3 py-1 rounded-full text-[10px] font-barlow font-700"
+                  style={{
+                    background: isAi ? "rgba(228,21,19,0.10)" : "rgba(17,17,17,0.05)",
+                    color: isAi ? "#E41513" : "#374151",
+                  }}
+                >
+                  {tool}
+                </div>
+                <p className="font-barlow font-400 text-[11px] md:text-xs text-[#6B7280] mt-3 max-w-[140px] leading-snug">
+                  {desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

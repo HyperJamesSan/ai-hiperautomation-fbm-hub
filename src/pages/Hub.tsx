@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight, AlertTriangle, User, FileX, Mail, FileText, Brain, GitBranch,
   FolderOpen, Bell, BookOpen, Zap, Package, Shield, BarChart2, CheckCircle2,
-  Lightbulb, ChevronDown,
+  Lightbulb,
 } from "lucide-react";
 import GlobalHeader from "@/components/GlobalHeader";
 import ParticleField from "@/components/effects/ParticleField";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import HeroLight from "@/components/hub/HeroLight";
+import PipelineFlow from "@/components/hub/PipelineFlow";
 
 /* ---------- Helpers ---------- */
 
@@ -24,28 +26,7 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   );
 }
 
-function GlassKpi({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
-  return (
-    <div
-      className="kpi-fade rounded-[20px] px-6 py-6 md:px-10 md:py-8 text-center backdrop-blur-xl border"
-      style={{
-        background: "rgba(255,255,255,0.05)",
-        borderColor: "rgba(255,255,255,0.10)",
-        animationDelay: `${delay}ms`,
-      }}
-    >
-      <div
-        className="font-barlow italic font-900 text-[#E41513] leading-none"
-        style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
-      >
-        {value}
-      </div>
-      <div className="font-barlow font-600 uppercase text-[10px] md:text-xs tracking-[0.18em] text-white/50 mt-3">
-        {label}
-      </div>
-    </div>
-  );
-}
+/* GlassKpi moved into HeroLight */
 
 /* ---------- Data ---------- */
 
@@ -110,82 +91,8 @@ export default function Hub() {
     <div className="min-h-screen bg-white font-barlow text-[#111111]">
       <GlobalHeader />
 
-      {/* ============ HERO — DARK CINEMATIC ============ */}
-      <section className="relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-20 px-6 mesh-bg">
-        <ParticleField variant="hero" tone="white" interactive />
-
-        {/* Soft red halo behind headline */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute"
-          style={{
-            width: 600,
-            height: 400,
-            borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(228,21,19,0.12) 0%, transparent 70%)",
-            filter: "blur(60px)",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -60%)",
-            zIndex: 1,
-          }}
-        />
-
-        <div className="relative z-10 max-w-6xl mx-auto text-center flex flex-col items-center">
-          {/* Status bar */}
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] backdrop-blur-sm text-white text-[10px] md:text-xs font-barlow font-700 uppercase tracking-[0.16em]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] live-pulse-dot" />
-              Pipeline Live
-            </span>
-            <span className="px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] backdrop-blur-sm text-white/80 text-[10px] md:text-xs font-barlow font-600 uppercase tracking-[0.16em]">
-              M1 · UAT Pass · 16 Apr 2026
-            </span>
-            <span className="px-4 py-2 rounded-full border border-white/15 bg-white/[0.08] backdrop-blur-sm text-white/80 text-[10px] md:text-xs font-barlow font-600 uppercase tracking-[0.16em]">
-              Q2 2026
-            </span>
-          </div>
-
-          <h1
-            className="font-barlow italic font-900 text-white tracking-tight"
-            style={{ fontSize: "clamp(4rem, 8vw, 9rem)", lineHeight: 0.9 }}
-          >
-            Hyperautomation
-          </h1>
-          <h1
-            className="font-barlow italic font-900 tracking-tight"
-            style={{ fontSize: "clamp(4rem, 8vw, 9rem)", lineHeight: 0.9, color: "#E41513" }}
-          >
-            Finance.
-          </h1>
-
-          <p className="font-barlow font-400 text-lg md:text-xl text-white/60 max-w-xl mx-auto mt-8">
-            8 entities. 5 modules. Zero manual bottlenecks.
-          </p>
-
-          <a
-            href="#pipeline"
-            className="inline-flex items-center gap-2 mt-10 rounded-full bg-[#E41513] text-white font-barlow font-700 px-10 py-4 text-lg transition-all duration-300 hover:scale-105"
-            style={{ boxShadow: "0 0 0 rgba(228,21,19,0)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 40px rgba(228,21,19,0.5)")}
-            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 0 rgba(228,21,19,0)")}
-          >
-            Explore the pipeline <ArrowRight className="w-5 h-5" />
-          </a>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 mt-16 w-full">
-            <GlassKpi value="384" label="Invoices" delay={100} />
-            <GlassKpi value="100%" label="Accuracy" delay={200} />
-            <GlassKpi value="0" label="P0 Bugs" delay={300} />
-            <GlassKpi value="8" label="Entities" delay={400} />
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-          <ChevronDown className="w-6 h-6 text-white/40 bounce-soft" />
-        </div>
-      </section>
+      {/* ============ HERO — LIGHT, CINEMATIC, ANIMATED MESH ============ */}
+      <HeroLight />
 
       {/* ============ SECTION 2 — THE PROBLEM ============ */}
       <section className="bg-white py-24 md:py-32 px-6">
@@ -253,81 +160,8 @@ export default function Hub() {
         </p>
       </div>
 
-      {/* ============ SECTION 3 — PIPELINE (DARK) ============ */}
-      <section id="pipeline" className="bg-[#0A0A0A] py-24 md:py-32 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <Reveal>
-            <div className="text-white/50 font-barlow font-700 uppercase tracking-[0.2em] text-sm mb-4">
-              The Pipeline
-            </div>
-            <h2 className="font-barlow font-900 text-white leading-[0.95]" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>
-              7 nodes. End-to-end.
-            </h2>
-          </Reveal>
-
-          <div className="mt-16 flex items-center gap-3 overflow-x-auto pb-6">
-            {PIPELINE.map(({ Icon, label, tool, glow, accent, backTitle, backDesc }, i) => (
-              <Reveal key={label} delay={i * 100} className="flex items-center flex-shrink-0">
-                <div className="flip-card w-[150px] h-[200px] flex-shrink-0">
-                  <div className="flip-card-inner">
-                    {/* FRONT */}
-                    <div
-                      className={`flip-face rounded-2xl p-6 text-center border ${glow ? "glow-pulse" : ""}`}
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        borderColor: glow ? "rgba(228,21,19,0.4)" : "rgba(255,255,255,0.08)",
-                      }}
-                    >
-                      <Icon className="w-10 h-10 text-[#E41513] mx-auto" />
-                      <div className="font-barlow font-700 text-sm text-white mt-4 leading-tight">
-                        {label}
-                      </div>
-                      <div
-                        className="mt-3 inline-block px-3 py-1 rounded-full text-[10px] font-barlow font-700"
-                        style={{ background: "rgba(228,21,19,0.15)", color: "#E41513" }}
-                      >
-                        {tool}
-                      </div>
-                      {glow && (
-                        <div className="mt-2 text-[9px] font-barlow font-700 uppercase tracking-widest text-[#E41513]">
-                          AI Brain
-                        </div>
-                      )}
-                    </div>
-                    {/* BACK */}
-                    <div
-                      className="flip-face flip-back rounded-2xl p-5 text-center flex flex-col justify-center"
-                      style={{
-                        background: "#0A0A0A",
-                        border: "1px solid rgba(228,21,19,0.30)",
-                        borderTop: `4px solid ${accent}`,
-                      }}
-                    >
-                      <div
-                        className="font-barlow font-900 uppercase text-xs tracking-[0.2em] mb-3"
-                        style={{ color: accent }}
-                      >
-                        {backTitle}
-                      </div>
-                      <p className="font-barlow font-400 text-[11px] text-white/75 leading-snug">
-                        {backDesc}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {i < PIPELINE.length - 1 && (
-                  <div
-                    className="w-8 md:w-12 h-[2px] mx-1 flex-shrink-0 dash-flow"
-                    style={{
-                      backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.25) 50%, transparent 50%)",
-                    }}
-                  />
-                )}
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ============ SECTION 3 — PIPELINE (LIGHT, FLOWING) ============ */}
+      <PipelineFlow />
 
       {/* ============ SECTION 4 — NUMBERS (white, full-bleed grid) ============ */}
       <section className="bg-white py-24 md:py-32">
