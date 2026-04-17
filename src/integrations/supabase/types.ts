@@ -14,7 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      automation_ideas: {
+        Row: {
+          area: string
+          created_at: string
+          id: string
+          idea: string
+          name: string
+          time_estimate: string
+        }
+        Insert: {
+          area: string
+          created_at?: string
+          id?: string
+          idea: string
+          name: string
+          time_estimate: string
+        }
+        Update: {
+          area?: string
+          created_at?: string
+          id?: string
+          idea?: string
+          name?: string
+          time_estimate?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
