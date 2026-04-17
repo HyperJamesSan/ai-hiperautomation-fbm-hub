@@ -8,7 +8,6 @@ import {
 import GlobalHeader from "@/components/GlobalHeader";
 import ParticleField from "@/components/effects/ParticleField";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { useCountUp } from "@/hooks/useCountUp";
 
 /* ---------- Helpers ---------- */
 
@@ -25,23 +24,21 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   );
 }
 
-function GlassKpi({ target, suffix = "", label }: { target: number; suffix?: string; label: string }) {
-  const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>(0.4);
-  const value = useCountUp(target, isVisible, 2000);
+function GlassKpi({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
   return (
     <div
-      ref={ref}
-      className="rounded-[20px] px-6 py-6 md:px-10 md:py-8 text-center backdrop-blur-xl border"
+      className="kpi-fade rounded-[20px] px-6 py-6 md:px-10 md:py-8 text-center backdrop-blur-xl border"
       style={{
         background: "rgba(255,255,255,0.05)",
         borderColor: "rgba(255,255,255,0.10)",
+        animationDelay: `${delay}ms`,
       }}
     >
       <div
         className="font-barlow italic font-900 text-[#E41513] leading-none"
         style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
       >
-        {value}{suffix}
+        {value}
       </div>
       <div className="font-barlow font-600 uppercase text-[10px] md:text-xs tracking-[0.18em] text-white/50 mt-3">
         {label}
