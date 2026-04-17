@@ -94,6 +94,21 @@ export default function Hub() {
       {/* ============ HERO — LIGHT, CINEMATIC, ANIMATED MESH ============ */}
       <HeroLight />
 
+      {/* ============ MARQUEE TICKER ============ */}
+      <div className="relative overflow-hidden bg-[#E41513]" style={{ height: 44 }}>
+        <div className="marquee-track h-full items-center">
+          {[0, 1].map((k) => (
+            <span
+              key={k}
+              className="font-barlow font-700 uppercase text-sm text-white px-6 flex items-center"
+              style={{ letterSpacing: "0.1em", height: 44 }}
+            >
+              M1 ACTIVE&nbsp; · &nbsp;UAT PASS APR 2026&nbsp; · &nbsp;100% INVOICE ACCURACY&nbsp; · &nbsp;384 PDFs CLASSIFIED&nbsp; · &nbsp;0 P0 BUGS&nbsp; · &nbsp;Q2 2026 GO-LIVE&nbsp; · &nbsp;8 ENTITIES&nbsp; · &nbsp;98% AUTO-ROUTE&nbsp; · &nbsp;
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ============ SECTION 2 — THE PROBLEM ============ */}
       <section className="bg-white py-24 md:py-32 px-6">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
