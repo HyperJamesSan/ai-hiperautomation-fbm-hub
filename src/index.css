@@ -326,7 +326,6 @@
   55%  { opacity: 1; filter: blur(0.6px); transform: translate3d(0, -0.02em, 0) scale(1.015); }
   100% { opacity: 1; filter: blur(0);   transform: translate3d(0, 0, 0) scale(1); }
 }
-}
 
 /* Typewriter caret — metallic red FBM (no blink, only metallic shimmer)
    Edges are softened with a vertical mask gradient — no hard borders. */
