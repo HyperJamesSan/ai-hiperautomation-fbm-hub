@@ -254,66 +254,96 @@ function MetricTile({
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      className="group relative text-left rounded-2xl p-4 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E41513]"
+      className="group relative text-left rounded-2xl p-5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E41513] overflow-hidden"
       style={{
         background: isActive
-          ? "linear-gradient(135deg, #ffffff 0%, #FFF5F5 100%)"
-          : "rgba(255,255,255,0.7)",
+          ? "linear-gradient(160deg, #FFFFFF 0%, #FFF8F8 60%, #FCEAEA 100%)"
+          : "linear-gradient(160deg, #FFFFFF 0%, #FAFBFC 100%)",
         border: isActive
-          ? "1px solid rgba(228,21,19,0.5)"
-          : "1px solid rgba(17,17,17,0.06)",
+          ? "1px solid rgba(228,21,19,0.45)"
+          : "1px solid rgba(17,17,17,0.07)",
         opacity: isDimmed ? 0.4 : 1,
         boxShadow: isActive
-          ? "0 14px 36px -16px rgba(228,21,19,0.45), 0 1px 0 rgba(255,255,255,0.9) inset"
-          : "0 1px 2px rgba(17,17,17,0.04)",
+          ? "0 22px 50px -22px rgba(228,21,19,0.45), 0 2px 0 rgba(255,255,255,0.95) inset, 0 0 0 1px rgba(228,21,19,0.08)"
+          : "0 8px 24px -16px rgba(17,24,39,0.18), 0 1px 0 rgba(255,255,255,0.9) inset",
         transitionDelay: `${index * 40}ms`,
+        transform: isActive ? "translateY(-2px)" : "translateY(0)",
       }}
     >
-      {/* Active accent bar */}
+      {/* Top gradient stripe (accent color) */}
       <span
         aria-hidden
-        className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full transition-all"
+        className="absolute top-0 inset-x-0 h-[3px] transition-opacity"
         style={{
-          background: isActive ? "#E41513" : "transparent",
+          background: isActive
+            ? `linear-gradient(90deg, transparent 0%, ${metric.accent} 50%, transparent 100%)`
+            : `linear-gradient(90deg, transparent 0%, ${metric.accent}66 50%, transparent 100%)`,
+          opacity: isActive ? 1 : 0.5,
         }}
       />
 
-      <div className="flex items-start justify-between mb-2">
-        <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
-          style={{
-            background: isActive
-              ? "rgba(228,21,19,0.12)"
-              : `${metric.accent}24`,
-          }}
-        >
-          <Icon
-            className="w-4 h-4"
-            style={{ color: isActive ? "#E41513" : metric.accent }}
+      {/* Soft accent corner glow */}
+      <span
+        aria-hidden
+        className="absolute -top-10 -right-10 w-32 h-32 rounded-full pointer-events-none transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(closest-side, ${metric.accent}40, transparent 70%)`,
+          filter: "blur(10px)",
+          opacity: isActive ? 0.9 : 0,
+        }}
+      />
+
+      <div className="relative z-10">
+        <div className="flex items-start justify-between mb-3">
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300"
+            style={{
+              background: isActive
+                ? `linear-gradient(135deg, ${metric.accent}26, ${metric.accent}10)`
+                : `${metric.accent}1A`,
+              border: `1px solid ${metric.accent}33`,
+              boxShadow: isActive
+                ? `0 6px 14px -6px ${metric.accent}66`
+                : "none",
+            }}
+          >
+            <Icon
+              className="w-4 h-4"
+              style={{ color: metric.accent }}
+            />
+          </div>
+          <ArrowUpRight
+            className="w-3.5 h-3.5 transition-all"
+            style={{
+              color: isActive ? "#E41513" : "rgba(17,17,17,0.3)",
+              transform: isActive ? "translate(2px,-2px)" : "none",
+            }}
           />
         </div>
-        <ArrowUpRight
-          className="w-3.5 h-3.5 transition-all"
+
+        <div
+          className="font-barlow italic font-900 leading-none tabular-nums"
           style={{
-            color: isActive ? "#E41513" : "rgba(17,17,17,0.25)",
-            transform: isActive ? "translate(2px,-2px)" : "none",
+            fontSize: "clamp(1.85rem, 2.7vw, 2.65rem)",
+            color: "#0A0A0A",
+            letterSpacing: "-0.02em",
           }}
-        />
-      </div>
-      <div
-        className="font-barlow italic font-900 leading-none tabular-nums"
-        style={{
-          fontSize: "clamp(1.75rem, 2.6vw, 2.5rem)",
-          color: isActive ? "#0A0A0A" : "#111111",
-        }}
-      >
-        {metric.format(value)}
-      </div>
-      <div
-        className="font-barlow font-700 uppercase tracking-[0.18em] text-[10px] mt-2"
-        style={{ color: isActive ? "#E41513" : "rgba(17,17,17,0.55)" }}
-      >
-        {metric.label}
+        >
+          {metric.format(value)}
+        </div>
+
+        <div className="flex items-center gap-2 mt-3">
+          <span
+            className="h-[6px] w-[6px] rounded-full"
+            style={{ background: metric.accent }}
+          />
+          <div
+            className="font-barlow font-700 uppercase tracking-[0.18em] text-[10px]"
+            style={{ color: isActive ? "#E41513" : "rgba(17,17,17,0.6)" }}
+          >
+            {metric.label}
+          </div>
+        </div>
       </div>
     </button>
   );
@@ -335,32 +365,50 @@ function DetailPanel({ metric }: { metric: Metric }) {
       className="relative h-full rounded-2xl overflow-hidden p-8 md:p-10"
       style={{
         background:
-          "linear-gradient(150deg, #0F0F12 0%, #18090A 55%, #0B0B0E 100%)",
-        border: "1px solid rgba(228,21,19,0.22)",
+          "linear-gradient(150deg, #1F2230 0%, #2A2E3F 50%, #1A1D29 100%)",
+        border: "1px solid rgba(255,255,255,0.08)",
         boxShadow:
-          "0 30px 70px -30px rgba(228,21,19,0.35), 0 0 0 1px rgba(255,255,255,0.04) inset",
+          "0 30px 70px -30px rgba(31,34,48,0.55), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 1px 0 rgba(255,255,255,0.08) inset",
         animation: "numbers-fade-in 0.5s ease-out",
       }}
     >
-      {/* Glow */}
+      {/* Accent corner glow (uses metric color) */}
       <div
         aria-hidden
         className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full pointer-events-none"
         style={{
-          background: `radial-gradient(closest-side, ${metric.accent}40, transparent 70%)`,
+          background: `radial-gradient(closest-side, ${metric.accent}50, transparent 70%)`,
           filter: "blur(20px)",
+        }}
+      />
+      {/* Warm red wash bottom-left */}
+      <div
+        aria-hidden
+        className="absolute -bottom-32 -left-32 w-[380px] h-[380px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(closest-side, rgba(228,21,19,0.22), transparent 70%)",
+          filter: "blur(28px)",
         }}
       />
       {/* Subtle grid texture */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.06]"
+        className="absolute inset-0 pointer-events-none opacity-[0.05]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
           backgroundSize: "32px 32px",
           maskImage:
             "radial-gradient(ellipse at top right, #000 0%, transparent 70%)",
+        }}
+      />
+      {/* Top hairline */}
+      <div
+        aria-hidden
+        className="absolute top-0 inset-x-0 h-px"
+        style={{
+          background: `linear-gradient(90deg, transparent 0%, ${metric.accent}99 50%, transparent 100%)`,
         }}
       />
 
