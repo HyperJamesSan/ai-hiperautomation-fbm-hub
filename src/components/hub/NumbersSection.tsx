@@ -240,38 +240,38 @@ function MetricTile({
       className="group relative text-left rounded-2xl p-5 transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E41513]/40 overflow-hidden backdrop-blur-xl"
       style={{
         background: isActive
-          ? "linear-gradient(155deg, rgba(255,255,255,0.92) 0%, rgba(255,247,247,0.85) 100%)"
-          : "linear-gradient(155deg, rgba(255,255,255,0.65) 0%, rgba(250,250,252,0.55) 100%)",
+          ? "linear-gradient(155deg, rgba(255,255,255,0.95) 0%, rgba(248,249,251,0.88) 100%)"
+          : "linear-gradient(155deg, rgba(255,255,255,0.55) 0%, rgba(248,249,251,0.45) 100%)",
         border: isActive
-          ? "1px solid rgba(228,21,19,0.35)"
-          : "1px solid rgba(17,17,17,0.06)",
+          ? "1px solid rgba(17,24,39,0.14)"
+          : "1px solid rgba(17,24,39,0.05)",
         opacity: isDimmed ? 0.35 : 1,
         boxShadow: isActive
-          ? "0 24px 60px -28px rgba(228,21,19,0.40), 0 0 0 1px rgba(228,21,19,0.10) inset, 0 1px 0 rgba(255,255,255,0.9) inset"
-          : "0 10px 28px -18px rgba(17,24,39,0.18), 0 1px 0 rgba(255,255,255,0.85) inset",
+          ? "0 20px 48px -24px rgba(15,23,42,0.22), 0 0 0 1px rgba(255,255,255,0.95) inset, 0 1px 0 rgba(255,255,255,0.95) inset"
+          : "0 8px 22px -16px rgba(15,23,42,0.14), 0 1px 0 rgba(255,255,255,0.85) inset",
         transitionDelay: `${index * 30}ms`,
         transform: isActive ? "translateY(-2px)" : "translateY(0)",
       }}
     >
-      {/* Soft red wash — only on active */}
+      {/* Cool platinum wash — only on active */}
       <span
         aria-hidden
         className="absolute -top-16 -right-16 w-40 h-40 rounded-full pointer-events-none transition-opacity duration-500"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(228,21,19,0.20), transparent 70%)",
+            "radial-gradient(closest-side, rgba(15,23,42,0.06), transparent 70%)",
           filter: "blur(14px)",
           opacity: isActive ? 1 : 0,
         }}
       />
 
-      {/* Top hairline */}
+      {/* Top hairline — graphite with red micro-accent */}
       <span
         aria-hidden
         className="absolute top-0 inset-x-6 h-px transition-opacity"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(228,21,19,0.6) 50%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.25) 45%, rgba(228,21,19,0.55) 50%, rgba(15,23,42,0.25) 55%, transparent 100%)",
           opacity: isActive ? 1 : 0,
         }}
       />
