@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronUp, ChevronDown, Maximize, Minimize } from "lucide-react";
+import { ChevronUp, ChevronDown, Maximize, Minimize, Link as LinkIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import ValidationLayers from "@/components/ValidationLayers";
