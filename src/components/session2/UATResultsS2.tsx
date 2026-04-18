@@ -98,14 +98,14 @@ export default function UATResultsS2({ isActive }: { isActive: boolean }) {
           className="mt-6 fbm-card p-6 flex flex-col md:flex-row items-center gap-6"
         >
           <div className="flex-1 text-center md:text-left">
-            <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Before</div>
-            <div className="text-3xl font-mono font-bold text-muted-foreground line-through decoration-2">12–17 min</div>
+            <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Before · manual</div>
+            <div className="text-3xl font-mono font-bold text-muted-foreground line-through decoration-2">3–10 min</div>
             <div className="text-xs font-roboto text-muted-foreground">manual reading + filing per invoice</div>
           </div>
           <ArrowRight className="w-6 h-6 text-primary hidden md:block" />
           <div className="flex-1 text-center md:text-right">
-            <div className="text-[10px] font-mono uppercase tracking-widest text-primary">After</div>
-            <div className="text-3xl font-mono font-bold text-primary">&lt; 2 min</div>
+            <div className="text-[10px] font-mono uppercase tracking-widest text-primary">After · automated pipeline</div>
+            <div className="text-3xl font-mono font-bold text-primary">&lt; 30 sec</div>
             <div className="text-xs font-roboto text-muted-foreground">end-to-end · classified · routed · audited</div>
           </div>
         </motion.div>

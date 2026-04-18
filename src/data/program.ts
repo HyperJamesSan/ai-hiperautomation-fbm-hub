@@ -36,7 +36,7 @@ export const stack = [
   { name: "Dropbox Business", role: "Document storage", host: "/AP/[ENV]/[Entity]/[YYYY]/[MM]/", status: "Operational" },
   { name: "Doppler", role: "Secrets vault", host: "AutomationsFBM / fbm-automation", status: "Operational" },
   { name: "Notion", role: "Audit trail + Control Tower", host: "FBM workspace", status: "Operational" },
-  { name: "Business Central", role: "ERP — Purchase Invoice Drafts", host: "Microsoft Dynamics", status: "Pending Sandbox" },
+  { name: "Business Central", role: "ERP — Purchase Invoice Drafts", host: "Microsoft Dynamics", status: "Credentials received Apr 16 — integration in build" },
 ];
 
 export const entities = [
@@ -95,8 +95,8 @@ export const modules = [
 export const decisions = [
   {
     n: 1,
-    title: "DBC Sandbox availability",
-    detail: "Concrete date for Business Central Sandbox to validate the OData v4 integration before touching PROD.",
+    title: "DBC Integration — Confirm Company IDs & permissions scope",
+    detail: "Confirm Company IDs for the 8 entities and validate permissions scope. ✅ Credentials received Apr 16.",
     owner: "BC / Dynamics Contact",
   },
   {
