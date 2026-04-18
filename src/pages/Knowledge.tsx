@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import GlobalHeader from "@/components/GlobalHeader";
 import { stack, entities, pipelineNodes, environments, acceptanceCriteria, uat } from "@/data/program";
-import { CheckCircle2, Clock, Brain, Settings, BookOpen, Newspaper, Lightbulb, Baseline } from "lucide-react";
+import { CheckCircle2, Clock, Brain, Settings, BookOpen, Newspaper, Lightbulb, Baseline, HardHat, Construction } from "lucide-react";
 
 // TODO: Connect to Notion API via backend — each card maps to a Notion DB
 const knowledgeCards = [
