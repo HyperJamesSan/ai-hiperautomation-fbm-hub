@@ -386,6 +386,7 @@ export default function Knowledge() {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }
