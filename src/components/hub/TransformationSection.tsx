@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import {
   FileText, BarChart2, Shield, ArrowRight, Sparkles,
-  Zap, Clock, TrendingUp,
+  Zap, Clock, TrendingUp, X, Check,
 } from "lucide-react";
 import ParticleField from "@/components/effects/ParticleField";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
