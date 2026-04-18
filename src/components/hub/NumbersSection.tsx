@@ -370,7 +370,7 @@ function DetailPanel({ metric }: { metric: Metric }) {
     <div
       ref={ref}
       key={metric.id}
-      className="relative h-full rounded-2xl overflow-hidden p-8 md:p-10"
+      className="relative h-full rounded-2xl overflow-hidden p-5 md:p-6"
       style={{
         background:
           "linear-gradient(150deg, #1F2230 0%, #2A2E3F 50%, #1A1D29 100%)",
@@ -421,7 +421,7 @@ function DetailPanel({ metric }: { metric: Metric }) {
       />
 
       <div className="relative z-10 flex flex-col h-full">
-        <div className="flex flex-wrap items-center gap-2 mb-6">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
           <span
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-barlow font-700 uppercase tracking-[0.2em] text-[10px] border"
             style={{
@@ -459,9 +459,9 @@ function DetailPanel({ metric }: { metric: Metric }) {
         </div>
 
         <div
-          className="font-barlow italic font-900 text-white leading-[0.9] mt-6 tabular-nums"
+          className="font-barlow italic font-900 text-white leading-[0.9] mt-3 tabular-nums"
           style={{
-            fontSize: "clamp(4rem, 9vw, 8rem)",
+            fontSize: "clamp(2.75rem, 6vw, 5rem)",
             textShadow: "0 4px 30px rgba(228,21,19,0.25)",
           }}
         >
@@ -473,21 +473,21 @@ function DetailPanel({ metric }: { metric: Metric }) {
           vs. 12–17 min/invoice manual baseline
         </div>
 
-        <div className="mt-6">
+        <div className="mt-3">
           <Sparkline color={metric.accent} visible={isVisible} seed={1} />
         </div>
 
-        <p className="font-barlow font-400 text-white/75 text-base md:text-lg leading-relaxed mt-6">
+        <p className="font-barlow font-400 text-white/75 text-sm md:text-base leading-relaxed mt-3">
           {metric.detail.headline}.
         </p>
-        <p className="font-barlow font-400 text-white/50 text-sm leading-relaxed mt-3">
+        <p className="font-barlow font-400 text-white/50 text-xs md:text-sm leading-relaxed mt-2">
           {metric.detail.body}
         </p>
-        <ul className="mt-5 space-y-2">
+        <ul className="mt-3 space-y-1.5">
           {metric.detail.bullets.map((b) => (
             <li
               key={b}
-              className="flex items-start gap-2 text-white/85 font-barlow font-500 text-sm"
+              className="flex items-start gap-2 text-white/85 font-barlow font-500 text-xs md:text-sm"
             >
               <span
                 className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -514,7 +514,7 @@ export default function NumbersSection() {
 
   return (
     <section
-      className="relative bg-white py-12 md:py-16 overflow-hidden"
+      className="relative bg-white py-8 md:py-10 overflow-hidden"
       aria-labelledby="numbers-heading"
     >
       {/* Subtle red dot pattern backdrop */}
@@ -529,21 +529,21 @@ export default function NumbersSection() {
 
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E41513]/8 border border-[#E41513]/20 mb-4">
+        <div className="text-center mb-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E41513]/8 border border-[#E41513]/20 mb-3">
             <Clock className="w-3 h-3 text-[#E41513]" />
-            <span className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.3em] text-[11px]">
+            <span className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.3em] text-[10px]">
               The Numbers · Updated Apr 2026
             </span>
           </div>
           <h2
             id="numbers-heading"
             className="font-barlow font-900 text-[#111111] leading-[0.95]"
-            style={{ fontSize: "clamp(2rem, 4.2vw, 3.75rem)" }}
+            style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
           >
             Real data. <span className="italic text-[#E41513]">Real results.</span>
           </h2>
-          <p className="font-barlow font-400 text-gray-500 text-sm md:text-base max-w-2xl mx-auto mt-3">
+          <p className="font-barlow font-400 text-gray-500 text-xs md:text-sm max-w-2xl mx-auto mt-2">
             Click any metric on the left — the panel on the right unpacks how it was measured.
           </p>
         </div>
@@ -570,7 +570,7 @@ export default function NumbersSection() {
           />
 
           {/* Stage filter chips */}
-          <div className="relative z-10 flex flex-wrap items-center gap-2 px-6 md:px-8 pt-5">
+          <div className="relative z-10 flex flex-wrap items-center gap-2 px-5 md:px-6 pt-4">
             <span className="font-barlow font-700 uppercase tracking-[0.25em] text-[10px] text-gray-400 mr-2">
               Filter
             </span>
@@ -618,7 +618,7 @@ export default function NumbersSection() {
           </div>
 
           {/* Body grid: tiles | detail */}
-          <div className="relative z-10 grid lg:grid-cols-[1.05fr_1fr] gap-5 p-5 md:p-8">
+          <div className="relative z-10 grid lg:grid-cols-[1.05fr_1fr] gap-4 p-4 md:p-5">
             {/* LEFT — tiles grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {METRICS.map((m, i) => {
