@@ -30,7 +30,7 @@ export default function ParticleField({ variant = 'hero', className = '' }: Prop
     type P = { x: number; y: number; vx: number; vy: number; r: number; color: string };
 
     const colors = variant === 'hero'
-      ? ['rgba(228,21,19,0.10)', 'rgba(228,21,19,0.06)', 'rgba(30,20,20,0.09)', 'rgba(30,20,20,0.05)']
+      ? ['rgba(228,21,19,0.55)', 'rgba(228,21,19,0.40)', 'rgba(228,21,19,0.30)', 'rgba(30,20,20,0.45)', 'rgba(30,20,20,0.30)']
       : ['rgba(228,21,19,0.55)', 'rgba(228,21,19,0.35)', 'rgba(255,255,255,0.45)', 'rgba(255,255,255,0.25)'];
 
     const make = (): P => ({
