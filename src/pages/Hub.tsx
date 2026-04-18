@@ -342,69 +342,7 @@ export default function Hub() {
       {/* ============ SECTION 5 — TRANSFORMATION (cinematic) ============ */}
       <TransformationSection />
 
-      {/* ============ SECTION 6 — 5 MODULES ============ */}
-      <section className="bg-white py-24 md:py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <Reveal>
-            <div className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.2em] text-sm mb-4">
-              Module Pipeline
-            </div>
-            <h2 className="font-barlow font-900 text-[#111111] leading-[0.95]" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>
-              5 modules. Full transformation.
-            </h2>
-          </Reveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-5 mt-16">
-            {/* M1 active — DARK */}
-            <div
-              onMouseEnter={() => setM1Hover(true)}
-              onMouseLeave={() => setM1Hover(false)}
-              className="relative rounded-2xl bg-[#0A0A0A] border-2 border-[#E41513] p-7 overflow-visible transition-all duration-300"
-              style={{ boxShadow: "0 0 40px rgba(228,21,19,0.2)" }}
-            >
-              {m1Hover && <ParticleField variant="dark-arc" />}
-              <div className="relative z-10">
-                <div className="flex items-start justify-between">
-                  <span className="font-barlow font-900 italic text-5xl text-[#E41513] leading-none">M1</span>
-                  <span className="px-2.5 py-1 rounded-full bg-[#E41513]/20 text-[#E41513] text-[10px] font-barlow font-700 uppercase tracking-widest">
-                    Active
-                  </span>
-                </div>
-                <h3 className="font-barlow font-700 text-base text-white mt-5 leading-snug">
-                  AP Invoice Classification &amp; Routing
-                </h3>
-                <div className="font-barlow font-600 text-xs text-white/40 mt-1">P1.30 FMT</div>
-                <div className="flex items-center gap-1.5 mt-6 text-xs font-barlow font-700 text-[#22C55E]">
-                  <CheckCircle2 className="w-4 h-4" />
-                  UAT Pass · 16 Apr 2026
-                </div>
-              </div>
-            </div>
-
-            {MODULES.map((m) => (
-              <div
-                key={m.id}
-                className="rounded-2xl bg-[#F9FAFB] border border-gray-200 p-7 transition-all duration-300 hover:bg-white hover:border-[#E41513] hover:-translate-y-1"
-                style={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 12px 40px rgba(0,0,0,0.08)")}
-                onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)")}
-              >
-                <div className="flex items-start justify-between">
-                  <span className="font-barlow font-900 italic text-4xl text-gray-300 leading-none">{m.id}</span>
-                  <span className="px-2.5 py-1 rounded-full bg-gray-200 text-gray-500 text-[10px] font-barlow font-700 uppercase tracking-widest">
-                    Planned
-                  </span>
-                </div>
-                <h3 className="font-barlow font-700 text-base text-gray-700 mt-5 leading-snug">{m.name}</h3>
-                <div className="font-barlow font-600 text-xs text-gray-400 mt-1">{m.code}</div>
-                <div className="font-barlow font-700 text-xs text-gray-400 mt-6 uppercase tracking-widest">
-                  {m.when}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SECTION 6 — Module Pipeline removed */}
 
       {/* ============ SECTION 7 — STACK (FLOATING WAVE) ============ */}
       <section className="py-24 md:py-32 px-6" style={{ background: "#FAFAFB" }}>
