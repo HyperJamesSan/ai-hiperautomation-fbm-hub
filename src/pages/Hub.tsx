@@ -140,10 +140,10 @@ export default function Hub() {
             {RISKS.map(({ Icon, t, risk, d }, i) => (
               <Reveal key={t} delay={i * 80}>
                 <div
-                  className="relative bg-white border-l-4 border-[#E41513] rounded-r-2xl p-6 pr-20"
+                  className="relative bg-white border-l-4 border-[#E41513] rounded-r-2xl p-6 pr-44"
                   style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
                 >
-                  <div className="absolute top-5 right-6 font-barlow font-900 text-2xl text-[#E41513] leading-none">
+                  <div className="absolute top-5 right-6 font-barlow font-900 text-sm text-[#E41513] leading-none uppercase tracking-wider whitespace-nowrap">
                     {risk}
                   </div>
                   <div className="flex gap-4 items-start">
