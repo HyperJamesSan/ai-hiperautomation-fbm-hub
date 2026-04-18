@@ -100,22 +100,28 @@ export default function StackWave() {
                 width: bubble,
                 height: bubble,
               }}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered((h) => (h === i ? null : h))}
             >
               <div
                 ref={(el) => (itemRefs.current[i] = el)}
                 className="relative w-full h-full will-change-transform"
               >
-                <div
-                  className="w-full h-full rounded-full flex items-center justify-center transition-shadow duration-300"
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActive((a) => (a === i ? null : i));
+                  }}
+                  aria-label={`${item.name} — ${item.role}`}
+                  aria-expanded={active === i}
+                  className="w-full h-full rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F172A]/30"
                   style={{
                     background: BUBBLE_BG,
                     border: "1px solid rgba(15,23,42,0.08)",
                     boxShadow:
-                      hovered === i
-                        ? "0 22px 44px -14px rgba(15,23,42,0.25), 0 6px 14px -4px rgba(15,23,42,0.10)"
+                      active === i
+                        ? "0 22px 44px -14px rgba(15,23,42,0.28), 0 6px 14px -4px rgba(15,23,42,0.12)"
                         : "0 10px 26px -12px rgba(15,23,42,0.20), 0 3px 8px -3px rgba(15,23,42,0.06)",
+                    cursor: "pointer",
                   }}
                 >
                   <Icon
@@ -126,10 +132,10 @@ export default function StackWave() {
                       height: bubble * 0.42,
                     }}
                   />
-                </div>
+                </button>
                 {/* status dot */}
                 <span
-                  className="absolute top-1 right-1 rounded-full ring-2 ring-white"
+                  className="absolute top-1 right-1 rounded-full ring-2 ring-white pointer-events-none"
                   style={{
                     width: 10,
                     height: 10,
@@ -138,7 +144,7 @@ export default function StackWave() {
                 />
 
                 <AnimatePresence>
-                  {hovered === i && (
+                  {active === i && (
                     <motion.div
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
