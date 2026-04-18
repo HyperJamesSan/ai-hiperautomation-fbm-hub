@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import GlobalHeader from "@/components/GlobalHeader";
 import { stack, entities, pipelineNodes, environments, acceptanceCriteria, uat } from "@/data/program";
-import { CheckCircle2, Clock, Brain, Settings, BookOpen, Newspaper, Lightbulb, Baseline } from "lucide-react";
+import { CheckCircle2, Clock, Brain, Settings, BookOpen, Newspaper, Lightbulb, Baseline, HardHat, Construction } from "lucide-react";
 
 // TODO: Connect to Notion API via backend — each card maps to a Notion DB
 const knowledgeCards = [
@@ -108,8 +108,83 @@ export default function Knowledge() {
     <div className="min-h-screen bg-background">
       <GlobalHeader />
 
+      {/* Under Construction banner — animated */}
+      <section className="pt-24 px-6 md:px-10">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent shadow-sm"
+          >
+            {/* Animated diagonal stripes */}
+            <div
+              className="absolute inset-0 opacity-[0.08] pointer-events-none"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(45deg, hsl(var(--primary)) 0 14px, transparent 14px 28px)",
+                animation: "uc-stripes 3s linear infinite",
+              }}
+              aria-hidden
+            />
+            <style>{`
+              @keyframes uc-stripes { from { background-position: 0 0; } to { background-position: 56px 0; } }
+              @keyframes uc-bob { 0%,100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-4px) rotate(6deg); } }
+              @keyframes uc-pulse-dot { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.4); } }
+            `}</style>
+
+            <div className="relative flex flex-col md:flex-row items-start md:items-center gap-4 p-5 md:p-6">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary"
+                  style={{ animation: "uc-bob 2.4s ease-in-out infinite" }}
+                >
+                  <HardHat className="w-6 h-6" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="inline-block w-2 h-2 rounded-full bg-primary"
+                    style={{ animation: "uc-pulse-dot 1.4s ease-in-out infinite" }}
+                  />
+                  <span className="text-[11px] md:text-xs font-mono font-bold uppercase tracking-[0.25em] text-primary">
+                    Under Construction
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <h2 className="text-base md:text-lg font-montserrat font-bold text-foreground flex items-center gap-2">
+                  <Construction className="w-4 h-4 text-primary shrink-0" />
+                  This section is being built
+                </h2>
+                <p className="text-xs md:text-sm font-roboto text-muted-foreground mt-1">
+                  Content is being added progressively. Some cards are already live — others will go live soon.
+                </p>
+              </div>
+
+              {/* Progress bar */}
+              <div className="w-full md:w-56 shrink-0">
+                <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1">
+                  <span>Progress</span>
+                  <span className="text-primary">In progress</span>
+                </div>
+                <div className="h-1.5 w-full rounded-full bg-primary/10 overflow-hidden">
+                  <motion.div
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "100%" }}
+                    transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                    className="h-full w-1/3 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Knowledge Base intro — educational, interactive cards */}
-      <section className="pt-24 pb-16 px-6 md:px-10 bg-gradient-to-b from-primary/5 to-transparent">
+      <section className="pt-10 pb-16 px-6 md:px-10 bg-gradient-to-b from-primary/5 to-transparent">
+
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
