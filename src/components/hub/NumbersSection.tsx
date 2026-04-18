@@ -244,7 +244,7 @@ function MetricTile({
   onClick: () => void;
   index: number;
 }) {
-  const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>(0.2);
+  const { ref, isVisible } = useIntersectionObserver<HTMLButtonElement>(0.2);
   const value = useCountUp(metric.target, isVisible, 1800);
   const { Icon } = metric;
 
