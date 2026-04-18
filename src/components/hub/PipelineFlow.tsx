@@ -266,6 +266,8 @@ export default function PipelineFlow() {
           className="relative"
           style={{ minHeight: 360 }}
         >
+          {/* Particle field — attracted by the red token traveling the pipeline */}
+          <PipelineParticleField attractorRef={attractorRef} className="absolute inset-0" />
           {/* SVG flowing line */}
           {size.w > 0 && (
             <svg
@@ -366,8 +368,6 @@ export default function PipelineFlow() {
                         transform: isActive ? "scale(1.05)" : "scale(0.9)",
                       }}
                     />
-                    {/* Particle ring — replaces the flat red ping */}
-                    <ParticleRing active={isActive && !isFlipped} />
 
                     {/* 3D flip wrapper */}
                     <button
