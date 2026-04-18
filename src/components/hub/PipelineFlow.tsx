@@ -431,10 +431,8 @@ export default function PipelineFlow() {
                     style={{
                       background: isActive
                         ? "rgba(228,21,19,0.14)"
-                        : isAi
-                        ? "rgba(228,21,19,0.10)"
                         : "rgba(17,17,17,0.05)",
-                      color: isActive || isAi ? "#E41513" : "#374151",
+                      color: isActive ? "#E41513" : "#374151",
                     }}
                   >
                     {tool}
