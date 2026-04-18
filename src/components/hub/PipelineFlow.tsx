@@ -331,7 +331,7 @@ export default function PipelineFlow() {
                         aria-hidden
                         className="absolute inset-0 rounded-full animate-ping"
                         style={{
-                          background: isAi ? "rgba(228,21,19,0.35)" : "rgba(228,21,19,0.18)",
+                          background: "rgba(228,21,19,0.18)",
                           animationDuration: "1.4s",
                         }}
                       />
