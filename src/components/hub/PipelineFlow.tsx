@@ -68,7 +68,16 @@ export default function PipelineFlow() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <div className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.22em] text-xs md:text-sm mb-5">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E41513]/8 border border-[#E41513]/20 mb-6">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#E41513] opacity-60 animate-ping" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E41513]" />
+            </span>
+            <span className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.3em] text-[11px] md:text-xs">
+              M1 · Finance · AP Automation
+            </span>
+          </div>
+          <div className="text-[#9CA3AF] font-barlow font-700 uppercase tracking-[0.22em] text-[10px] md:text-xs mb-4">
             The Pipeline
           </div>
           <h2
