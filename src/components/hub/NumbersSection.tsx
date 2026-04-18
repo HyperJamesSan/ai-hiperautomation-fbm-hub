@@ -325,13 +325,11 @@ function MetricTile({
           className="font-barlow italic font-900 leading-none tabular-nums"
           style={{
             fontSize: "clamp(1.85rem, 2.7vw, 2.65rem)",
-            background: isActive
-              ? `linear-gradient(135deg, #0A0A0A 0%, ${metric.accent} 120%)`
-              : "linear-gradient(135deg, #0A0A0A 0%, #2A2E3F 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
+            color: "#0A0A0A",
             letterSpacing: "-0.02em",
+            textShadow: isActive
+              ? `0 2px 18px ${metric.accent}55`
+              : "none",
           }}
         >
           {metric.format(value)}
