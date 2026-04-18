@@ -365,6 +365,7 @@ export default function PipelineFlow() {
 
                   {/* Halo + Flippable card */}
                   <div className="relative">
+                    {/* Soft pastel halo (only when active) */}
                     <div
                       aria-hidden
                       className="absolute inset-0 rounded-full transition-all duration-700"
@@ -375,8 +376,14 @@ export default function PipelineFlow() {
                         transform: isActive ? "scale(1.05)" : "scale(0.9)",
                       }}
                     />
-
-                    {/* 3D flip wrapper */}
+                    {/* Particle ring around this node, attracted by the red token */}
+                    <NodeParticleRing
+                      centerRef={centerRefs.current[i]}
+                      attractorRef={attractorRef}
+                      active={isActive && !isFlipped}
+                      size={140}
+                      count={32}
+                    />
                     <button
                       type="button"
                       onClick={() => setFlipped((f) => (f === i ? null : i))}
