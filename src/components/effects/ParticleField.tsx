@@ -54,9 +54,9 @@ export default function ParticleField({ variant = 'hero', className = '' }: Prop
     const count = variant === 'hero' ? 320 : 200;
 
     // Jellyfish geometry — radial distribution with HOLLOW CORE and density falling off outward
-    const coreEmpty = 70;     // empty radius near cursor (the "void/core")
-    const bellInner = 90;     // start of dense ring
-    const bellOuter = 320;    // outer reach of the silhouette
+    const coreEmpty = 85;     // empty radius near cursor (repulsion zone — particles never touch)
+    const bellInner = 110;    // start of dense ring
+    const bellOuter = 340;    // outer reach of the silhouette
 
     const makeHero = (): P => {
       // Bias distribution: more particles in the mid-ring, fewer at the very edge
@@ -139,37 +139,59 @@ export default function ParticleField({ variant = 'hero', className = '' }: Prop
         const breathScale = 0.92 + breath * 0.16;     // 0.92..1.08 radial expansion
         const microPulse = Math.sin(t * 1.8) * 0.04;  // tiny secondary heartbeat
 
+        // Cursor velocity — when mouse moves fast, particles get pushed away (magnetic repulsion)
+        const mvx = m.tx - m.x;
+        const mvy = m.ty - m.y;
+        const mspeed = Math.sqrt(mvx * mvx + mvy * mvy);
+
         for (const p of dots) {
           // Per-particle breathing offset — keeps unison but with subtle organic variance
           const personal = Math.sin(t * 0.7 + p.phase * 0.3) * 4;
 
-          // Target polar position around current cursor center
+          // Target polar position around current cursor center (slight attraction inward)
           const targetRadius = (p.radius + p.jitter + personal) * (breathScale + microPulse);
           const targetAngle = p.angle + p.angJitter * Math.sin(t * 0.4 + p.phase);
 
           const tx = cx + Math.cos(targetAngle) * targetRadius;
           const ty = cy + Math.sin(targetAngle) * targetRadius;
 
+          // Distance to cursor — drives proximity-based speed and repulsion
+          const dx = p.x - cx;
+          const dy = p.y - cy;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+          // Closer particles spring faster (more reactive near cursor)
+          const proximity = Math.max(0, 1 - dist / bellOuter); // 1 near, 0 far
+          const springStrength = 0.028 + proximity * 0.045;    // 0.028..0.073
+
           // Spring toward target — synchronized fluid motion
-          p.vx += (tx - p.x) * 0.035;
-          p.vy += (ty - p.y) * 0.035;
+          p.vx += (tx - p.x) * springStrength;
+          p.vy += (ty - p.y) * springStrength;
+
+          // Magnetic repulsion: cursor velocity pushes nearby particles away (same-pole effect)
+          if (mspeed > 0.5 && dist < 200) {
+            const repel = (1 - dist / 200) * mspeed * 0.012;
+            p.vx += (dx / dist) * repel;
+            p.vy += (dy / dist) * repel;
+          }
+
           p.vx *= 0.86;
           p.vy *= 0.86;
           p.x += p.vx;
           p.y += p.vy;
 
-          // Enforce empty core — push out any particle that drifts inside
-          const dx = p.x - cx;
-          const dy = p.y - cy;
-          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-          if (dist < coreEmpty) {
-            const push = (coreEmpty - dist) / coreEmpty;
-            p.x += (dx / dist) * push * 6;
-            p.y += (dy / dist) * push * 6;
+          // Enforce empty core — particles never touch the cursor
+          const ndx = p.x - cx;
+          const ndy = p.y - cy;
+          const ndist = Math.sqrt(ndx * ndx + ndy * ndy) || 1;
+          if (ndist < coreEmpty) {
+            const push = (coreEmpty - ndist) / coreEmpty;
+            p.x += (ndx / ndist) * push * 8;
+            p.y += (ndy / ndist) * push * 8;
           }
 
           // Size: smaller near cursor (sparse void), grows outward (denser rim)
-          const sizeRatio = Math.min(1, Math.max(0, (dist - coreEmpty) / (bellOuter - coreEmpty)));
+          const sizeRatio = Math.min(1, Math.max(0, (ndist - coreEmpty) / (bellOuter - coreEmpty)));
           const r = p.baseR * (0.4 + sizeRatio * 1.4) * (0.9 + breath * 0.2);
 
           ctx.beginPath();
