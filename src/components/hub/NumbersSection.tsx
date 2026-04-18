@@ -240,38 +240,38 @@ function MetricTile({
       className="group relative text-left rounded-2xl p-5 transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E41513]/40 overflow-hidden backdrop-blur-xl"
       style={{
         background: isActive
-          ? "linear-gradient(155deg, rgba(255,255,255,0.92) 0%, rgba(255,247,247,0.85) 100%)"
-          : "linear-gradient(155deg, rgba(255,255,255,0.65) 0%, rgba(250,250,252,0.55) 100%)",
+          ? "linear-gradient(155deg, rgba(255,255,255,0.95) 0%, rgba(248,249,251,0.88) 100%)"
+          : "linear-gradient(155deg, rgba(255,255,255,0.55) 0%, rgba(248,249,251,0.45) 100%)",
         border: isActive
-          ? "1px solid rgba(228,21,19,0.35)"
-          : "1px solid rgba(17,17,17,0.06)",
+          ? "1px solid rgba(17,24,39,0.14)"
+          : "1px solid rgba(17,24,39,0.05)",
         opacity: isDimmed ? 0.35 : 1,
         boxShadow: isActive
-          ? "0 24px 60px -28px rgba(228,21,19,0.40), 0 0 0 1px rgba(228,21,19,0.10) inset, 0 1px 0 rgba(255,255,255,0.9) inset"
-          : "0 10px 28px -18px rgba(17,24,39,0.18), 0 1px 0 rgba(255,255,255,0.85) inset",
+          ? "0 20px 48px -24px rgba(15,23,42,0.22), 0 0 0 1px rgba(255,255,255,0.95) inset, 0 1px 0 rgba(255,255,255,0.95) inset"
+          : "0 8px 22px -16px rgba(15,23,42,0.14), 0 1px 0 rgba(255,255,255,0.85) inset",
         transitionDelay: `${index * 30}ms`,
         transform: isActive ? "translateY(-2px)" : "translateY(0)",
       }}
     >
-      {/* Soft red wash — only on active */}
+      {/* Cool platinum wash — only on active */}
       <span
         aria-hidden
         className="absolute -top-16 -right-16 w-40 h-40 rounded-full pointer-events-none transition-opacity duration-500"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(228,21,19,0.20), transparent 70%)",
+            "radial-gradient(closest-side, rgba(15,23,42,0.06), transparent 70%)",
           filter: "blur(14px)",
           opacity: isActive ? 1 : 0,
         }}
       />
 
-      {/* Top hairline */}
+      {/* Top hairline — graphite with red micro-accent */}
       <span
         aria-hidden
         className="absolute top-0 inset-x-6 h-px transition-opacity"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(228,21,19,0.6) 50%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.25) 45%, rgba(228,21,19,0.55) 50%, rgba(15,23,42,0.25) 55%, transparent 100%)",
           opacity: isActive ? 1 : 0,
         }}
       />
@@ -282,22 +282,22 @@ function MetricTile({
             className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300"
             style={{
               background: isActive
-                ? "linear-gradient(135deg, rgba(228,21,19,0.14), rgba(228,21,19,0.04))"
-                : "rgba(17,17,17,0.04)",
+                ? "linear-gradient(135deg, rgba(15,23,42,0.08), rgba(15,23,42,0.02))"
+                : "rgba(15,23,42,0.04)",
               border: isActive
-                ? "1px solid rgba(228,21,19,0.25)"
-                : "1px solid rgba(17,17,17,0.06)",
+                ? "1px solid rgba(15,23,42,0.14)"
+                : "1px solid rgba(15,23,42,0.06)",
             }}
           >
             <Icon
               className="w-4 h-4 transition-colors"
-              style={{ color: isActive ? "#E41513" : "#6B7280" }}
+              style={{ color: isActive ? "#0F172A" : "#94A3B8" }}
             />
           </div>
           <ArrowUpRight
             className="w-3.5 h-3.5 transition-all"
             style={{
-              color: isActive ? "#E41513" : "rgba(17,17,17,0.25)",
+              color: isActive ? "#0F172A" : "rgba(15,23,42,0.22)",
               transform: isActive ? "translate(2px,-2px)" : "none",
             }}
           />
@@ -309,7 +309,7 @@ function MetricTile({
             fontSize: isPrimary
               ? "clamp(2.1rem, 3vw, 2.9rem)"
               : "clamp(1.75rem, 2.4vw, 2.4rem)",
-            color: isActive ? "#0A0A0A" : "#111111",
+            color: "#0F172A",
             letterSpacing: "-0.025em",
           }}
         >
@@ -320,13 +320,13 @@ function MetricTile({
           <span
             className="h-[5px] w-[5px] rounded-full transition-all"
             style={{
-              background: isActive ? "#E41513" : "rgba(17,17,17,0.25)",
-              boxShadow: isActive ? "0 0 8px rgba(228,21,19,0.6)" : "none",
+              background: isActive ? "#E41513" : "rgba(15,23,42,0.22)",
+              boxShadow: isActive ? "0 0 6px rgba(228,21,19,0.45)" : "none",
             }}
           />
           <div
             className="font-barlow font-700 uppercase tracking-[0.18em] text-[9.5px] transition-colors"
-            style={{ color: isActive ? "#E41513" : "rgba(17,17,17,0.55)" }}
+            style={{ color: isActive ? "#0F172A" : "rgba(15,23,42,0.50)" }}
           >
             {metric.label}
           </div>
@@ -360,52 +360,52 @@ function DetailPanel({ metric }: { metric: Metric }) {
       className="relative h-full rounded-2xl overflow-hidden p-6 md:p-7 backdrop-blur-2xl"
       style={{
         background:
-          "linear-gradient(155deg, rgba(255,255,255,0.80) 0%, rgba(255,250,250,0.72) 60%, rgba(252,234,234,0.68) 100%)",
-        border: "1px solid rgba(228,21,19,0.18)",
+          "linear-gradient(155deg, rgba(255,255,255,0.85) 0%, rgba(248,250,252,0.78) 60%, rgba(241,245,249,0.72) 100%)",
+        border: "1px solid rgba(15,23,42,0.08)",
         boxShadow:
-          "0 30px 70px -30px rgba(228,21,19,0.25), 0 0 0 1px rgba(255,255,255,0.6) inset, 0 1px 0 rgba(255,255,255,0.9) inset",
+          "0 30px 70px -30px rgba(15,23,42,0.22), 0 0 0 1px rgba(255,255,255,0.7) inset, 0 1px 0 rgba(255,255,255,0.95) inset",
         animation: "numbers-fade-in 0.5s ease-out",
       }}
     >
-      {/* Soft red ambient — top right */}
+      {/* Cool platinum ambient — top right */}
       <div
         aria-hidden
         className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(228,21,19,0.18), transparent 70%)",
+            "radial-gradient(closest-side, rgba(15,23,42,0.07), transparent 70%)",
           filter: "blur(28px)",
         }}
       />
-      {/* Cool tech wash — bottom left */}
+      {/* Subtle warm graphite wash — bottom left */}
       <div
         aria-hidden
         className="absolute -bottom-32 -left-32 w-[380px] h-[380px] rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(17,24,39,0.06), transparent 70%)",
+            "radial-gradient(closest-side, rgba(99,102,241,0.05), transparent 70%)",
           filter: "blur(28px)",
         }}
       />
-      {/* Subtle dot grid */}
+      {/* Subtle dot grid — graphite */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.05]"
+        className="absolute inset-0 pointer-events-none opacity-[0.06]"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(228,21,19,0.6) 1px, transparent 1px)",
+            "radial-gradient(rgba(15,23,42,0.6) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
           maskImage:
             "radial-gradient(ellipse at top right, #000 0%, transparent 75%)",
         }}
       />
-      {/* Top hairline */}
+      {/* Top hairline — graphite with red micro-accent */}
       <div
         aria-hidden
         className="absolute top-0 inset-x-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(228,21,19,0.55) 50%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(15,23,42,0.20) 45%, rgba(228,21,19,0.55) 50%, rgba(15,23,42,0.20) 55%, transparent 100%)",
         }}
       />
 
@@ -415,21 +415,20 @@ function DetailPanel({ metric }: { metric: Metric }) {
           <span
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-barlow font-700 uppercase tracking-[0.2em] text-[10px] backdrop-blur"
             style={{
-              color: "#E41513",
-              borderColor: "rgba(228,21,19,0.30)",
-              background: "rgba(228,21,19,0.08)",
-              border: "1px solid rgba(228,21,19,0.30)",
+              color: "#0F172A",
+              background: "rgba(15,23,42,0.05)",
+              border: "1px solid rgba(15,23,42,0.12)",
             }}
           >
-            <Sparkles className="w-3 h-3" />
+            <Sparkles className="w-3 h-3" style={{ color: "#E41513" }} />
             {metric.stage}
           </span>
           <span
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-barlow font-700 uppercase tracking-[0.2em] text-[10px] backdrop-blur"
             style={{
-              color: "#22C55E",
-              background: "rgba(34,197,94,0.08)",
-              border: "1px solid rgba(34,197,94,0.25)",
+              color: "#16A34A",
+              background: "rgba(34,197,94,0.06)",
+              border: "1px solid rgba(34,197,94,0.20)",
             }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
@@ -442,21 +441,21 @@ function DetailPanel({ metric }: { metric: Metric }) {
             className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center backdrop-blur"
             style={{
               background:
-                "linear-gradient(135deg, rgba(228,21,19,0.12), rgba(228,21,19,0.04))",
-              border: "1px solid rgba(228,21,19,0.25)",
-              boxShadow: "0 10px 24px -12px rgba(228,21,19,0.35)",
+                "linear-gradient(135deg, rgba(15,23,42,0.06), rgba(15,23,42,0.02))",
+              border: "1px solid rgba(15,23,42,0.10)",
+              boxShadow: "0 10px 24px -12px rgba(15,23,42,0.20)",
             }}
           >
-            <Icon className="w-7 h-7" style={{ color: "#E41513" }} />
+            <Icon className="w-7 h-7" style={{ color: "#0F172A" }} />
           </div>
           <div>
             <div
               className="font-barlow font-700 uppercase tracking-[0.22em] text-[11px]"
-              style={{ color: "#E41513" }}
+              style={{ color: "#0F172A" }}
             >
               {metric.label}
             </div>
-            <div className="font-barlow font-400 text-sm text-[#6B7280] mt-1">
+            <div className="font-barlow font-400 text-sm text-[#64748B] mt-1">
               {metric.context}
             </div>
           </div>
@@ -472,7 +471,7 @@ function DetailPanel({ metric }: { metric: Metric }) {
               "linear-gradient(180deg, #0A0A0A 0%, #2A2A2A 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            textShadow: "0 4px 30px rgba(228,21,19,0.10)",
+            textShadow: "0 4px 30px rgba(15,23,42,0.10)",
           }}
         >
           {metric.format(value)}
@@ -500,10 +499,9 @@ function DetailPanel({ metric }: { metric: Metric }) {
               className="flex items-start gap-2.5 text-[#374151] font-barlow font-500 text-xs md:text-sm"
             >
               <span
-                className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
                 style={{
-                  background: "#E41513",
-                  boxShadow: "0 0 6px rgba(228,21,19,0.5)",
+                  background: "#0F172A",
                 }}
               />
               {b}
@@ -540,7 +538,7 @@ export default function NumbersSection() {
         className="absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(228,21,19,0.10), transparent 70%)",
+            "radial-gradient(closest-side, rgba(15,23,42,0.06), transparent 70%)",
           filter: "blur(40px)",
         }}
       />
@@ -550,16 +548,16 @@ export default function NumbersSection() {
         className="absolute -bottom-40 -left-40 w-[640px] h-[640px] rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(99,102,241,0.06), transparent 70%)",
+            "radial-gradient(closest-side, rgba(99,102,241,0.05), transparent 70%)",
           filter: "blur(40px)",
         }}
       />
-      {/* Subtle red dot pattern backdrop */}
+      {/* Subtle graphite dot pattern backdrop */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
-          backgroundImage: "radial-gradient(#E41513 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(#0F172A 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }}
       />
