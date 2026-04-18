@@ -111,14 +111,38 @@ export default function TransformationSection() {
         {/* Eyebrow */}
         <div className="flex justify-center mb-8">
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full backdrop-blur-md"
+            className="relative inline-flex items-center gap-2.5 px-5 py-2 rounded-full backdrop-blur-md"
             style={{
-              background: "rgba(228,21,19,0.12)",
-              border: "1px solid rgba(228,21,19,0.35)",
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%)",
+              border: "1px solid rgba(255,255,255,0.22)",
+              boxShadow:
+                "0 8px 28px -10px rgba(228,21,19,0.45), 0 0 0 1px rgba(228,21,19,0.18) inset",
             }}
           >
-            <Sparkles className="w-3 h-3 text-[#E41513]" />
-            <span className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.3em] text-[11px]">
+            <span
+              aria-hidden
+              className="absolute -inset-px rounded-full pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(228,21,19,0.0), rgba(228,21,19,0.55), rgba(228,21,19,0.0))",
+                WebkitMask:
+                  "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                WebkitMaskComposite: "xor",
+                maskComposite: "exclude",
+                padding: "1px",
+                opacity: 0.7,
+              }}
+            />
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{
+                background: "#FF4543",
+                boxShadow: "0 0 10px #FF4543, 0 0 18px rgba(228,21,19,0.7)",
+              }}
+            />
+            <Sparkles className="w-3.5 h-3.5 text-white" />
+            <span className="text-white font-barlow font-700 uppercase tracking-[0.32em] text-[11px]">
               The Transformation
             </span>
           </div>
@@ -251,78 +275,144 @@ export default function TransformationSection() {
           </div>
         </div>
 
-        {/* Pillar cards */}
-        <div className="grid md:grid-cols-3 gap-5 text-left">
-          {PILLARS.map((p, i) => (
-            <div
-              key={p.title}
-              className="group relative rounded-2xl p-7 md:p-8 overflow-hidden transition-all duration-500 hover:-translate-y-1.5"
-              style={{
-                background:
-                  "linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                backdropFilter: "blur(8px)",
-                boxShadow:
-                  "0 18px 40px -20px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.06) inset",
-                transitionDelay: `${i * 80}ms`,
-              }}
-            >
-              {/* Hover glow */}
+        {/* Pillar cards — connected, premium */}
+        <div className="relative">
+          {/* Connecting rail behind cards */}
+          <div
+            aria-hidden
+            className="hidden md:block absolute left-[8%] right-[8%] top-[68px] h-px pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.45) 18%, rgba(252,211,77,0.45) 50%, rgba(167,139,250,0.45) 82%, transparent 100%)",
+              filter: "blur(0.5px)",
+            }}
+          />
+          <div className="grid md:grid-cols-3 gap-5 text-left relative">
+            {PILLARS.map((p, i) => (
               <div
-                aria-hidden
-                className="absolute -top-12 -right-12 w-40 h-40 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                key={p.title}
+                className="group relative rounded-2xl p-7 md:p-8 overflow-hidden transition-all duration-500 hover:-translate-y-2"
                 style={{
-                  background: `radial-gradient(closest-side, ${p.accent}55, transparent 70%)`,
-                  filter: "blur(20px)",
+                  background:
+                    "linear-gradient(155deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 45%, rgba(10,16,28,0.55) 100%)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  backdropFilter: "blur(14px)",
+                  WebkitBackdropFilter: "blur(14px)",
+                  boxShadow:
+                    "0 24px 60px -24px rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.10) inset, 0 0 0 1px rgba(255,255,255,0.02) inset",
+                  transitionDelay: `${i * 80}ms`,
                 }}
-              />
+              >
+                {/* Inner glow that follows accent */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background: `radial-gradient(120% 80% at 0% 0%, ${p.accent}14, transparent 55%)`,
+                  }}
+                />
+                {/* Hover halo bottom-right */}
+                <div
+                  aria-hidden
+                  className="absolute -bottom-16 -right-16 w-56 h-56 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                  style={{
+                    background: `radial-gradient(closest-side, ${p.accent}55, transparent 70%)`,
+                    filter: "blur(24px)",
+                  }}
+                />
 
-              {/* Top accent line */}
-              <div
-                aria-hidden
-                className="absolute top-0 inset-x-0 h-px"
-                style={{
-                  background: `linear-gradient(90deg, transparent 0%, ${p.accent} 50%, transparent 100%)`,
-                  opacity: 0.6,
-                }}
-              />
+                {/* Top accent — brighter, glowing */}
+                <div
+                  aria-hidden
+                  className="absolute top-0 inset-x-6 h-[2px] rounded-full"
+                  style={{
+                    background: `linear-gradient(90deg, transparent 0%, ${p.accent} 50%, transparent 100%)`,
+                    boxShadow: `0 0 18px ${p.accent}aa`,
+                    opacity: 0.9,
+                  }}
+                />
 
-              <div className="relative z-10">
-                <div className="flex items-start justify-between mb-6">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: `${p.accent}1F`,
-                      border: `1px solid ${p.accent}55`,
-                      boxShadow: `0 8px 20px -8px ${p.accent}66`,
-                    }}
-                  >
-                    <p.Icon className="w-5 h-5" style={{ color: p.accent }} />
+                {/* Gradient border ring */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    padding: "1px",
+                    background: `linear-gradient(160deg, ${p.accent}66, transparent 40%, transparent 70%, ${p.accent}33)`,
+                    WebkitMask:
+                      "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                    WebkitMaskComposite: "xor",
+                    maskComposite: "exclude",
+                  }}
+                />
+
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between mb-6">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-105"
+                      style={{
+                        background: `linear-gradient(135deg, ${p.accent}33 0%, ${p.accent}0D 100%)`,
+                        border: `1px solid ${p.accent}66`,
+                        boxShadow: `0 10px 30px -8px ${p.accent}80, 0 0 0 1px ${p.accent}22 inset`,
+                      }}
+                    >
+                      <p.Icon className="w-6 h-6" style={{ color: p.accent, filter: `drop-shadow(0 0 8px ${p.accent}aa)` }} />
+                    </div>
+                    <span
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-barlow font-700 uppercase tracking-[0.22em] text-[9px]"
+                      style={{
+                        color: p.accent,
+                        background: `${p.accent}1A`,
+                        border: `1px solid ${p.accent}55`,
+                        boxShadow: `0 0 14px -4px ${p.accent}80`,
+                      }}
+                    >
+                      <span
+                        className="w-1 h-1 rounded-full"
+                        style={{
+                          background: p.accent,
+                          boxShadow: `0 0 6px ${p.accent}`,
+                        }}
+                      />
+                      {p.state}
+                    </span>
                   </div>
-                  <span
-                    className="px-2.5 py-1 rounded-full font-barlow font-700 uppercase tracking-[0.2em] text-[9px]"
-                    style={{
-                      color: p.accent,
-                      background: `${p.accent}14`,
-                      border: `1px solid ${p.accent}44`,
-                    }}
-                  >
-                    {p.state}
-                  </span>
-                </div>
 
-                <div className="font-barlow font-700 uppercase tracking-[0.22em] text-[10px] text-white/50">
-                  {p.label}
+                  <div
+                    className="font-barlow font-700 uppercase tracking-[0.24em] text-[10px]"
+                    style={{ color: `${p.accent}`, opacity: 0.85 }}
+                  >
+                    {p.label}
+                  </div>
+                  <h3 className="font-barlow font-700 text-white text-xl mt-2 leading-snug">
+                    {p.title}
+                  </h3>
+                  <p className="font-barlow font-400 text-sm text-white/60 mt-3 leading-relaxed">
+                    {p.body}
+                  </p>
+
+                  {/* Hairline divider + footer accent */}
+                  <div
+                    aria-hidden
+                    className="mt-6 h-px"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)",
+                    }}
+                  />
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="font-barlow font-700 uppercase tracking-[0.22em] text-[9px] text-white/40">
+                      Module {i === 0 ? "01" : i === 1 ? "03" : "04"}
+                    </span>
+                    <ArrowRight
+                      className="w-3.5 h-3.5 transition-all duration-500 group-hover:translate-x-1"
+                      style={{ color: p.accent, opacity: 0.85 }}
+                    />
+                  </div>
                 </div>
-                <h3 className="font-barlow font-700 text-white text-xl mt-2 leading-snug">
-                  {p.title}
-                </h3>
-                <p className="font-barlow font-400 text-sm text-white/55 mt-3 leading-relaxed">
-                  {p.body}
-                </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Closing manifesto */}
