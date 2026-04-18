@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Mail, FileText, Brain, GitBranch, FolderOpen, Bell, BookOpen, FileCheck2 } from "lucide-react";
-import ParticleRing from "./ParticleRing";
 import PipelineParticleField from "./PipelineParticleField";
 
 type Node = {
