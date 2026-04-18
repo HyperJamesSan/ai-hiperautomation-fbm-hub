@@ -37,7 +37,8 @@ export default function StackWave() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const rafRef = useRef<number | null>(null);
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(null);
+  const rafRef = useRef<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [reduced, setReduced] = useState(false);
 
@@ -60,9 +61,9 @@ export default function StackWave() {
   useEffect(() => {
     if (reduced) return;
     const start = performance.now();
-    // wavelength ~ covers 1.5 of the row width
-    const SPEED = 0.9; // cycles per second
-    const PHASE_STEP = 0.85; // radians between items along the row
+    // Slow, delicate wave traveling right -> left
+    const SPEED = 0.18; // cycles per second (very gentle)
+    const PHASE_STEP = 0.55; // radians between items
 
     const tick = (now: number) => {
       const t = (now - start) / 1000;
