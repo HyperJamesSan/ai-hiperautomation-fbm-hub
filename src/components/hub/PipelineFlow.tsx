@@ -9,16 +9,90 @@ type Node = {
   desc: string;
   accent: string; // pastel halo
   isAi?: boolean;
+  // Back-of-card details
+  backTitle: string;
+  backDesc: string;
+  backMeta: { k: string; v: string }[];
 };
 
 const NODES: Node[] = [
-  { Icon: Mail, label: "Email Received", tool: "M365", step: "Trigger", desc: "M365 inbox · PDF attached", accent: "#A7F3D0" },
-  { Icon: FileText, label: "PDF Validated", tool: "n8n", step: "Validate", desc: "Format · size · text extracted", accent: "#BAE6FD" },
-  { Icon: Brain, label: "AI Brain", tool: "Claude API", step: "Classify", desc: "PROMPT v1.4 · confidence", accent: "#E41513", isAi: true },
-  { Icon: GitBranch, label: "Confidence Router", tool: "≥90% / <90%", step: "Route", desc: "Auto-file or manual queue", accent: "#FDE68A" },
-  { Icon: FolderOpen, label: "Filed in Dropbox", tool: "DRB Business", step: "Store", desc: "/AP/{ENTITY_CODE}/", accent: "#DDD6FE" },
-  { Icon: Bell, label: "AP Notified", tool: "M365", step: "Notify", desc: "Executive email summary", accent: "#A7F3D0" },
-  { Icon: BookOpen, label: "Audit Logged", tool: "Notion", step: "Log", desc: "ISO timestamp · outcome", accent: "#FBCFE8" },
+  {
+    Icon: Mail, label: "Email Received", tool: "M365", step: "Trigger",
+    desc: "M365 inbox · PDF attached", accent: "#A7F3D0",
+    backTitle: "Inbox listener",
+    backDesc: "Polls accounts.payable@fbm.mt every 5 min and pulls any email with a PDF attachment.",
+    backMeta: [
+      { k: "Mailbox", v: "accounts.payable@fbm.mt" },
+      { k: "Frequency", v: "5 min" },
+      { k: "Owner", v: "M365 / n8n" },
+    ],
+  },
+  {
+    Icon: FileText, label: "PDF Validated", tool: "n8n", step: "Validate",
+    desc: "Format · size · text extracted", accent: "#BAE6FD",
+    backTitle: "Document gate",
+    backDesc: "Extracts the PDF as base64, checks it's text-extractable. Image-only PDFs go to manual review.",
+    backMeta: [
+      { k: "Engine", v: "n8n" },
+      { k: "Reject code", v: "ERR_IMAGE_ONLY_PDF" },
+      { k: "Output", v: "base64 + metadata" },
+    ],
+  },
+  {
+    Icon: Brain, label: "AI Brain", tool: "Claude API", step: "Classify",
+    desc: "PROMPT v1.4 · confidence", accent: "#E41513", isAi: true,
+    backTitle: "Entity classification",
+    backDesc: "Claude returns a JSON object with the entity_code, supplier and confidence score (0–1).",
+    backMeta: [
+      { k: "Model", v: "claude-sonnet-4" },
+      { k: "Prompt", v: "PROMPT_AP v1.4" },
+      { k: "Max conf.", v: "0.98" },
+    ],
+  },
+  {
+    Icon: GitBranch, label: "Confidence Router", tool: "≥90% / <90%", step: "Route",
+    desc: "Auto-file or manual queue", accent: "#FDE68A",
+    backTitle: "Decision gate",
+    backDesc: "Score ≥ 0.90 routes the invoice automatically. Below threshold goes to AP for manual review.",
+    backMeta: [
+      { k: "Threshold", v: "0.90" },
+      { k: "Auto-route", v: "98%" },
+      { k: "Manual rate", v: "0%" },
+    ],
+  },
+  {
+    Icon: FolderOpen, label: "Filed in Dropbox", tool: "DRB Business", step: "Store",
+    desc: "/AP/{ENTITY_CODE}/", accent: "#DDD6FE",
+    backTitle: "Document storage",
+    backDesc: "Uploads the invoice to the entity-specific folder following the naming convention.",
+    backMeta: [
+      { k: "Path", v: "/AP/{ENV}/{Entity}/{YYYY}/{MM}/" },
+      { k: "Naming", v: "100% compliant" },
+      { k: "Retention", v: "Permanent" },
+    ],
+  },
+  {
+    Icon: Bell, label: "AP Notified", tool: "M365", step: "Notify",
+    desc: "Executive email summary", accent: "#A7F3D0",
+    backTitle: "AP Executive ping",
+    backDesc: "Sends a confirmation email with the entity, supplier, amount and a link to the filed PDF.",
+    backMeta: [
+      { k: "Channel", v: "M365 mail" },
+      { k: "Latency", v: "< 5 sec" },
+      { k: "SLA", v: "Every invoice" },
+    ],
+  },
+  {
+    Icon: BookOpen, label: "Audit Logged", tool: "Notion", step: "Log",
+    desc: "ISO timestamp · outcome", accent: "#FBCFE8",
+    backTitle: "Audit trail",
+    backDesc: "Every run is logged with ISO timestamp, outcome, confidence and any error path taken.",
+    backMeta: [
+      { k: "Store", v: "Notion DB" },
+      { k: "Branches", v: "All paths" },
+      { k: "Coverage", v: "100%" },
+    ],
+  },
 ];
 
 const STEP_MS = 1600; // time per node (travel + dwell)
@@ -30,6 +104,7 @@ export default function PipelineFlow() {
   const [size, setSize] = useState({ w: 0, h: 0 });
   const [active, setActive] = useState(0); // current node being processed
   const [isVisible, setIsVisible] = useState(false);
+  const [flipped, setFlipped] = useState<number | null>(null);
 
   useEffect(() => {
     const measure = () => {
@@ -66,14 +141,14 @@ export default function PipelineFlow() {
     return () => io.disconnect();
   }, []);
 
-  // Auto-advance the active node
+  // Auto-advance the active node — pauses while a card is flipped
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || flipped !== null) return;
     const id = setInterval(() => {
       setActive((a) => (a + 1) % NODES.length);
     }, STEP_MS);
     return () => clearInterval(id);
-  }, [isVisible]);
+  }, [isVisible, flipped]);
 
   // Build smooth bezier path through nodes
   const pathD = pts.length
@@ -220,9 +295,11 @@ export default function PipelineFlow() {
 
           {/* Nodes row */}
           <div className="relative z-10 grid grid-cols-7 gap-4 md:gap-6 overflow-x-auto md:overflow-visible">
-            {NODES.map(({ Icon, label, tool, step, desc, accent, isAi }, i) => {
+            {NODES.map((node, i) => {
+              const { Icon, label, tool, step, desc, accent, isAi, backTitle, backDesc, backMeta } = node;
               const isActive = i === active;
               const isPast = i < active;
+              const isFlipped = flipped === i;
               return (
                 <div
                   key={label}
@@ -237,7 +314,7 @@ export default function PipelineFlow() {
                     0{i + 1} · {step}
                   </div>
 
-                  {/* Halo + Node circle */}
+                  {/* Halo + Flippable card */}
                   <div className="relative">
                     <div
                       aria-hidden
@@ -249,7 +326,7 @@ export default function PipelineFlow() {
                         transform: isActive ? "scale(1.8)" : "scale(1.4)",
                       }}
                     />
-                    {isActive && (
+                    {isActive && !isFlipped && (
                       <span
                         aria-hidden
                         className="absolute inset-0 rounded-full animate-ping"
@@ -259,36 +336,95 @@ export default function PipelineFlow() {
                         }}
                       />
                     )}
-                    <div
-                      className="relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center bg-white transition-all duration-500"
-                      style={{
-                        border: isActive
-                          ? "2px solid #E41513"
-                          : isAi
-                          ? "2px solid #E41513"
-                          : isPast
-                          ? "1px solid rgba(228,21,19,0.35)"
-                          : "1px solid rgba(17,17,17,0.06)",
-                        boxShadow: isActive
-                          ? "0 22px 48px rgba(228,21,19,0.40), 0 0 0 8px rgba(228,21,19,0.10)"
-                          : isAi
-                          ? "0 18px 40px rgba(228,21,19,0.30), 0 0 0 6px rgba(228,21,19,0.08)"
-                          : "0 12px 30px rgba(17,17,17,0.08)",
-                        transform: isActive ? "scale(1.08)" : "scale(1)",
-                      }}
+
+                    {/* 3D flip wrapper */}
+                    <button
+                      type="button"
+                      onClick={() => setFlipped((f) => (f === i ? null : i))}
+                      aria-label={`${label} — show details`}
+                      aria-pressed={isFlipped}
+                      className="relative w-32 h-32 md:w-40 md:h-40 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E41513] rounded-2xl"
+                      style={{ perspective: 1000 }}
                     >
-                      <Icon
-                        className="w-8 h-8 md:w-9 md:h-9 transition-colors"
-                        style={{ color: isActive || isAi || isPast ? "#E41513" : "#0A0A0A" }}
-                      />
-                    </div>
-                    {isAi && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] font-barlow font-900 uppercase tracking-widest bg-[#E41513] text-white whitespace-nowrap">
+                      <div
+                        className="relative w-full h-full transition-transform duration-700"
+                        style={{
+                          transformStyle: "preserve-3d",
+                          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                        }}
+                      >
+                        {/* FRONT */}
+                        <div
+                          className="absolute inset-0 flex items-center justify-center rounded-full bg-white"
+                          style={{
+                            backfaceVisibility: "hidden",
+                            WebkitBackfaceVisibility: "hidden",
+                            border: isActive
+                              ? "2px solid #E41513"
+                              : isAi
+                              ? "2px solid #E41513"
+                              : isPast
+                              ? "1px solid rgba(228,21,19,0.35)"
+                              : "1px solid rgba(17,17,17,0.06)",
+                            boxShadow: isActive
+                              ? "0 22px 48px rgba(228,21,19,0.40), 0 0 0 8px rgba(228,21,19,0.10)"
+                              : isAi
+                              ? "0 18px 40px rgba(228,21,19,0.30), 0 0 0 6px rgba(228,21,19,0.08)"
+                              : "0 12px 30px rgba(17,17,17,0.08)",
+                            transform: isActive ? "scale(0.78)" : "scale(0.72)",
+                            transition: "transform 500ms, box-shadow 500ms, border-color 500ms",
+                          }}
+                        >
+                          <Icon
+                            className="w-9 h-9 md:w-10 md:h-10 transition-colors"
+                            style={{ color: isActive || isAi || isPast ? "#E41513" : "#0A0A0A" }}
+                          />
+                        </div>
+
+                        {/* BACK */}
+                        <div
+                          className="absolute inset-0 rounded-2xl bg-white text-left flex flex-col p-3 md:p-3.5 overflow-hidden"
+                          style={{
+                            backfaceVisibility: "hidden",
+                            WebkitBackfaceVisibility: "hidden",
+                            transform: "rotateY(180deg)",
+                            border: "1px solid rgba(228,21,19,0.25)",
+                            boxShadow:
+                              "0 22px 48px rgba(228,21,19,0.20), 0 0 0 4px rgba(228,21,19,0.06)",
+                          }}
+                        >
+                          <div className="font-barlow font-900 italic text-[9px] tracking-widest text-[#E41513] uppercase">
+                            {step}
+                          </div>
+                          <div className="font-barlow font-700 text-[11px] md:text-xs text-[#0A0A0A] leading-tight mt-0.5">
+                            {backTitle}
+                          </div>
+                          <p className="font-barlow font-400 text-[9px] md:text-[10px] text-[#6B7280] leading-snug mt-1.5 line-clamp-3">
+                            {backDesc}
+                          </p>
+                          <div className="mt-auto pt-1.5 border-t border-black/5 space-y-0.5">
+                            {backMeta.slice(0, 3).map((m) => (
+                              <div key={m.k} className="flex items-baseline justify-between gap-1">
+                                <span className="font-barlow font-700 uppercase tracking-wider text-[7px] md:text-[8px] text-[#9CA3AF]">
+                                  {m.k}
+                                </span>
+                                <span className="font-barlow font-700 text-[8px] md:text-[9px] text-[#0A0A0A] truncate">
+                                  {m.v}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+
+                    {isAi && !isFlipped && (
+                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] font-barlow font-900 uppercase tracking-widest bg-[#E41513] text-white whitespace-nowrap pointer-events-none">
                         AI Brain
                       </div>
                     )}
-                    {isActive && !isAi && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] font-barlow font-900 uppercase tracking-widest bg-[#E41513] text-white whitespace-nowrap shadow-md">
+                    {isActive && !isAi && !isFlipped && (
+                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[9px] font-barlow font-900 uppercase tracking-widest bg-[#E41513] text-white whitespace-nowrap shadow-md pointer-events-none">
                         Processing
                       </div>
                     )}
@@ -296,7 +432,7 @@ export default function PipelineFlow() {
 
                   {/* Label */}
                   <div
-                    className="font-barlow font-700 text-sm md:text-base mt-5 leading-tight transition-colors"
+                    className="font-barlow font-700 text-sm md:text-base mt-3 leading-tight transition-colors"
                     style={{ color: isActive ? "#E41513" : "#0A0A0A" }}
                   >
                     {label}
