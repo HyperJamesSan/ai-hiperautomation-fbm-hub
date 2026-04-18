@@ -112,12 +112,15 @@ export default function PipelineFlow() {
   const ptsRef = useRef<{ x: number; y: number }[]>([]);
   const activeRef = useRef(0);
   const prevActiveRef = useRef(0);
-  // Centro de cada nodo (en coords del contenedor) — para el atractor por nodo
-  const centerRefs = useRef<({ x: number; y: number } | null)[]>(
-    NODES.map(() => null)
+  // Centro de cada nodo (en coords del contenedor) — un ref estable por nodo
+  // para poder pasarlo al canvas de partículas sin re-crearlo.
+  const centerRefs = useRef<React.MutableRefObject<{ x: number; y: number } | null>[]>(
+    NODES.map(() => ({ current: null }))
   );
   useEffect(() => {
-    centerRefs.current = pts.map((p) => ({ x: p.x, y: p.y }));
+    pts.forEach((p, i) => {
+      if (centerRefs.current[i]) centerRefs.current[i].current = { x: p.x, y: p.y };
+    });
   }, [pts]);
 
   useEffect(() => { ptsRef.current = pts; }, [pts]);
