@@ -237,7 +237,7 @@ function MetricTile({
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      className="group relative text-left rounded-2xl p-5 transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E41513]/40 overflow-hidden backdrop-blur-xl"
+      className="group relative text-left rounded-xl p-3 transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E41513]/40 overflow-hidden backdrop-blur-xl"
       style={{
         background: isActive
           ? "linear-gradient(155deg, rgba(255,255,255,0.95) 0%, rgba(248,249,251,0.88) 100%)"
@@ -277,9 +277,9 @@ function MetricTile({
       />
 
       <div className="relative z-10">
-        <div className="flex items-start justify-between mb-3">
+        <div className="flex items-start justify-between mb-1.5">
           <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300"
+            className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300"
             style={{
               background: isActive
                 ? "linear-gradient(135deg, rgba(15,23,42,0.08), rgba(15,23,42,0.02))"
@@ -290,12 +290,12 @@ function MetricTile({
             }}
           >
             <Icon
-              className="w-4 h-4 transition-colors"
+              className="w-3.5 h-3.5 transition-colors"
               style={{ color: isActive ? "#0F172A" : "#94A3B8" }}
             />
           </div>
           <ArrowUpRight
-            className="w-3.5 h-3.5 transition-all"
+            className="w-3 h-3 transition-all"
             style={{
               color: isActive ? "#0F172A" : "rgba(15,23,42,0.22)",
               transform: isActive ? "translate(2px,-2px)" : "none",
@@ -307,8 +307,8 @@ function MetricTile({
           className="font-barlow italic font-900 leading-none tabular-nums transition-colors"
           style={{
             fontSize: isPrimary
-              ? "clamp(2.1rem, 3vw, 2.9rem)"
-              : "clamp(1.75rem, 2.4vw, 2.4rem)",
+              ? "clamp(1.5rem, 2.2vw, 2rem)"
+              : "clamp(1.3rem, 1.9vw, 1.75rem)",
             color: "#0F172A",
             letterSpacing: "-0.025em",
           }}
@@ -316,16 +316,16 @@ function MetricTile({
           {metric.format(value)}
         </div>
 
-        <div className="flex items-center gap-2 mt-3">
+        <div className="flex items-center gap-1.5 mt-1.5">
           <span
-            className="h-[5px] w-[5px] rounded-full transition-all"
+            className="h-[4px] w-[4px] rounded-full transition-all"
             style={{
               background: isActive ? "#E41513" : "rgba(15,23,42,0.22)",
               boxShadow: isActive ? "0 0 6px rgba(228,21,19,0.45)" : "none",
             }}
           />
           <div
-            className="font-barlow font-700 uppercase tracking-[0.18em] text-[9.5px] transition-colors"
+            className="font-barlow font-700 uppercase tracking-[0.16em] text-[8.5px] transition-colors truncate"
             style={{ color: isActive ? "#0F172A" : "rgba(15,23,42,0.50)" }}
           >
             {metric.label}
@@ -334,7 +334,7 @@ function MetricTile({
 
         {/* Mini sparkline */}
         <div
-          className="mt-3 -mx-1 transition-opacity"
+          className="mt-1.5 -mx-1 transition-opacity"
           style={{ opacity: isActive ? 0.95 : 0.45 }}
         >
           <Sparkline visible={isVisible} seed={index + 5} />
@@ -357,7 +357,7 @@ function DetailPanel({ metric }: { metric: Metric }) {
     <div
       ref={ref}
       key={metric.id}
-      className="relative h-full rounded-2xl overflow-hidden p-6 md:p-7 backdrop-blur-2xl"
+      className="relative h-full rounded-2xl overflow-hidden p-4 md:p-5 backdrop-blur-2xl"
       style={{
         background:
           "linear-gradient(155deg, rgba(255,255,255,0.85) 0%, rgba(248,250,252,0.78) 60%, rgba(241,245,249,0.72) 100%)",
