@@ -36,7 +36,7 @@ export default function UATResultsS2({ isActive }: { isActive: boolean }) {
                 { v: uat.invoicesClassified, l: "Invoices classified", big: true },
                 { v: `${uat.accuracy}%`, l: "Accuracy", big: true },
                 { v: uat.maxConfidence, l: "Max confidence" },
-                { v: `< ${uat.timePerInvoiceMin} min`, l: "Per invoice" },
+                { v: `< 30 sec`, l: "Per invoice" },
               ].map((m) => (
                 <div key={m.l}>
                   <div className={`font-mono font-bold ${m.big ? "text-5xl text-primary" : "text-3xl text-white"}`}>
