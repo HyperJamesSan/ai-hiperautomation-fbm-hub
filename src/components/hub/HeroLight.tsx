@@ -89,13 +89,13 @@ export default function HeroLight() {
 
   const headlineScale = Math.max(0.92, 1 - scrollY / 4000);
 
-  // Render each char so completed chars can have a soft "settle" animation
+  // Render only chars typed so far — caret naturally rides at the end.
   const renderChars = (text: string, count: number, keyPrefix: string) => (
     <>
-      {Array.from(text).map((ch, i) => (
+      {Array.from(text).slice(0, count).map((ch, i) => (
         <span
           key={`${keyPrefix}-${i}`}
-          className={i < count ? "tw-char tw-char-in" : "tw-char tw-char-hidden"}
+          className="tw-char tw-char-in"
           style={{ whiteSpace: "pre" }}
         >
           {ch === " " ? "\u00A0" : ch}
