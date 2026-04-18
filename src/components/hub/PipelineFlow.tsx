@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Mail, FileText, Brain, GitBranch, FolderOpen, Bell, BookOpen, FileCheck2 } from "lucide-react";
-import PipelineParticleField from "./PipelineParticleField";
+import NodeParticleRing from "./NodeParticleRing";
 
 type Node = {
   Icon: typeof Mail;
@@ -112,6 +112,13 @@ export default function PipelineFlow() {
   const ptsRef = useRef<{ x: number; y: number }[]>([]);
   const activeRef = useRef(0);
   const prevActiveRef = useRef(0);
+  // Centro de cada nodo (en coords del contenedor) — para el atractor por nodo
+  const centerRefs = useRef<({ x: number; y: number } | null)[]>(
+    NODES.map(() => null)
+  );
+  useEffect(() => {
+    centerRefs.current = pts.map((p) => ({ x: p.x, y: p.y }));
+  }, [pts]);
 
   useEffect(() => { ptsRef.current = pts; }, [pts]);
   useEffect(() => {
