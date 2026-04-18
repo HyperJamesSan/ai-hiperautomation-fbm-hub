@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronUp, ChevronDown, Maximize, Minimize } from "lucide-react";
+import { ChevronUp, ChevronDown, Maximize, Minimize, ArrowLeft } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import ValidationLayers from "@/components/ValidationLayers";
@@ -168,6 +169,21 @@ const Index = () => {
     <div id="presentation-container" className="bg-background min-h-screen overflow-x-hidden snap-y snap-mandatory select-none cursor-grab active:cursor-grabbing">
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top,_#0f172a,_#020617,_#000000)] -z-10" />
       <NavigationDots activeSection={activeSection} />
+
+      <motion.div
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
+        className="fixed top-6 left-6 z-50"
+      >
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-3 h-9 rounded-lg bg-card/80 backdrop-blur-sm border border-border text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all text-[11px] font-mono uppercase tracking-wider"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Hub
+        </Link>
+      </motion.div>
 
       <div id="hero" className="min-h-screen snap-start snap-always"><HeroSection key={heroKey} /></div>
       <div id="problem" className="min-h-screen snap-start snap-always"><ProblemSection isActive={activeSection === "problem"} /></div>
