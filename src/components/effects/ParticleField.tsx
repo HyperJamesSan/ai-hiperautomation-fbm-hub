@@ -80,57 +80,65 @@ export default function ParticleField({ variant = 'hero', className = '' }: Prop
 
       for (const p of dots) {
         if (variant === 'hero') {
-          // Synchronized breathing — all particles pulse together (jellyfish)
-          const breath = Math.sin(t * 1.1) * 0.5 + 0.5; // 0..1 unison pulse
-          const indivBreath = Math.sin(t * 1.1 + p.phase * 0.4) * 4;
+          // Jellyfish bell breathing — slow unison expand/contract
+          const breath = Math.sin(t * 0.9) * 0.5 + 0.5; // 0..1 unison pulse
+          // Bell radius oscillates: contracts (smaller ring) then expands (larger ring)
+          const bellMin = 90;
+          const bellMax = 240;
+          const bellRadius = bellMin + (bellMax - bellMin) * breath;
 
-          // Magnetic attraction toward cursor — all particles drawn in
-          let targetX = p.ox + indivBreath;
-          let targetY = p.oy + indivBreath;
+          let targetX = p.ox;
+          let targetY = p.oy;
 
           if (active) {
-            const dx = mx - p.ox;
-            const dy = my - p.oy;
+            // Vector from cursor (center of bell) to particle origin
+            const dx = p.ox - mx;
+            const dy = p.oy - my;
             const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-            // Attraction strength falls off softly with distance
-            const pull = Math.min(1, 320 / (dist + 80)) * (0.55 + breath * 0.25);
-            targetX = p.ox + dx * pull * 0.5 + indivBreath;
-            targetY = p.oy + dy * pull * 0.5 + indivBreath;
-          }
+            const nx = dx / dist;
+            const ny = dy / dist;
 
-          // Spring toward target — synchronized flow
-          p.vx += (targetX - p.x) * 0.022;
-          p.vy += (targetY - p.y) * 0.022;
+            // Each particle's preferred ring distance — slight variation per phase
+            const ringOffset = Math.sin(p.phase * 2 + t * 0.6) * 25;
+            const ringR = bellRadius + ringOffset;
 
-          // Repulsion from neighbors — keeps spacing so particles don't collapse
-          if (active) {
-            const dxm = p.x - mx;
-            const dym = p.y - my;
-            const dm = Math.sqrt(dxm * dxm + dym * dym);
-            if (dm < 60 && dm > 0) {
-              const push = (60 - dm) / 60 * 0.4;
-              p.vx += (dxm / dm) * push;
-              p.vy += (dym / dm) * push;
+            // Influence: only particles within reach get pulled toward the ring
+            const reach = 420;
+            if (dist < reach) {
+              const influence = 1 - dist / reach; // 1 near, 0 far
+              // Target sits on the ring around the cursor
+              const ringX = mx + nx * ringR;
+              const ringY = my + ny * ringR;
+              // Tangential drift — gentle swirl around the bell
+              const tangentX = -ny * Math.sin(t * 0.7 + p.phase) * 8;
+              const tangentY = nx * Math.sin(t * 0.7 + p.phase) * 8;
+
+              targetX = p.ox + (ringX - p.ox) * influence * 0.85 + tangentX;
+              targetY = p.oy + (ringY - p.oy) * influence * 0.85 + tangentY;
             }
           }
 
-          p.vx *= 0.86;
-          p.vy *= 0.86;
+          // Spring toward target — synchronized flow
+          p.vx += (targetX - p.x) * 0.025;
+          p.vy += (targetY - p.y) * 0.025;
+          p.vx *= 0.88;
+          p.vy *= 0.88;
           p.x += p.vx;
           p.y += p.vy;
 
-          // Size: small near cursor, growing outward (jellyfish from above)
+          // Size: small at center (bell core), larger at the rim (tentacle tips)
           let r = p.baseR;
           if (active) {
             const dx = p.x - mx;
             const dy = p.y - my;
             const d = Math.sqrt(dx * dx + dy * dy);
-            const influence = 320;
-            if (d < influence) {
-              const k = 1 - d / influence; // 1 near, 0 far
-              r = p.baseR * (1 - k * 0.8); // shrink up to 80% near cursor
+            const reach = 420;
+            if (d < reach) {
+              // Distance ratio from cursor — 0 at center, 1 at rim
+              const k = Math.min(1, d / bellRadius);
+              r = p.baseR * (0.35 + k * 1.1); // small near, grows outward
             } else {
-              r = p.baseR * 1.25; // larger when far
+              r = p.baseR * 1.1;
             }
           }
           // Unison pulse breathing
