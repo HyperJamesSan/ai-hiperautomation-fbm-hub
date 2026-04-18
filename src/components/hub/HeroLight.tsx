@@ -171,7 +171,10 @@ export default function HeroLight() {
         >
           {renderChars(LINE2, count2, "l2")}
           {activeLine === 2 && (
-            <span aria-hidden className="tw-caret tw-caret-metallic" />
+            <span
+              aria-hidden
+              className={`tw-caret tw-caret-metallic ${textDone ? "tw-caret-fade" : ""}`}
+            />
           )}
         </h1>
 
