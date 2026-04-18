@@ -200,8 +200,8 @@ export default function StackWave() {
         })}
       </div>
 
-      <div className="mt-8 text-center font-barlow font-400 text-xs md:text-sm text-[#0F172A]/45 tracking-wide">
-        n8n · Claude · BC · Dropbox · M365 · Doppler · Power BI · Notion
+      <div className="mt-8 text-center font-barlow font-400 md:text-sm text-[#0F172A]/45 tracking-wide text-base">
+        n8n · Claude · DBC · Dropbox · M365 · Doppler · Power BI · Notion
       </div>
     </div>
   );

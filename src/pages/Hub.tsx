@@ -365,7 +365,7 @@ export default function Hub() {
             <h2 className="font-barlow font-900 text-[#0F172A] leading-[0.95]" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>
               8 services. 1 unified pipeline.
             </h2>
-            <p className="mt-4 font-barlow font-400 text-base md:text-lg text-[#0F172A]/55 max-w-2xl">
+            <p className="mt-4 font-barlow font-400 md:text-lg text-[#0F172A]/55 max-w-2xl text-xl">
               Each tool plays a precise role. Hover any orb to see its function and status.
             </p>
           </Reveal>
@@ -380,7 +380,7 @@ export default function Hub() {
       <section className="bg-white py-24 md:py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.2em] text-sm mb-4">
+            <div className="text-[#E41513] font-barlow font-700 uppercase tracking-[0.2em] mb-4 text-xl">
               8 Entities In Scope
             </div>
             <h2 className="font-barlow font-900 text-[#111111] leading-[0.95]" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}>
@@ -430,8 +430,8 @@ export default function Hub() {
             ))}
           </div>
 
-          <p className="text-center font-barlow font-600 text-sm text-[#6B7280] mt-12">
-            BUHAY Group · Malta Gaming Authority · MGA Regulated · 2026
+          <p className="text-center font-barlow font-600 text-[#6B7280] mt-12 text-lg">
+            BUHAY Group · FBM® 2026 
           </p>
         </div>
       </section>
