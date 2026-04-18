@@ -30,7 +30,7 @@ export default function ParticleField({ variant = 'hero', className = '' }: Prop
     type P = { x: number; y: number; vx: number; vy: number; r: number; color: string };
 
     const colors = variant === 'hero'
-      ? ['rgba(228,21,19,0.10)', 'rgba(228,21,19,0.06)', 'rgba(30,20,20,0.09)', 'rgba(30,20,20,0.05)']
+      ? ['rgba(228,21,19,0.55)', 'rgba(228,21,19,0.40)', 'rgba(228,21,19,0.30)', 'rgba(30,20,20,0.45)', 'rgba(30,20,20,0.30)']
       : ['rgba(228,21,19,0.55)', 'rgba(228,21,19,0.35)', 'rgba(255,255,255,0.45)', 'rgba(255,255,255,0.25)'];
 
     const make = (): P => ({
@@ -40,11 +40,12 @@ export default function ParticleField({ variant = 'hero', className = '' }: Prop
         : Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 0.3,
       vy: variant === 'dark-arc' ? -(Math.random() * 0.6 + 0.1) : (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.5 + 0.5,
+      r: variant === 'hero' ? Math.random() * 2 + 1 : Math.random() * 1.5 + 0.5,
       color: colors[Math.floor(Math.random() * colors.length)],
     });
 
-    const dots: P[] = Array.from({ length: 200 }, make);
+    const count = variant === 'hero' ? 500 : 200;
+    const dots: P[] = Array.from({ length: count }, make);
 
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
