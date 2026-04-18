@@ -122,7 +122,7 @@ export default function Hub() {
       </div>
 
       {/* ============ SECTION 2 — THE FRICTION (BEFORE / AFTER, MODULE-SCOPED) ============ */}
-      <section className="relative overflow-hidden bg-[#F9FAFB] py-24 md:py-32 px-6 md:px-12">
+      <section className="relative overflow-hidden bg-[#F9FAFB] py-12 md:py-16 px-6 md:px-12">
         {/* Ambient background — soft red wash + grid texture */}
         <div
           aria-hidden
