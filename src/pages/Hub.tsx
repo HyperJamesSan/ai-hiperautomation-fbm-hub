@@ -14,6 +14,14 @@ import LiveNewsroom from "@/components/hub/LiveNewsroom";
 import NumbersSection from "@/components/hub/NumbersSection";
 import TransformationSection from "@/components/hub/TransformationSection";
 import StackWave from "@/components/hub/StackWave";
+import logoBHL from "@/assets/entities/bhl.jpg";
+import logoFBM from "@/assets/entities/fbm.png";
+import logoNMT from "@/assets/entities/nmt.jpg";
+import logoDMT from "@/assets/entities/dmt.jpg";
+import logoFDS from "@/assets/entities/fds.png";
+import logoDRA from "@/assets/entities/dra.jpg";
+import logoLUC from "@/assets/entities/luc.jpg";
+import logoEPS from "@/assets/entities/eps.png";
 
 /* ---------- Helpers ---------- */
 
