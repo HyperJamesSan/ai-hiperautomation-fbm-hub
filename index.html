@@ -40,6 +40,20 @@ James Sanabria - Finance Operations Lead">
 Hyperautomation of Finance Processes - Module 1: AP Process at FBM Limited
 
 James Sanabria - Finance Operations Lead">
+  <script>
+    // Single Page Apps for GitHub Pages — decode the redirect from 404.html back into a real path.
+    (function () {
+      if (location.search && location.search.indexOf('?/') === 1) {
+        var decoded = location.search
+          .slice(2)
+          .split('&')
+          .map(function (s) { return s.replace(/~and~/g, '&'); });
+        var path = '/' + decoded.shift();
+        var query = decoded.length ? '?' + decoded.join('&') : '';
+        history.replaceState(null, '', location.pathname.slice(0, -1) + path + query + location.hash);
+      }
+    })();
+  </script>
 </head>
 
   <body>
