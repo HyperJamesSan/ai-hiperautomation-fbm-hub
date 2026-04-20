@@ -94,30 +94,34 @@ export const modules = [
 
 export const decisions = [
   {
-    n: 1,
-    title: "DBC Integration — Confirm Company IDs & permissions scope",
-    detail: "Confirm Company IDs for the 8 entities and validate permissions scope. ✅ Credentials received Apr 16.",
-    owner: "BC / Dynamics Contact",
+        n: 1,
+        title: "Confirm the path to Shadow Mode",
+        detail: "Sandbox this week → 2w integration → 1w Shadow Mode → auto-route ON. Are we all aligned on Q2?",
+        owner: "ALL",
+        status: "open",
   },
   {
-    n: 2,
-    title: "Test Company ID confirmation",
-    detail: "Which Company ID will be used for the Sandbox so we can wire DBC_CreatePurchaseDraft.",
-    owner: "BC / Dynamics Contact",
+        n: 2,
+        title: "What is the next module?",
+        detail: "With M1 on its way to PROD – do we confirm Revenue Invoicing (M2) as the next priority?",
+        owner: "CFO",
+        status: "open",
   },
   {
-    n: 3,
-    title: "Vendor lookup strategy",
-    detail: "Match suppliers in Business Central by VAT number or by name? Defines the contract for the integration.",
-    owner: "BC / Dynamics Contact",
+        n: 3,
+        title: "Vendor lookup — resolved",
+        detail: "Malta entities → VAT number · Others → by name",
+        owner: "BC / Dynamics Contact",
+        status: "resolved",
   },
   {
-    n: 4,
-    title: "Confirm Q2 2026 go-live target",
-    detail: "Sign-off on the timeline: Sandbox → 2w integration → 1w Shadow Mode → Auto-route in PROD.",
-    owner: "CFO",
+        n: 4,
+        title: "OData v4 endpoints — confirmed",
+        detail: "Companies · Vendors · Dimension Value · Chart of Accounts — received Apr 17.",
+        owner: "BC / Dynamics Contact",
+        status: "confirmed",
   },
-];
+  ];
 
 export const acceptanceCriteria = [
   { id: "AC-1", text: "Classification accuracy ≥ 90%", status: "100% (222/222)" },
